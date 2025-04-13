@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('ROL')->after('remember_token');
+            $table->string('ROL')->after('remember_token')->nullable();
     
             $table->foreign('ROL')
                   ->references('ROL')
