@@ -28,7 +28,7 @@ class User extends Authenticatable
         'ROL',
         'remember_token',
     ];
-    
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -39,7 +39,14 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
+    public function getRolAttribute()
+    {
+        return $this->attributes['ROL'];
+    }
+    public function setRolAttribute($value)
+    {
+        $this->attributes['ROL'] = $value;
+    }
     /**
      * Get the attributes that should be cast.
      *
@@ -60,7 +67,7 @@ class User extends Authenticatable
     {
         return Str::of($this->name)
             ->explode(' ')
-            ->map(fn (string $name) => Str::of($name)->substr(0, 1))
+            ->map(fn(string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
     }
 }
