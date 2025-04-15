@@ -6,5 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Carrito extends Model
 {
-    //
+    protected $table = 'CARRITO';
+    protected $primaryKey = 'ID';
+    public $timestamps = true;
+
+    protected $fillable = [
+        'DIRECCION', 'ESTADO', 'CLIENTE', 'METODO_PAGO'
+    ];
+
+    public function detalles()
+    {
+        return $this->hasMany(DetalleCarrito::class, 'CARRITO', 'ID');
+    }
 }

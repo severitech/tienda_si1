@@ -14,7 +14,7 @@
     @vite('resources/css/app.css')
     {{-- @fluxAppearance --}}
     <!-- Styles -->
-
+    @fluxAppearance
 </head>
 
 <body
@@ -36,11 +36,11 @@
                         <button type="submit" class="btn text-red-500">Cerrar sesión</button>
                     </form>
                 @endauth
-
+                @include('cliente.carrito')
                 @guest
-                    <a href="{{ route('login') }}" class="btn">Log in</a>
+                <flux:button ><a href="{{ route('login') }}" class="btn">Log in</a></flux:button>
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="btn">Register</a>
+                    <flux:button variant="filled" ><a href="{{ route('register') }}" class="btn">Register</a></flux:button>
                     @endif
                 @endguest
             </nav>
@@ -53,8 +53,9 @@
         <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
             {{-- @yield('content') --}}
             {{-- Mostrar componentes específicos dentro del main --}}
+           
             @include('cliente.productos')
-            @include('cliente.carrito')
+           
             {{-- También puedes usar @yield si tienes secciones más dinámicas que deseas agregar --}}
         </main>
 
@@ -62,7 +63,8 @@
             <div class="h-14.5 hidden lg:block"></div>
         @endif
     </div>
-
+    @fluxScripts
+    
 </body>
 
 </html>

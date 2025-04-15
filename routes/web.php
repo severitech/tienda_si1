@@ -3,17 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\ProductoController;
 
 Route::get('/', [ProductoController::class, 'index'])->name('home');
 
-
-Route::get('carrito', function () {
-    $carrito = auth()->user()->carrito;  // Asume que el usuario tiene un carrito relacionado
-    return view('cliente.carrito', compact('carrito'));
-})->name('carrito');
-
+/*Carrito */
+Route::post('/cart/remove/{id}', [CarritoController::class, 'removeFromCart'])->name('cart.remove');
+Route::post('/cart/checkout', [CarritoController::class, 'checkout'])->name('cart.checkout');
+Route::post('/cart/add/{id}', [CarritoController::class, 'addToCart'])->name('cart.add');
 
 
 Route::get('dashboard', function () {
