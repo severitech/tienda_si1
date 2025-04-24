@@ -5,12 +5,15 @@ use Livewire\Volt\Volt;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\ProductoController;
-
+use App\Http\Controllers\PasarelaPagos;
 Route::get('/', [ProductoController::class, 'index'])->name('home');
 
-/*Carrito */
+
+Route::post('/cart/checkout', [PasarelaPagos::class, 'checkout'])->name('cart.checkout');
+Route::get('/stripe/success', [PasarelaPagos::class, 'success'])->name('stripe.success');
+Route::get('/stripe/cancel', [PasarelaPagos::class, 'cancel'])->name('stripe.cancel');
+
 Route::post('/cart/remove/{id}', [CarritoController::class, 'removeFromCart'])->name('cart.remove');
-Route::post('/cart/checkout', [CarritoController::class, 'checkout'])->name('cart.checkout');
 Route::post('/cart/add/{id}', [CarritoController::class, 'addToCart'])->name('cart.add');
 
 

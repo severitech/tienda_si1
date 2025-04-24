@@ -11,10 +11,18 @@ class Producto extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'CODIGO', 'NOMBRE', 'IMAGEN', 'PRECIO', 'CANTIDAD', 'ESTADO', 'CATEGORIA'
+        'CODIGO',
+        'NOMBRE',
+        'IMAGEN',
+        'PRECIO',
+        'CANTIDAD',
+        'ESTADO',
+        'CATEGORIA'
     ];
-public function categoria()
-{
-    return $this->belongsTo(Categoria::class);
-}
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'CATEGORIA', 'CATEGORIA');
+    }
+
+
 }

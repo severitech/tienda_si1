@@ -1,4 +1,4 @@
-<flux:modal.trigger name="edit-profile">
+<flux:modal.trigger name="Carrito">
     <flux:button>
         <flux:icon.shopping-cart />
         @php
@@ -15,8 +15,8 @@
     <p class="text-green-600">{{ session('success') }}</p>
 @endif
 
-<flux:modal name="edit-profile" class="md:w-96">
-    <div class="space-y-24 ">
+<flux:modal name="Carrito" class=" md:w-96 flex">
+    <div class="space-y-48">
         <div>
             <flux:heading size="lg">Tu Carrito</flux:heading>
             <flux:text class="mt-2">Estos son los productos que has añadido.</flux:text>
@@ -47,16 +47,12 @@
                 <div>
                     <flux:input name="direccion" placeholder="Dirección de entrega" required />
                 </div>
-                <div>
-                    <flux:select name="metodo_pago" required>
-                        <option value="TARJETA">Tarjeta</option>
-                    </flux:select>
-                </div>
                 <div class="flex">
                     <flux:spacer />
                     <flux:button type="submit" variant="primary">Ir al Pago</flux:button>
                 </div>
             </form>
+            
         @else
             <p class="text-gray-500">El carrito está vacío.</p>
         @endif
