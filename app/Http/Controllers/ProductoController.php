@@ -19,7 +19,20 @@ class ProductoController extends Controller
         return view('welcome', compact('productosPorCategoria'));
     }
 
+    public function mostrar()
+    {
+        $productoMostrarTodo = Producto::with('categoria')->get()
+            ->groupBy(fn($producto) => $producto->categoria?->CATEGORIA);
 
+        return view('productos.mostrar', compact('productoMostrarTodo'));
+    }
+
+
+    public function crear()
+    {
+        // Mostrar formulario para agregar producto
+        return view('productos.crear');
+    }
 
 
 }

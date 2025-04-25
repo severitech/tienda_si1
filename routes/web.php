@@ -37,6 +37,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+/*Productos*/
+Route::get('/productos', [ProductoController::class, 'mostrar'])->name('productos.mostrar');
+Route::get('/productos/crear', [ProductoController::class, 'crear'])->name('productos.crear');
+
 /*Rutas de la tienda */
 
 // Route::get('/', [ProductoController::class, 'index'])->name('home');

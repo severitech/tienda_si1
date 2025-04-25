@@ -59,6 +59,8 @@
     </header>
 
     <!-- Main Section -->
+    <h1 class="text-white text-4xl">Bienvenido a nuestra tienda</h1>
+
     <div
         class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
         <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row gap-6">
@@ -72,7 +74,7 @@
     </div>
 
     @fluxScripts
-
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </body>
 
 </html>
