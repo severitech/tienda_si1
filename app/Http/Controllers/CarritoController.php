@@ -18,15 +18,18 @@ class CarritoController extends Controller
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Debes iniciar sesión para finalizar la compra.');
         }
+
         $producto = Producto::findOrFail($id);
+        $cantidad = $request->input('cantidad', 1);
+
         $cart = session()->get('cart', []);
 
         if (isset($cart[$id])) {
-            $cart[$id]['CANTIDAD']++;
+            $cart[$id]['CANTIDAD'] += $cantidad;
         } else {
             $cart[$id] = [
                 "NOMBRE" => $producto->NOMBRE,
-                "CANTIDAD" => 1,
+                "CANTIDAD" => $cantidad,
                 "PRECIO" => $producto->PRECIO,
                 "IMAGEN" => $producto->IMAGEN
             ];
@@ -35,6 +38,7 @@ class CarritoController extends Controller
         session()->put('cart', $cart);
         return redirect()->back()->with('success', 'Producto añadido al carrito');
     }
+
 
     public function showCart()
     {
@@ -52,5 +56,5 @@ class CarritoController extends Controller
         return redirect()->back()->with('success', 'Producto eliminado del carrito');
     }
 
-   
+
 }

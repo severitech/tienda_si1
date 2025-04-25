@@ -5,6 +5,9 @@
 @source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
 @source '../../vendor/livewire/flux/stubs/**/*.blade.php';
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 {/*@custom-variant dark;*/}
 
