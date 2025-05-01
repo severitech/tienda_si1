@@ -20,4 +20,6 @@ class ProductoTabla extends Component
                             ->paginate($this->perPage);
         return view('livewire.productos.producto-tabla', compact('productos'));
     }
+    
 }
+
