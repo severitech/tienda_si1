@@ -24,14 +24,14 @@ class ProductoController extends Controller
         $productoMostrarTodo = Producto::with('categoria')->get()
             ->groupBy(fn($producto) => $producto->categoria?->CATEGORIA);
 
-        return view('productos.mostrar', compact('productoMostrarTodo'));
+        return view('trabajador.productos.mostrar', compact('productoMostrarTodo'));
     }
 
 
     public function crear()
     {
         // Mostrar formulario para agregar producto
-        return view('productos.crear');
+        return view('trabajador.productos.crear');
     }
 
 

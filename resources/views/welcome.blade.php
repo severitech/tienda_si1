@@ -9,7 +9,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-
+    @livewireStyles
 
     @vite('resources/css/app.css') <!-- Aquí tienes Tailwind -->
     @fluxAppearance
@@ -76,7 +76,7 @@
     @fluxScripts
     @yield('content')
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-
+    @livewireScripts
 
 </body>
 
