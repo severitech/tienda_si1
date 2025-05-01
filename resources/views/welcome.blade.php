@@ -4,18 +4,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/src/styles.css" rel="stylesheet">
     <title>Laravel</title>
-    <link href="/path/to/flux-ui.css" rel="stylesheet">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-    @vite('resources/css/app.css')
-    {{-- @fluxAppearance --}}
-    <!-- Styles -->
+
+
+    @vite('resources/css/app.css') <!-- Aquí tienes Tailwind -->
     @fluxAppearance
 </head>
+
+
 
 <body
     class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
@@ -59,7 +59,7 @@
     </header>
 
     <!-- Main Section -->
-    <h1 class="text-white text-4xl">Bienvenido a nuestra tienda</h1>
+    <h1 class="text-4xl text-white">Bienvenido a nuestra tienda</h1>
 
     <div
         class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
@@ -74,7 +74,10 @@
     </div>
 
     @fluxScripts
+    @yield('content')
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+
+
 </body>
 
 </html>
