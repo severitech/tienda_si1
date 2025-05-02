@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\PagosController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\PasarelaPagos;
 
@@ -55,5 +56,7 @@ Route::get('/ventas', [VentaController::class, 'mostrar'])->name('venta.mostrar'
 /*Rutas de la tienda */
 
 // Route::get('/', [ProductoController::class, 'index'])->name('home');
+Route::get('/pagos',[PagosController::class, 'index'])->name('pagos');
+Route::post('/pagos',[PagosController::class, 'create'])->name('crear.pago');
 
 require __DIR__ . '/auth.php';

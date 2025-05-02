@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration {
     /**
@@ -22,7 +23,7 @@ return new class extends Migration {
             // $table->timestamp('FECHA_ACTUALIZACION')->nullable()->default(null)->onUpdate(DB::raw('CURRENT_TIMESTAMP'));
 
             // relacion con la tabla categoria
-            $table->unsignedBigInteger('CATEGORIA');
+            $table->string('CATEGORIA',100);
             $table->foreign('CATEGORIA')->references('CATEGORIA')->on('CATEGORIA')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();

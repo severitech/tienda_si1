@@ -8,8 +8,11 @@ class venta extends Model
 {
     protected $table = 'VENTA';
 
-    public function Venta()
-    {
-       
-    }
+    protected $fillable = [
+       'TOTAL',
+        'USUARIO',
+        'CLIENTE',
+        'METODO_PAGO',
+    ];
+    public function Venta() {}
 }

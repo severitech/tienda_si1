@@ -13,8 +13,7 @@ class ProductoController extends Controller
         $productosPorCategoria = Producto::with('categoria')
             ->where('ESTADO', true)
             ->get()
-            ->groupBy(fn($producto) => $producto->categoria?->CATEGORIA); // 👈 importante
-
+            ->groupBy(fn($producto) => $producto->categoria?->CATEGORIA); // 👈 importante  
 
         return view('welcome', compact('productosPorCategoria'));
     }
