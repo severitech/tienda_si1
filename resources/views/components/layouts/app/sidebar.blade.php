@@ -40,15 +40,15 @@
                 </flux:navlist.item>
 
 
-                <flux:navlist.item icon="users" :href="route('dashboard')"
-                    :current="request() -> routeIs('Reporte de Cierres')" wire:navigate>{{ __('Gestión de Usuarios') }}
+                <flux:navlist.item icon="users" :href="route('usuarios.mostrar')"
+                    :current="request() -> routeIs('usuarios')" wire:navigate>{{ __('Gestión de Usuarios') }}
                 </flux:navlist.item>
             </flux:navlist.group>
 
             <!-- Vista Vendedor -->
             <flux:navlist.group :heading="__('Vendedor')" class="grid">
 
-                <flux:navlist.item icon="credit-card" :href="route('dashboard')" :current="request() -> routeIs('Venta')"
+                <flux:navlist.item icon="credit-card" :href="route('venta.mostrar')" :current="request() -> routeIs('Venta')"
                     wire:navigate>{{ __('Venta') }}
                 </flux:navlist.item>
 

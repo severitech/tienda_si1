@@ -7,21 +7,38 @@ use App\Models\Producto;
 
 class ModalEditarCrear extends Component
 {
-    public $ID, $codigo, $nombre, $precio, $categoria;
-    protected $listeners = ['editarProducto' => 'editar'];
+    protected $listeners = ['abrirModalEditar' => 'cargarProducto'];
 
-    public function editar($id)
+    public $codigo, $nombre, $precio, $categoria_id, $imagen, $estado = false;
+    public $producto_id = null;
+    public function cargarProducto($id)
     {
         $producto = Producto::findOrFail($id);
 
-        $this->ID = $producto->ID;
         $this->codigo = $producto->CODIGO;
         $this->nombre = $producto->NOMBRE;
         $this->precio = $producto->PRECIO;
         $this->categoria = $producto->CATEGORIA;
+    }
+    public function guardar()
+    {
+        $producto = $this->producto_id
+            ? Producto::findOrFail($this->producto_id)
+            : new Producto();
 
-        // Aquí podrías usar JavaScript para abrir el modal, si es necesario
-        $this->dispatch('abrirModal');
+        $producto->CODIGO = $this->codigo;
+        $producto->NOMBRE = $this->nombre;
+        $producto->PRECIO = $this->precio;
+        $producto->CATEGORIA = $this->categoria;
+        $producto->ESTADO = true;
+
+        if ($this->imagen) {
+            $producto->IMAGEN = $this->imagen->store('productos', 'public');
+        }
+
+        $producto->save();
+
+        $this->emit('productoActualizado');
     }
 
     public function render()

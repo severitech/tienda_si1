@@ -37,6 +37,9 @@
         @livewire('productos.producto-tabla')
 
     </div>
+    <flux:modal name="nuevo-producto" class="w-full md:w-96">
+        {{-- <livewire:producto-modal /> --}}
+        @livewire("productos.modal-editar-crear")
+    </flux:modal>
 
-    <livewire:producto-modal />
 </x-layouts.app>

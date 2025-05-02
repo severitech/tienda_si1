@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\User;
+use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +43,14 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/productos', [ProductoController::class, 'mostrar'])->name('productos.mostrar');
 Route::get('/productos/crear', [ProductoController::class, 'crear'])->name('productos.crear');
 
+//Rutas Usuarios
+
+Route::get('/usuarios', [User::class, 'mostrar'])->name('usuarios.mostrar');
+
+
+//Rutas Ventas
+
+Route::get('/ventas', [VentaController::class, 'mostrar'])->name('venta.mostrar');
 /*Rutas de la tienda */
 
 // Route::get('/', [ProductoController::class, 'index'])->name('home');

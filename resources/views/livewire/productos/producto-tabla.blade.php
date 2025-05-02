@@ -40,15 +40,16 @@
                         </span>
                     </td>
                     <td class="px-6 py-4">
-                        <a 
-                            {{-- wire:click="editar({{ $producto->ID }})"
-                            x-on:click="$dispatch('open-modal', { name: 'editar-crear-producto' })"
-                            class="text-sm text-blue-400 cursor-pointer hover:underline" --}}
-                        >
-                            Editar
-                        </a>
+
+                        <flux:modal.trigger name="editar-producto">
+                            <a  wire:click="$emit('abrirModalEditar', {{ $producto->ID }})"
+                                class="text-sm text-blue-400 cursor-pointer hover:underline">
+                                Editar
+                            </a>
+                        </flux:modal.trigger>
+
                     </td>
-                    
+
 
                 </tr>
             @endforeach
@@ -59,4 +60,9 @@
         {{ $productos->links('vendor.pagination.tailwind') }}
 
     </div>
+
+    <flux:modal name="editar-producto" class="w-full md:w-96">
+        {{-- <livewire:producto-modal /> --}}
+        @livewire('productos.modal-editar-crear')
+    </flux:modal>
 </div>
