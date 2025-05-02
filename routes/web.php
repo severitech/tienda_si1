@@ -18,7 +18,8 @@ Route::get('/stripe/cancel', [PasarelaPagos::class, 'cancel'])->name('stripe.can
 
 Route::post('/cart/remove/{id}', [CarritoController::class, 'removeFromCart'])->name('cart.remove');
 Route::post('/cart/add/{id}', [CarritoController::class, 'addToCart'])->name('cart.add');
-
+Route::put('/usuarios/{id}', [User::class, 'actualizar'])->name('usuarios.actualizar');
+Route::delete('/usuarios/{id}', [User::class, 'eliminar'])->name('usuarios.eliminar');
 
 Route::get('dashboard', function () {
     $user = Auth::user();
