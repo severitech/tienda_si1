@@ -21,6 +21,11 @@ Route::post('/cart/add/{id}', [CarritoController::class, 'addToCart'])->name('ca
 Route::put('/usuarios/{id}', [User::class, 'actualizar'])->name('usuarios.actualizar');
 Route::delete('/usuarios/{id}', [User::class, 'eliminar'])->name('usuarios.eliminar');
 
+Route::get('/productos', [ProductoController::class, 'mostrar'])->name('productos.mostrar');
+Route::get('/productos/{id}/editar', [ProductoController::class, 'editar'])->name('productos.editar');
+Route::delete('/productos/{id}', [ProductoController::class, 'destroy'])->name('productos.destroy');
+Route::put('/productos/{id}', [ProductoController::class, 'actualizar'])->name('productos.actualizar');
+
 Route::get('dashboard', function () {
     $user = Auth::user();
 
