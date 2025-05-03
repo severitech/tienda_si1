@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
 return new class extends Migration
 {
     /**
@@ -24,7 +23,7 @@ return new class extends Migration
             ['METODO_PAGO' => 'Tarjeta'],
             ['METODO_PAGO' => 'Efectivo'],
             ['METODO_PAGO' => 'Transferencia Bancaria'],
-            ['METODO_PAGO' => 'Paypal'],
+            ['METODO_PAGO' => 'Stripe'],
         ]);
     }
 

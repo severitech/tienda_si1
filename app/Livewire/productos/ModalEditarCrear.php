@@ -9,7 +9,7 @@ class ModalEditarCrear extends Component
 {
     protected $listeners = ['abrirModalEditar' => 'cargarProducto'];
 
-    public $codigo, $nombre, $precio, $categoria_id, $imagen, $estado = false;
+    public $codigo, $nombre, $precio, $categoria, $imagen, $estado = false;
     public $producto_id = null;
     public function cargarProducto($id)
     {

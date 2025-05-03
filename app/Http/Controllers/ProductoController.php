@@ -29,7 +29,7 @@ class ProductoController extends Controller
     public function editar($id)
     {
         $producto = Producto::findOrFail($id);
-        return view('trabajador.productos.editar', compact('producto'));
+        //return view('trabajador.productos.editar', compact('producto'));
     }
 
 
@@ -52,7 +52,7 @@ class ProductoController extends Controller
     public function crear()
     {
         // Mostrar formulario para agregar producto
-        return view('trabajador.productos.crear');
+        //return view('trabajador.productos.crear');
     }
     public function destroy($id)
     {

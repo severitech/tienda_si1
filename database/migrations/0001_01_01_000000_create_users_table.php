@@ -19,7 +19,8 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
-            // $table->string('ROL');
+            $table->boolean('estado')->default(true);
+            $table->string('ROL')->nullable()->default('vendedor');
             // $table->foreign('ROL')->references('ROL')->on('ROL')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
