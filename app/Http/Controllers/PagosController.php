@@ -19,7 +19,7 @@ class PagosController extends Controller
     public function create(Request $request)
     {
         if ($request->metodo_pago == 'tarjeta') {
-            return;
+            return redirect(route('cart.checkout'));
         }
         $venta = venta::create([
             'TOTAL' => 0.0,

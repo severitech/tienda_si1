@@ -40,7 +40,7 @@
 
         <h3 class="text-xl font-semibold text-white pt-4">Selecciona método de pago</h3>
 
-        <form action="{{ route('crear.pago') }}" method="POST" class="space-y-4">
+        <form action="{{ route('cart.checkout') }}" method="POST" class="space-y-4">
             @csrf
             <div class="space-y-2">
                 <label class="flex items-center space-x-3">

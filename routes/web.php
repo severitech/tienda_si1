@@ -59,4 +59,5 @@ Route::get('/ventas', [VentaController::class, 'mostrar'])->name('venta.mostrar'
 Route::get('/pagos',[PagosController::class, 'index'])->name('pagos');
 Route::post('/pagos',[PagosController::class, 'create'])->name('crear.pago');
 
+
 require __DIR__ . '/auth.php';
