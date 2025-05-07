@@ -38,9 +38,11 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         // Hash de la contraseña
         $validated['password'] = Hash::make($validated['password']);
-
-        // Crear el usuario y loguearlo
-        event(new Registered(($user = User::create($validated))));
+        $user = User::create($validated);
+        $user->update([
+            'ROL' => 'cliente'
+    ]);
+        event(new Registered(($user)));
 
         // Iniciar sesión del usuario
         Auth::login($user);

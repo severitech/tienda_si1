@@ -21,8 +21,8 @@ return new class extends Migration
             // CLAVE PRIMARIA COMPUESTA
             $table->primary(['COMPRA', 'PRODUCTO']);
 
-            $table->foreign('COMPRA')->references('id')->on('COMPRA')->onDelete('cascade');
-            $table->foreign('PRODUCTO')->references('id')->on('PRODUCTO');
+            $table->foreign('COMPRA')->references('ID')->on('COMPRA')->onDelete('cascade');
+            $table->foreign('PRODUCTO')->references('ID')->on('PRODUCTO');
         });
     
     }

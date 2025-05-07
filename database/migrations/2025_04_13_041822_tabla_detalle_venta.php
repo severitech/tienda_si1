@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -16,15 +17,15 @@ return new class extends Migration
             $table->integer('PRODUCTO');
             $table->decimal('PRECIO', 10, 2);
             $table->integer('CANTIDAD');
-            $table->timestamp('updated_at')->nullable()->default(null)->onUpdate(DB::raw('CURRENT_TIMESTAMP'));
+
 
             //LLAVES PRIMARIAS FORANEAS
-            $table->primary(['VENTA', 'PRODUCTO']);
+            $table->id();
 
 
-            $table->foreign('VENTA')->references('NRO')->on('VENTA')->onDelete('cascade')->onUpdate('cascade'); 
-            $table->foreign('PRODUCTO')->references('id')->on('PRODUCTO')->onDelete('cascade')->onUpdate('cascade'); 
-            
+            $table->foreign('VENTA')->references('id')->on('VENTA')->onDelete('cascade')->onUpdate('cascade'); 
+            $table->foreign('PRODUCTO')->references('ID')->on('PRODUCTO')->onDelete('cascade')->onUpdate('cascade'); 
+            $table->timestamps();
         });
 
     }

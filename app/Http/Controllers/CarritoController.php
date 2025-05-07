@@ -56,5 +56,5 @@ class CarritoController extends Controller
         return redirect()->back()->with('success', 'Producto eliminado del carrito');
     }
 
-
+    
 }

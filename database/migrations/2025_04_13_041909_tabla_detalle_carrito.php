@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -22,8 +23,8 @@ return new class extends Migration
             $table->primary(['CARRITO', 'PRODUCTO']);
 
 
-            $table->foreign('CARRITO')->references('id')->on('CARRITO')->onDelete('cascade')->onUpdate('cascade'); 
-            $table->foreign('PRODUCTO')->references('id')->on('PRODUCTO')->onDelete('cascade')->onUpdate('cascade'); 
+            $table->foreign('CARRITO')->references('ID')->on('CARRITO')->onDelete('cascade')->onUpdate('cascade'); 
+            $table->foreign('PRODUCTO')->references('ID')->on('PRODUCTO')->onDelete('cascade')->onUpdate('cascade'); 
             
         });
 
