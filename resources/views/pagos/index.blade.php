@@ -51,10 +51,6 @@
                     <input type="radio" name="metodo_pago" value="efectivo" class="accent-yellow-500" required>
                     <span>Efectivo</span>
                 </label>
-                <label class="flex items-center space-x-3">
-                    <input type="radio" name="metodo_pago" value="qr" class="accent-purple-500" required>
-                    <span>QR</span>
-                </label>
             </div>
 
             <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition font-bold">
