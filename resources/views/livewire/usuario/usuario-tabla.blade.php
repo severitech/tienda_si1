@@ -17,7 +17,7 @@
         <!-- Sin formulario -->
         <div class="flex">
             <div class="relative w-full">
-                <input  wire:model='search' wire:keypress='getUsuarios' autocomplete="off"
+                <input wire:model='search' wire:keypress='getUsuarios' autocomplete="off"
                     class="rounded-xl block w-[400px] p-2.5 text-sm text-gray-900 bg-gray-50 border border-gray-300 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-zinc-500"
                     placeholder="Buscar usuario..." />
 
@@ -56,11 +56,15 @@
                     <td class="px-6 py-3">{{ $usuario->email }}</td>
                     <td class="px-6 py-3">{{ $usuario->rol }}</td>
                     <td class="px-6 py-3">
-                        <span class="inline-flex items-center gap-1 text-sm">
+                        {{-- Etiquetas de colores --}}
+                        <span
+                            class="inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-sm
+{{ $usuario->estado ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' }}">
                             <span
                                 class="h-2 w-2 rounded-full {{ $usuario->estado ? 'bg-green-500' : 'bg-red-500' }}"></span>
                             {{ $usuario->estado ? 'Activo' : 'Inactivo' }}
                         </span>
+ 
                     </td>
                     <td class="px-6 py-3">
                         <div class="inline-flex overflow-hidden rounded-md shadow-sm" role="group">
@@ -75,7 +79,7 @@
                                             d="M11 5h2M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
                                     </svg>
                                 </button>
-                                
+
                             </flux:modal.trigger>
 
                             <!-- Botón Desactivar -->
@@ -137,14 +141,14 @@
                 class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">Contraseña</label>
             <input id="password"wire:model.defer="password" type="password" placeholder="ejemplo@dominio.com"
                 required
-                class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
         </div>
 
         <div class="mb-4">
             <label for="telefono"
                 class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">Telefono</label>
             <input id="telefono"wire:model.defer="telefono" type="telefono" placeholder="71234567" required
-                class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
         </div>
         <div class="mb-4">
 
@@ -158,8 +162,7 @@
             <label for="small" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">
                 Rol del Usuario
             </label>
-            <select id="small"
-                wire:model.defer="rol"
+            <select id="small" wire:model.defer="rol"
                 class="block w-full p-2 mb-6 text-sm border rounded-lg text-zinc-900 border-zinc-300 bg-zinc-50 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500">
                 <option value="">-- Selecciona un rol --</option>
                 @foreach ($roles as $rols)
@@ -167,7 +170,7 @@
                 @endforeach
             </select>
         </div>
-        
+
         <button type="submit"wire:click="guardar"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Guardar</button>
     </flux:modal>
