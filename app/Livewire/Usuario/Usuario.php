@@ -12,16 +12,52 @@ class Usuario extends Component
     use WithPagination;
 
     public $perPage = 5;
+    public $search = '';
+
+    // Se resetea la página cuando se cambia el texto de búsqueda
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+    // Método para obtener los usuarios filtrados
+    public function getUsuarios()
+    {
+        return User::where(function ($query) {
+            $query->where('nombre', 'like', '%' . $this->search . '%')
+                ->orWhere('paterno', 'like', '%' . $this->search . '%')
+                ->orWhere('materno', 'like', '%' . $this->search . '%')
+                ->orWhere('telefono', 'like', '%' . $this->search . '%')
+                ->orWhere('email', 'like', '%' . $this->search . '%');
+        })
+            ->orderBy('nombre')
+            ->paginate($this->perPage);
+    }
 
     public function render()
     {
-        // Asegúrate de usar la tabla correcta para obtener los usuarios
-        $usuarios = User::orderBy('nombre')->paginate($this->perPage);
+        // Llamamos a la función para obtener los usuarios
+        $usuarios = $this->getUsuarios();
 
-        // Usando DB para obtener roles
+        // Usamos DB para obtener los roles (o puedes definir un modelo para roles)
         $roles = DB::table('ROL')->pluck('ROL');
 
-        // Pasar usuarios y roles a la vista
+        // Pasamos los datos a la vista
         return view('livewire.usuario.usuario-tabla', compact('usuarios', 'roles'));
     }
+
+    //metodo para activar o desactivar el usuario
+    public function cambiarEstado($id)
+    {
+        $usuario = User::find($id);
+
+        if ($usuario) {
+            $usuario->estado = !$usuario->estado; 
+            $usuario->save();
+        }
+        session()->flash('success', 'Se cambió el estado');
+
+
+    }
+
 }
