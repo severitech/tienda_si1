@@ -6,4 +6,5 @@
     <div class="p-6 mt-4 bg-white shadow-xl rounded-xl dark:bg-zinc-900">
         reporte de cobros y ventas por usuario
     </div>
+    
 </x-layouts.app>

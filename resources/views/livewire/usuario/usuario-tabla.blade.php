@@ -1,11 +1,11 @@
 <div class="relative overflow-x-auto rounded-lg">
-
     <div class="flex flex-col gap-3 pb-4 md:flex-row md:items-center md:justify-between">
+
         <div class="flex flex-col items-start gap-2 sm:flex-row sm:items-center">
-            <flux:modal.trigger name="nuevo-producto">
+            <flux:modal.trigger name="editar-crear">
                 <flux:button
                     class="w-full sm:w-auto px-4 py-2 rounded-xl border !border-green-800 !bg-green-700 !text-white hover:!bg-green-600 transition-colors duration-200 shadow-md hover:shadow-lg">
-                    Nuevo Producto
+                    Nuevo Usuario
                 </flux:button>
             </flux:modal.trigger>
 
@@ -17,7 +17,7 @@
         <!-- Sin formulario -->
         <div class="flex">
             <div class="relative w-full">
-                <input type="text" wire:model='search' wire:keypress='getUsuarios'
+                <input  wire:model='search' wire:keypress='getUsuarios' autocomplete="off"
                     class="rounded-xl block w-[400px] p-2.5 text-sm text-gray-900 bg-gray-50 border border-gray-300 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-zinc-500"
                     placeholder="Buscar usuario..." />
 
@@ -31,10 +31,8 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
+    <x-sucess-message />
     <table class="w-full text-sm text-center border border-zinc-200 dark:border-zinc-900">
         <thead class="text-xs text-white uppercase bg-accent-content dark:text-zinc-950">
             <tr>
@@ -68,7 +66,7 @@
                         <div class="inline-flex overflow-hidden rounded-md shadow-sm" role="group">
                             <!-- Botón Editar -->
                             <flux:modal.trigger name="editar-crear">
-                                <button type="button"
+                                <button type="button" wire:click="editar({{ $usuario->id }})"
                                     class="p-2 text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-600"
                                     aria-label="Editar">
                                     <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -77,6 +75,7 @@
                                             d="M11 5h2M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
                                     </svg>
                                 </button>
+                                
                             </flux:modal.trigger>
 
                             <!-- Botón Desactivar -->
@@ -106,7 +105,7 @@
     <flux:modal name="editar-crear" class="w-full md:w-96">
         <div class="mb-4">
             <label for="Nombre" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">Nombre</label>
-            <input id="Nombre"wire:model.defer="producto"
+            <input id="Nombre"wire:model.defer="nombre"
                 class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Nombres Completos" required />
         </div>
@@ -114,14 +113,14 @@
             <div>
                 <label for="Paterno" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">Apellido
                     Paterno</label>
-                <input type="text" wire:model.defer="Paterno" id="Paterno"
+                <input type="text" wire:model.defer="paterno" id="Paterno"
                     class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="1er Apellido" required />
             </div>
             <div>
                 <label for="Materno" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">Apellido
                     Materno</label>
-                <input type="text"wire:model.defer="precio" id="Materno"
+                <input type="text"wire:model.defer="materno" id="Materno"
                     class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="2do Apellido" required />
             </div>
@@ -134,6 +133,20 @@
                 placeholder="ejemplo@dominio.com" required />
         </div>
         <div class="mb-4">
+            <label for="password"
+                class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">Contraseña</label>
+            <input id="password"wire:model.defer="password" type="password" placeholder="ejemplo@dominio.com"
+                required
+                class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+        </div>
+
+        <div class="mb-4">
+            <label for="telefono"
+                class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">Telefono</label>
+            <input id="telefono"wire:model.defer="telefono" type="telefono" placeholder="71234567" required
+                class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+        </div>
+        <div class="mb-4">
 
             <label class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
                 for="file_input">Imagen</label>
@@ -142,47 +155,23 @@
                 aria-describedby="file_input_help" id="file_input" type="file">
         </div>
         <div class="mb-4">
-            <label for="small" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">Rol del
-                Usuario</label>
+            <label for="small" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">
+                Rol del Usuario
+            </label>
             <select id="small"
+                wire:model.defer="rol"
                 class="block w-full p-2 mb-6 text-sm border rounded-lg text-zinc-900 border-zinc-300 bg-zinc-50 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500">
-                @foreach ($roles as $rol)
-                    <option wire:model.defer="categoria" value={{ $rol }}>
-                        {{ $rol }}</option>
+                <option value="">-- Selecciona un rol --</option>
+                @foreach ($roles as $rols)
+                    <option value="{{ $rols }}">{{ $rols }}</option>
                 @endforeach
             </select>
         </div>
+        
         <button type="submit"wire:click="guardar"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Guardar</button>
     </flux:modal>
-    @if (session('success'))
-        <div x-data="{ show: false, message: '' }"
-            x-on:Estado.window="message = $event.detail; show = true; setTimeout(() => show = false, 2000)"
-            x-show="show" x-transition id="toast-success"
-            class="fixed z-50 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-sm bottom-4 right-4 dark:text-gray-400 dark:bg-gray-800"
-            style="display: none;">
-            <div
-                class="inline-flex items-center justify-center w-8 h-8 text-green-500 bg-green-100 rounded-lg shrink-0 dark:bg-green-800 dark:text-green-200">
-                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                </svg>
-            </div>
-            <div class="text-sm font-normal ms-3" x-text="message"></div>
-        </div>
 
-        <script>
-            // Usamos Livewire para emitir un evento a Alpine.js
-            window.livewire.on('Estado', (message) => {
-                const toast = document.getElementById('toast-success');
-                if (toast) {
-                    toast.classList.remove('opacity-0');
-                    setTimeout(() => {
-                        toast.classList.add('opacity-0');
-                    }, 2000); // Oculta el toast después de 2 segundos
-                }
-            });
-        </script>
-    @endif
+
 
 </div>
