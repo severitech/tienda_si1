@@ -12,6 +12,7 @@ class Usuariocliente extends Component
     use WithPagination;
     public $search = '';
     public $perPage = 10;
+    public $cliente_id;
     public function render()
     {
         $usuarios = $this->getUsuarios();
@@ -38,5 +39,20 @@ class Usuariocliente extends Component
     public function updatingSearch()
     {
         $this->resetPage();
+    }
+
+    public function guardarUsuario($id)
+    {
+        $usuario = User::find($id);
+        if ($usuario) {
+            $this->cliente_id = $usuario->id; // Guardas el ID del cliente seleccionado
+            $this->search = $usuario->nombre . ' ' . $usuario->paterno . ' ' . $usuario->materno; // Muestra el nombre completo
+            $this->mostrarResultados = false; // Oculta la lista
+            // Enviar el cliente seleccionado al componente padre
+            $this->dispatch('clienteSeleccionado', $usuario->id);
+            session()->flash('message', 'Usuario asignado correctamente.');
+        } else {
+            session()->flash('message', 'Usuario no encontrado.');
+        }
     }
 }

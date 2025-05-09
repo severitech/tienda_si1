@@ -11,16 +11,50 @@ use App\Models\User;
 class Ventas extends Component
 {
     use WithPagination;
+    public $cliente_id, $cantidad;
+    public $productosSeleccionados = [];
+    protected $listeners = [
+        'clienteSeleccionado' => 'asignarCliente'
+        ,
+      //  'productoSeleccionado' => 'agregarProducto',
+    ];
+
+
+
     public function render()
     {
-        // Llamamos a la función para obtener los usuarios
-        
-        /* Usamos DB para obtener los roles (o puedes definir un modelo para roles)
-        compact('usuarios','clientes', 'metodo_pago', 'productos', 'ventas'))
-        ->extends('layouts.app')
-        ->section('content');
-        // Pasamos los datos a la vista*/
-         
         return view('livewire.ventas.ventas');
+    }
+    public function asignarCliente($id)
+    {
+        $this->cliente_id = $id;
+    }
+
+    public function agregarProducto($producto)
+    {
+        $id = $producto['id'];
+
+        // Buscar si el producto ya fue agregado
+        $existente = collect($this->productosSeleccionados)->firstWhere('id', $id);
+
+        if ($existente) {
+            // Si ya existe, solo aumentar la cantidad y recalcular el subtotal
+            foreach ($this->productosSeleccionados as &$item) {
+                if ($item['id'] === $id) {
+                    $item['cantidad'] += $this->cantidad;
+                    $item['subtotal'] = $item['cantidad'] * $item['precio'];
+                    break;
+                }
+            }
+        } else {
+            // Si no existe, agregar nuevo producto
+            $this->productosSeleccionados[] = [
+                'id' => $id,
+                'nombre' => $producto['nombre'],
+                'precio' => $producto['precio'],
+                'cantidad' => $this->cantidad,
+                'subtotal' => $producto['precio'],
+            ];
+        }
     }
 }
