@@ -31,7 +31,10 @@
                             <td class="px-6 py-4 text-right">Bs. {{ $producto['precio'] }}</td>
                             <td class="px-6 py-4 text-right">Bs. {{ $producto['subtotal'] }}</td>
                             <td class="px-6 py-4 text-center">
-                                <button class="text-red-600 hover:underline dark:text-red-400">Eliminar</button>
+                                <button wire:click="eliminar({{ $producto['id'] }})"
+                                    class="text-red-600 hover:underline dark:text-red-400">
+                                    Eliminar
+                                </button>
                             </td>
                         </tr>
                     @empty
@@ -64,8 +67,7 @@
 
         {{-- Botón --}}
         <div class="text-right">
-            <button type="button" wire:click="registrarVenta"
-                wire:loading.attr="disabled" wire:target="registrarVenta"
+            <button type="button" wire:click="registrarVenta" wire:loading.attr="disabled" wire:target="registrarVenta"
                 class="px-6 py-3 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-700 dark:hover:bg-green-800 dark:focus:ring-green-900">
                 Registrar Venta
             </button>

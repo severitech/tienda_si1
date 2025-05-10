@@ -10,4 +10,8 @@ class VentaController extends Controller
     {
         return view('trabajador.venta.mostrar');
     }
+    public function listaventas()
+    {
+        return view('trabajador.venta.lista-ventas');
+    }
 }

@@ -52,7 +52,7 @@
                     wire:navigate>{{ __('Venta') }}
                 </flux:navlist.item>
 
-                <flux:navlist.item icon="clipboard-document-list"  :href="route('dashboard')" :current="request() -> routeIs('Historial de Ventas')"
+                <flux:navlist.item icon="clipboard-document-list"  :href="route('venta.listaventas')" :current="request() -> routeIs('Historial de Ventas')"
                     wire:navigate>{{ __('Historial Ventas') }}
                 </flux:navlist.item>
 

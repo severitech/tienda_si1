@@ -58,6 +58,7 @@ Route::get('/usuarios', [User::class, 'mostrar'])->name('usuarios.mostrar');
 //Rutas Ventas
 
 Route::get('/ventas', [VentaController::class, 'mostrar'])->name('venta.mostrar');
+Route::get('/lista-de-ventas', [VentaController::class, 'listaventas'])->name('venta.listaventas');
 /*Rutas de la tienda */
 
 // Route::get('/', [ProductoController::class, 'index'])->name('home');

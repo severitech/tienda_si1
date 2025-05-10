@@ -13,6 +13,9 @@ class Usuariocliente extends Component
     public $search = '';
     public $perPage = 10;
     public $cliente_id;
+    protected $listeners = [
+        'limpiar' => 'limpiar'
+    ];
     public function render()
     {
         $usuarios = $this->getUsuarios();
@@ -35,7 +38,11 @@ class Usuariocliente extends Component
             ->orderBy('nombre')
             ->paginate($this->perPage);
     }
-
+    public function limpiar()
+    {
+        $this->search = '';
+        $this->cliente_id = null;
+    }
     public function updatingSearch()
     {
         $this->resetPage();
@@ -50,7 +57,7 @@ class Usuariocliente extends Component
             $this->mostrarResultados = false; // Oculta la lista
             // Enviar el cliente seleccionado al componente padre
             $this->dispatch('clienteSeleccionado', $usuario->id);
-          //  session()->flash('message', 'Usuario asignado correctamente.');
+            //  session()->flash('message', 'Usuario asignado correctamente.');
         } else {
             session()->flash('message', 'Usuario no encontrado.');
         }

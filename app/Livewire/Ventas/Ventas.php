@@ -53,11 +53,9 @@ class Ventas extends Component
     {
         $producto = Producto::find($productoData['id']);
         if ($producto) {
-            // Verifica si el producto ya fue agregado
             $existente = collect($this->productosSeleccionados)->firstWhere('id', $productoData['id']);
 
             if ($existente) {
-                // Si ya existe, solo aumentar la cantidad y recalcular el subtotal
                 foreach ($this->productosSeleccionados as &$item) {
                     if ($item['id'] === $productoData['id']) {
                         $item['cantidad'] += $productoData['cantidad'];
@@ -85,30 +83,69 @@ class Ventas extends Component
         }
     }
 
-    public function registrarVenta()
+    public function eliminar($id)
     {
-        session()->flash('message', "cliente" . $this->cliente_id . "\nmetodoPago: " . $this->metodoPagoSeleccionado . "\n totalVenta: " . $this->totalVenta. 'usuario: ' . auth()->id());
-        /*  $venta = new Venta();
-          $venta->cliente_id = $this->cliente_id;
-          $venta->metodo_pago = $this->metodoPago;
-          $venta->total = $this->totalVenta;
-          $venta->save();
+        $this->productosSeleccionados = array_filter($this->productosSeleccionados, function ($producto) use ($id) {
+            return $producto['id'] !== $id;
+        });
 
-          // Guardar los productos vendidos
-          foreach ($this->productosSeleccionados as $producto) {
-              DB::table('venta_producto')->insert([
-                  'venta_id' => $venta->id,
-                  'producto_id' => $producto['id'],
-                  'cantidad' => $producto['cantidad'],
-                  'precio' => $producto['precio'],
-                  'subtotal' => $producto['subtotal'],
-              ]);
-          }
-
-          // Reiniciar los valores después de guardar la venta
-          $this->reset(['cliente_id', 'productosSeleccionados', 'metodoPago', 'totalVenta']);
-          session()->flash('message', 'Venta guardada exitosamente.');*/
+        $this->totalVenta = array_sum(array_column($this->productosSeleccionados, 'subtotal'));
     }
 
+
+    public function registrarVenta()
+    {
+        // Validaciones previas
+        if (!$this->cliente_id) {
+            session()->flash('message', 'Por favor, selecciona un cliente.');
+            return;
+        }
+
+        if (empty($this->productosSeleccionados)) {
+            session()->flash('message', 'Por favor, selecciona al menos un producto.');
+            return;
+        }
+
+        if (empty($this->metodoPagoSeleccionado)) {
+            session()->flash('message', 'Por favor, selecciona un método de pago.');
+            return;
+        }
+
+        // Guardar la venta
+        $venta = new Venta();
+        $venta->CLIENTE = $this->cliente_id;
+        $venta->METODO_PAGO = $this->metodoPagoSeleccionado;
+        $venta->TOTAL = $this->totalVenta;
+        $venta->USUARIO = auth()->id();
+        $venta->save();
+
+        foreach ($this->productosSeleccionados as $producto) {
+            DB::table('DETALLE_VENTA')->insert([
+                'VENTA' => $venta->id,
+                'PRODUCTO' => $producto['id'],
+                'PRECIO' => $producto['precio'],
+                'CANTIDAD' => $producto['cantidad'],
+
+            ]);
+
+            // Descontar stock
+            $productoModel = Producto::find($producto['id']);
+            if ($productoModel) {
+                $productoModel->CANTIDAD -= $producto['cantidad'];
+                $productoModel->save();
+            }
+        }
+
+        $this->reset([
+            'cliente_id',
+            'productosSeleccionados',
+            'metodoPagoSeleccionado',
+            'totalVenta',
+        ]);
+        //limpiar metodo de pago y nombre del cliente en el input
+        $this->dispatch('limpiar');
+
+        session()->flash('message', 'Venta registrada correctamente.');
+    }
 
 }
