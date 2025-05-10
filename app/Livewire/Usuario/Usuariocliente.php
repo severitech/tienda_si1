@@ -50,7 +50,7 @@ class Usuariocliente extends Component
             $this->mostrarResultados = false; // Oculta la lista
             // Enviar el cliente seleccionado al componente padre
             $this->dispatch('clienteSeleccionado', $usuario->id);
-            session()->flash('message', 'Usuario asignado correctamente.');
+          //  session()->flash('message', 'Usuario asignado correctamente.');
         } else {
             session()->flash('message', 'Usuario no encontrado.');
         }

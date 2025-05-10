@@ -1,4 +1,5 @@
 <div class="">
+    <x-sucess-message />
     <div class="relative w-full mx-auto mb-3">
         <label for="form" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Productos para la venta
@@ -30,7 +31,7 @@
             </form>
 
             <!-- Cantidad -->
-            <input type="number" min="1" id="cantidad" wire:model="cantidad"
+            <input type="number" min="1" id="cantidad" wire:model="cantidadInput"
                 class="w-full md:w-24 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
 
             <!-- Precio -->
@@ -38,19 +39,20 @@
                 class="w-full md:w-32 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
 
             <!-- Subtotal -->
-            <input type="text" value="{{ $subtotal }}" readonly id="subtotal"
+            {{-- <input type="text" value="{{ $subtotal }}" readonly id="subtotal"
                 class="w-full md:w-32 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
-
+ --}}
 
             <!-- Botón Agregar -->
-            <button type="button"
+            <button type="button" wire:click="agregarProducto"
                 class="w-full md:w-auto text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-700 dark:hover:bg-blue-800 dark:focus:ring-blue-900">
                 Agregar
             </button>
         </div>
 
-        <x-sucess-message />
-
+@if (session()->has('valor'))
+    <div>{{ session('valor') }}</div>
+@endif
         <!-- Autocompletado -->
         @if (strlen($search) > 0 && $productos->count() > 0)
             <ul
@@ -58,7 +60,7 @@
                 @forelse ($productos as $producto)
                     <li wire:click="guardarProducto({{ $producto->ID }})"
                         class="px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-700 dark:text-white">
-                        {{ $producto->NOMBRE . ' ' . $producto->CATEGORIA }}
+                        {{ $producto->CATEGORIA . ' ' . $producto->NOMBRE }}
                         <br>
                         <span class="text-gray-500 dark:text-gray-400">Precio: {{ $producto->PRECIO }}</span><br>
                         <span class="text-gray-500 dark:text-gray-400">Stock: {{ $producto->CANTIDAD }}</span>
@@ -69,6 +71,9 @@
             </ul>
         @endif
     </div>
+
+
+    
 
 
 </div>
