@@ -6,30 +6,18 @@
         <div class="flex flex-col gap-3 pb-4 md:flex-row md:items-center md:justify-between">
             <div class="flex flex-col items-start gap-2 sm:flex-row sm:items-center">
                 <button wire:click="abrirModalCrear"
-                    class="w-full sm:w-auto px-4 py-2 rounded-xl border border-green-800 bg-green-700 text-white hover:bg-green-600 transition-colors duration-200 shadow-md hover:shadow-lg">
+                    class="w-full px-4 py-2 text-white transition-colors duration-200 bg-green-700 border border-green-800 shadow-md sm:w-auto rounded-xl hover:bg-green-600 hover:shadow-lg">
                     Nuevo Producto
                 </button>
 
                 <button
-                    class="w-full sm:w-auto px-4 py-2 rounded-xl border border-yellow-800 bg-yellow-700 text-white hover:bg-yellow-600 transition-colors duration-200 shadow-md hover:shadow-lg">
+                    class="w-full px-4 py-2 text-white transition-colors duration-200 bg-yellow-700 border border-yellow-800 shadow-md sm:w-auto rounded-xl hover:bg-yellow-600 hover:shadow-lg">
                     Exportar
                 </button>
             </div>
 -->
             <!-- Filtro de búsqueda -->
-            <div class="relative w-full sm:w-60">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-zinc-500 dark:text-zinc-400" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                    </svg>
-                </div>
-                <input type="text" wire:model="search" id="table-search-users"
-                    class="block w-full p-2 pl-10 text-sm border rounded-lg text-zinc-900 border-zinc-300 bg-zinc-50 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
-                    placeholder="Buscar producto...">
-            </div>
-        </div>
+            
 
         <!-- Tabla de productos -->
         @livewire('productos.producto-tabla')

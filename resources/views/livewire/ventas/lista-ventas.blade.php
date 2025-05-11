@@ -93,7 +93,7 @@
     <x-sucess-message />
     <div class="relative mt-3 mb-6 overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-zinc-700 dark:text-zinc-300">
-            <thead class="text-xs uppercase text-zinc-700 bg-zinc-100 dark:bg-zinc-800 dark:text-zinc-400">
+            <thead class="text-xs uppercase text-zinc-700 bg-zinc-300 dark:bg-zinc-600 dark:text-zinc-200">
                 <tr>
                     <th scope="col" class="px-2 py-3 text-center">Ver</th>
                     <th scope="col" class="px-2 py-3 text-center">Nro Venta</th>

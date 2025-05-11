@@ -13,8 +13,8 @@
 
         {{-- Tabla de productos --}}
         <div class="relative mb-6 overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-700 dark:text-gray-300">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-zinc-800 dark:text-gray-400">
+            <table class="w-full text-sm text-left text-zinc-700 dark:text-zinc-300">
+                <thead class="text-xs uppercase text-zinc-700 bg-zinc-300 dark:bg-zinc-600 dark:text-zinc-200">
                     <tr>
                         <th scope="col" class="px-6 py-3">Producto</th>
                         <th scope="col" class="px-6 py-3 text-center">Cantidad</th>
@@ -54,7 +54,7 @@
 
             @livewire('metodo-pago.metodo-pago')
 
-            <div class="text-right mt-4">
+            <div class="mt-4 text-right">
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Total</label>
                 <p class="text-2xl font-bold text-green-600 dark:text-green-400">
                     Bs {{ number_format($totalVenta, 2, '.', ',') }}

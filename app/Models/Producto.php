@@ -23,6 +23,9 @@ class Producto extends Model
     {
         return $this->belongsTo(Categoria::class, 'CATEGORIA', 'CATEGORIA');
     }
-
+    public function detalleCarritos()
+    {
+        return $this->hasMany(DetalleCarrito::class);
+    }
 
 }

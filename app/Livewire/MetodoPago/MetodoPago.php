@@ -3,7 +3,7 @@
 namespace App\Livewire\MetodoPago;
 
 use Livewire\Component;
-use App\Models\MetodoPagos;
+use App\Models\MetodoPago as MetodoPagos;
 
 class MetodoPago extends Component
 {

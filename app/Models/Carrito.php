@@ -11,11 +11,26 @@ class Carrito extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'DIRECCION', 'ESTADO', 'CLIENTE', 'METODO_PAGO'
+        'DIRECCION',
+        'ESTADO',
+        'CLIENTE',
+        'METODO_PAGO'
     ];
 
     public function detalles()
     {
         return $this->hasMany(DetalleCarrito::class, 'CARRITO', 'ID');
+    }
+
+    // Relación con el cliente (Usuario)
+    public function cliente()
+    {
+        return $this->belongsTo(User::class, 'CLIENTE');
+    }
+
+    // Relación con el método de pago
+    public function metodoPago()
+    {
+        return $this->belongsTo(MetodoPago::class, 'METODO_PAGO');
     }
 }

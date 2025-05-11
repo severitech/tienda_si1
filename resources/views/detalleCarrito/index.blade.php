@@ -20,40 +20,37 @@
                     placeholder="Buscar producto...">
             </div>
         </div>
-
-
-
-
-
-
-
         <div class="relative overflow-x-auto rounded-lg">
-            <table class="w-full text-sm text-center border border-zinc-200 dark:border-zinc-900">
-                <thead class="text-xs text-white uppercase bg-accent-content dark:text-zinc-950">
+            <table class="w-full text-sm text-left text-zinc-700 dark:text-zinc-300">
+                <thead class="text-xs uppercase text-zinc-700 bg-zinc-300 dark:bg-zinc-600 dark:text-zinc-200">
                     <tr>
-                        <th class="px-4 py-3 font-semibold">Carrito ID</th>
-                        <th class="px-4 py-3 font-semibold">Producto</th>
-                        <th class="px-4 py-3 font-semibold">Precio</th>
-                        <th class="px-4 py-3 font-semibold">Cantidad</th>
-                        <th class="px-4 py-3 font-semibold">Cliente</th>
+                        <th class="px-2 py-3 font-semibold">Carrito ID</th>
+                        <th class="px-4 py-3 font-semibold text-center">Producto</th>
+                        <th class="px-4 py-3 font-semibold text-center">Precio</th>
+                        <th class="px-4 py-3 font-semibold text-center">Cantidad</th>
+                        <th class="px-4 py-3 font-semibold text-center">Cliente</th>
                     </tr>
                 </thead>
 
                 <tbody class="divide-y divide-zinc-800 bg-zinc-950">
                     @foreach ($detalles as $detalle)
-                    <tr
-                        class="border-b border-zinc-200 odd:bg-white odd:dark:bg-zinc-900 even:bg-zinc-50 even:dark:bg-zinc-800 dark:border-zinc-700">
-                        <td class="px-6 py-3">{{ $detalle->CARRITO }}</td>
-                        <td class="px-6 py-3">{{ $detalle->producto->NOMBRE }}</td>
-                        <td class="px-6 py-3">{{ $detalle->PRECIO }}</td>
-                        <td class="px-6 py-3">{{ $detalle->CANTIDAD }}</td>
-                        <td class="px-6 py-3">{{ $detalle->carrito->cliente->nombre}}</td>
+                        <tr
+                            class="border-b border-zinc-200 odd:bg-white odd:dark:bg-zinc-900 even:bg-zinc-50 even:dark:bg-zinc-800 dark:border-zinc-700">
+                            <td class="px-6 py-3 text-center">{{ $detalle->CARRITO }}</td>
+                            <td class="px-6 py-3 text-center">{{ $detalle->producto->NOMBRE }}</td>
+                            <td class="px-6 py-3 text-center">{{ $detalle->PRECIO }}</td>
+                            <td class="px-6 py-3 text-center">{{ $detalle->CANTIDAD }}</td>
+                            <td class="px-6 py-3 text-center">
+                                {{ $detalle->carrito->cliente->nombre . ' ' . $detalle->carrito->cliente->paterno . ' ' . $detalle->carrito->cliente->materno }}
+                            </td>
+                            <!-- Aquí accedes al NOMBRE del cliente -->
 
-                    </tr>
+                        </tr>
                     @endforeach
+
                 </tbody>
             </table>
         </div>
-{{ $detalles->links() }}
-    
+        {{ $detalles->links() }}
+
 </x-layouts.app>

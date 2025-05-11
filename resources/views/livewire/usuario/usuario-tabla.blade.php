@@ -33,8 +33,9 @@
         </div>
     </div>
     <x-sucess-message />
-    <table class="w-full text-sm text-center border border-zinc-200 dark:border-zinc-900">
-        <thead class="text-xs text-white uppercase bg-accent-content dark:text-zinc-950">
+
+    <table class="w-full text-sm text-left text-zinc-700 dark:text-zinc-300">
+        <thead class="text-xs uppercase text-zinc-700 bg-zinc-300 dark:bg-zinc-600 dark:text-zinc-200">
             <tr>
                 <th class="px-4 py-3 font-semibold">Nombre</th>
                 <th class="px-4 py-3 font-semibold">Paterno</th>
@@ -64,7 +65,7 @@
                                 class="h-2 w-2 rounded-full {{ $usuario->estado ? 'bg-green-500' : 'bg-red-500' }}"></span>
                             {{ $usuario->estado ? 'Activo' : 'Inactivo' }}
                         </span>
- 
+
                     </td>
                     <td class="px-6 py-3">
                         <div class="inline-flex overflow-hidden rounded-md shadow-sm" role="group">
