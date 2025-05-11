@@ -37,4 +37,6 @@ class ListaDetalleVenta extends Component
             ->get();
     }
 
+    
+
 }

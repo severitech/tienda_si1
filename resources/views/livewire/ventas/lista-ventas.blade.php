@@ -95,7 +95,7 @@
         <table class="w-full text-sm text-left text-zinc-700 dark:text-zinc-300">
             <thead class="text-xs uppercase text-zinc-700 bg-zinc-100 dark:bg-zinc-800 dark:text-zinc-400">
                 <tr>
-                    <th scope="col" class="px-2 py-3">Ver</th>
+                    <th scope="col" class="px-2 py-3 text-center">Ver</th>
                     <th scope="col" class="px-2 py-3 text-center">Nro Venta</th>
                     <th scope="col" class="px-6 py-3 text-center">Cliente</th>
                     <th scope="col" class="px-6 py-3 text-center">Fecha de Venta</th>
@@ -111,15 +111,30 @@
                         <td class="px-1 py-4">
                             <flux:modal.trigger name="ver-detalle-venta">
                                 <button type="button" wire:click='verDetalle({{ $venta->id }})'
-                                    class="p-2 text-white bg-yellow-400 rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-600"
-                                    aria-label="Editar">
+                                    class="p-2 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-700"
+                                    aria-label="Ver Detalle">
                                     <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M11 5h2M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                                            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M2.458 12C3.732 7.943 7.523 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.065 7-9.542 7s-8.268-2.943-9.542-7z" />
                                     </svg>
                                 </button>
                             </flux:modal.trigger>
+                            @if (auth()->user()->rol === 'administrador')
+                                <button wire:click="editarEstado({{ $venta->id }})" type="button"
+                                    class="p-2 text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-800"
+                                    aria-label="Eliminar">
+                                    {{-- Icono de basurero --}}
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M10 3h4a1 1 0 011 1v1H9V4a1 1 0 011-1z" />
+                                    </svg>
+                                </button>
+                            @endif
+
                         </td>
                         <td class="px-4 py-4 text-center"> {{ $venta->id }}</td>
                         <td class="px-6 py-4 text-center">
@@ -130,10 +145,10 @@
                         <td class="px-6 py-4 text-right">Bs. {{ $venta->TOTAL }}</td>
                         <td class="px-6 py-4 text-center"> <span
                                 class="inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-sm
-{{ !$venta->estado ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' }}">
+{{ $venta->ESTADO ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' }}">
                                 <span
-                                    class="h-2 w-2 rounded-full {{ !$venta->estado ? 'bg-green-500' : 'bg-red-500' }}"></span>
-                                {{ !$venta->estado ? 'Activo' : 'Inactivo' }}
+                                    class="h-2 w-2 rounded-full {{ $venta->ESTADO ? 'bg-green-500' : 'bg-red-500' }}"></span>
+                                {{ $venta->ESTADO ? 'Activo' : 'Inactivo' }}
                             </span></td>
                         <td class="px-6 py-4 text-center"> {{ $venta->usuario->nombre }}</td>
 
@@ -155,7 +170,5 @@
 
         <flux:modal name="ver-detalle-venta" class="w-full md:w-200">
             @livewire('detalle-venta.lista-detalle-venta', ['idventa' => $venta_parm], key($venta_parm))
-
-
         </flux:modal>
     </div>

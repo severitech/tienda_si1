@@ -117,5 +117,15 @@ class ListaVentas extends Component
     {
         $this->resetPage(); // Reinicia la paginación
     }
-
+    public function editarEstado($id)
+    {
+        $venta = Venta::find($id);
+        if ($venta) {
+            $venta->ESTADO = $venta->ESTADO == 1 ? 0 : 1; // Cambia el estado
+            $venta->save(); // Reinicia la paginación
+            session()->flash('message', 'Estado actualizado correctamente.');
+        } else {
+            session()->flash('error', 'Venta no encontrada.');
+        }
+    }
 }
