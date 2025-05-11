@@ -9,7 +9,7 @@
     <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
         <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-        <a href="{{ route('dashboard') }}" class="flex items-center space-x-2 me-5 rtl:space-x-reverse" wire:navigate>
+        <a href="{{ route('home') }}" class="flex items-center space-x-2 me-5 rtl:space-x-reverse" wire:navigate>
             <x-app-logo />
         </a>
 
@@ -32,35 +32,41 @@
                     :current="request() -> routeIs('Reporte Ventas')" wire:navigate>{{ __('Reporte Ventas') }}
                 </flux:navlist.item>
 
-                <flux:navlist.item icon="shopping-cart" :href="route('dashboard')"
+                <flux:navlist.item icon="shopping-cart" :href="route('detalle.carrito')"
                     :current="request() -> routeIs('Reporte de Carrito')" wire:navigate>{{ __('Reporte de Carrito') }}
-                </flux:navlist.item>
-                <flux:navlist.item icon="banknotes" :href="route('dashboard')"
-                    :current="request() -> routeIs('Reporte de Cierres')" wire:navigate>{{ __('Reporte de Cierres') }}
-                </flux:navlist.item>
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="banknotes" :href="route('dashboard')"
+                        :current="request() -> routeIs('Reporte de Cierres')" wire:navigate>
+                        {{ __('Reporte de Cierres') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="credit-card" :href="route('metodo_pago.index')"
+                        :current="request() -> routeIs('metodo_pago.*')" wire:navigate>
+                        {{ __('Métodos de Pago') }}
+                    </flux:navlist.item>
 
 
-                <flux:navlist.item icon="users" :href="route('usuarios.mostrar')"
-                    :current="request() -> routeIs('usuarios')" wire:navigate>{{ __('Gestión de Usuarios') }}
-                </flux:navlist.item>
+                    <flux:navlist.item icon="users" :href="route('usuarios.mostrar')"
+                        :current="request() -> routeIs('usuarios')" wire:navigate>{{ __('Gestión de Usuarios') }}
+                    </flux:navlist.item>
             </flux:navlist.group>
 
             <!-- Vista Vendedor -->
             <flux:navlist.group :heading="__('Vendedor')" class="grid">
 
-                <flux:navlist.item icon="credit-card" :href="route('venta.mostrar')" :current="request() -> routeIs('Venta')"
-                    wire:navigate>{{ __('Venta') }}
+                <flux:navlist.item icon="credit-card" :href="route('venta.mostrar')"
+                    :current="request() -> routeIs('Venta')" wire:navigate>{{ __('Venta') }}
                 </flux:navlist.item>
 
-                <flux:navlist.item icon="clipboard-document-list"  :href="route('dashboard')" :current="request() -> routeIs('Historial de Ventas')"
-                    wire:navigate>{{ __('Historial Ventas') }}
+                <flux:navlist.item icon="clipboard-document-list" :href="route('venta.listaventas')"
+                    :current="request() -> routeIs('Historial de Ventas')" wire:navigate>{{ __('Historial Ventas') }}
                 </flux:navlist.item>
 
-                <flux:navlist.item icon="arrow-down-tray" :href="route('dashboard')" :current="request() -> routeIs('Ingreso de Productos')"
-                    wire:navigate>{{ __('Ingreso Productos') }}
+                <flux:navlist.item icon="arrow-down-tray" :href="route('dashboard')"
+                    :current="request() -> routeIs('Ingreso de Productos')" wire:navigate>
+                    {{ __('Ingreso Productos') }}
                 </flux:navlist.item>
-                <flux:navlist.item icon="currency-dollar" :href="route('dashboard')" :current="request() -> routeIs('Cierre de Caja')"
-                    wire:navigate>{{ __('Cierre de Caja') }}
+                <flux:navlist.item icon="currency-dollar" :href="route('dashboard')"
+                    :current="request() -> routeIs('Cierre de Caja')" wire:navigate>{{ __('Cierre de Caja') }}
                 </flux:navlist.item>
 
             </flux:navlist.group>

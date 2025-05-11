@@ -56,5 +56,8 @@ class CarritoController extends Controller
         return redirect()->back()->with('success', 'Producto eliminado del carrito');
     }
 
-
+    public function verDetalleCarrito() {  
+        $detalles = DetalleCarrito::paginate(10);
+        return view('detalleCarrito.index',compact('detalles'));
+    }
 }

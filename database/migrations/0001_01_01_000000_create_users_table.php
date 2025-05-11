@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('password');
             $table->rememberToken();
             $table->boolean('estado')->default(true);
-            $table->string('ROL')->nullable()->default('vendedor');
+            $table->string('ROL')->nullable();
             // $table->foreign('ROL')->references('ROL')->on('ROL')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

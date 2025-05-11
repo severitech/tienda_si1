@@ -23,7 +23,7 @@ return new class extends Migration {
             // RELACION CON LA TABLA METODO_PAGO, USUARIO, PROVEEDOR
             $table->foreign('METODO_PAGO')->references('METODO_PAGO')->on('METODO_PAGO')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('USUARIO')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('PROVEEDOR')->references('id')->on('PROVEEDOR')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('PROVEEDOR')->references('ID')->on('PROVEEDOR')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
 
