@@ -23,4 +23,8 @@ class DetalleCarrito extends Model
     {
         return $this->belongsTo(Carrito::class, 'CARRITO', 'ID');
     }
+
+    public function producto(){
+        return $this->belongsTo(Producto::class,'PRODUCTO','ID');
+    }
 }

@@ -11,6 +11,7 @@ use App\Models\DetalleCarrito;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
+
 class CarritoController extends Controller
 {
     public function addToCart(Request $request, $id)
@@ -42,6 +43,7 @@ class CarritoController extends Controller
 
     public function showCart()
     {
+
         $cart = session()->get('cart', []);
         return view('cart.index', compact('cart'));
     }
@@ -55,6 +57,8 @@ class CarritoController extends Controller
         }
         return redirect()->back()->with('success', 'Producto eliminado del carrito');
     }
-
-    
-}
+    public function verDetalleCarrito() {  
+        $detalles = DetalleCarrito::paginate(10);
+        return view('detalleCarrito.index',compact('detalles'));
+    }
+};

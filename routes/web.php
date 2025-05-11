@@ -9,6 +9,7 @@ use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\PagosController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\PasarelaPagos;
+use App\Http\Controllers\MetodoPagoController;
 
 
 Route::get('/', [ProductoController::class, 'index'])->name('home');
@@ -56,8 +57,21 @@ Route::get('/ventas', [VentaController::class, 'mostrar'])->name('venta.mostrar'
 /*Rutas de la tienda */
 
 // Route::get('/', [ProductoController::class, 'index'])->name('home');
-Route::get('/pagos',[PagosController::class, 'index'])->name('pagos');
-Route::post('/pagos',[PagosController::class, 'create'])->name('crear.pago');
+Route::get('/pagos', [PagosController::class, 'index'])->name('pagos');
+Route::post('/pagos', [PagosController::class, 'create'])->name('crear.pago');
 
+
+
+// Routa
+Route::get('/detalle_carrito', [CarritoController::class, 'verDetalleCarrito'])->name('detalle.carrito');
+
+
+
+Route::get('/metodo_pago', [MetodoPagoController::class, 'index'])->name('metodo_pago.index');
+Route::get('/metodo_pago/create', [MetodoPagoController::class, 'create'])->name('metodo_pago.create');
+Route::post('/metodo_pago', [MetodoPagoController::class, 'store'])->name('metodo_pago.store');
+Route::get('/metodo_pago/{METODO_PAGO}/edit', [MetodoPagoController::class, 'edit'])->name('metodo_pago.edit');
+Route::put('/metodo_pago/{METODO_PAGO}', [MetodoPagoController::class, 'update'])->name('metodo_pago.update');
+Route::delete('/metodo_pago/{METODO_PAGO}', [MetodoPagoController::class, 'destroy'])->name('metodo_pago.destroy');
 
 require __DIR__ . '/auth.php';

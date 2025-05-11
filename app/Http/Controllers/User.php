@@ -18,7 +18,7 @@ class User extends Controller
 
     public function actualizar(Request $request, $id)
     {
-        $usuario = User::findOrFail($id);
+        $usuario = Usuario::findOrFail($id);
         $usuario->update($request->all());
 
         return redirect()->route('usuarios.mostrar');
@@ -27,7 +27,7 @@ class User extends Controller
     // 👇 Este método debe estar dentro de la clase también
     public function editar($id)
     {
-        $usuario = User::findOrFail($id);
+        $usuario = Usuario::findOrFail($id);
         $roles = DB::table('ROL')->pluck('ROL');
         return view('trabajador.usuarios.editar', compact('usuario', 'roles'));
     }
