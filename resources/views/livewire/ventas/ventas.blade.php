@@ -51,11 +51,9 @@
 
         {{-- Métodos y total --}}
         <div class="grid items-center gap-4 mb-6 md:grid-cols-2">
-            <div>
-                <label for="metodo_pago" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Método
-                    de Pago</label>
-                @livewire('metodo-pago.metodo-pago')
-            </div>
+
+            @livewire('metodo-pago.metodo-pago')
+
             <div class="text-right mt-4">
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Total</label>
                 <p class="text-2xl font-bold text-green-600 dark:text-green-400">

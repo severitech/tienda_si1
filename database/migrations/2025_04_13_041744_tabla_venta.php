@@ -16,6 +16,7 @@ return new class extends Migration
             $table->decimal('TOTAL', 10, 2);
             $table->integer('USUARIO');
             $table->integer('CLIENTE');
+            $table->boolean('ESTADO')->default(1);
             $table->string('METODO_PAGO');
 
 
