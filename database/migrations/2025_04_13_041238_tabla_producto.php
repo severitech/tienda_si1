@@ -23,7 +23,7 @@ return new class extends Migration {
             // $table->timestamp('FECHA_ACTUALIZACION')->nullable()->default(null)->onUpdate(DB::raw('CURRENT_TIMESTAMP'));
 
             // relacion con la tabla categoria
-            $table->string('CATEGORIA',100);
+            $table->string('CATEGORIA', 100);
             $table->foreign('CATEGORIA')->references('CATEGORIA')->on('CATEGORIA')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
@@ -31,19 +31,24 @@ return new class extends Migration {
         });
 
         DB::table('PRODUCTO')->insert([
-            ['CODIGO' => 'LAC001', 'NOMBRE' => 'Leche Entera', 'IMAGEN' => 'imagen1.jpg', 'PRECIO' => 1.50, 'CANTIDAD' => 100, 'ESTADO' => true, 'CATEGORIA' => 'Lácteos'],
-            ['CODIGO' => 'LAC002', 'NOMBRE' => 'Yogurt Natural', 'IMAGEN' => 'imagen2.jpg', 'PRECIO' => 1.00, 'CANTIDAD' => 80, 'ESTADO' => true, 'CATEGORIA' => 'Lácteos'],
-            ['CODIGO' => 'LAC003', 'NOMBRE' => 'Queso Fresco', 'IMAGEN' => 'imagen3.jpg', 'PRECIO' => 3.50, 'CANTIDAD' => 50, 'ESTADO' => true, 'CATEGORIA' => 'Lácteos'],
-            ['CODIGO' => 'CAR001', 'NOMBRE' => 'Pechuga de Pollo', 'IMAGEN' => 'imagen4.jpg', 'PRECIO' => 5.00, 'CANTIDAD' => 60, 'ESTADO' => true, 'CATEGORIA' => 'Carnes'],
-            ['CODIGO' => 'CAR002', 'NOMBRE' => 'Costillas de Cerdo', 'IMAGEN' => 'imagen5.jpg', 'PRECIO' => 6.00, 'CANTIDAD' => 40, 'ESTADO' => true, 'CATEGORIA' => 'Carnes'],
-            ['CODIGO' => 'CAR003', 'NOMBRE' => 'Filete de Res', 'IMAGEN' => 'imagen6.jpg', 'PRECIO' => 8.00, 'CANTIDAD' => 30, 'ESTADO' => true, 'CATEGORIA' => 'Carnes'],
+            ['CODIGO' => 'LAC001', 'NOMBRE' => 'Leche Pil Natural Uht Ultra Pasteurizada X 900Ml', 'IMAGEN' => 'https://farmacorp.com/cdn/shop/files/7771259757566_599x599.jpg?v=1737734597', 'PRECIO' => 7.70, 'CANTIDAD' => 100, 'ESTADO' => true, 'CATEGORIA' => 'Lácteos'],
+            ['CODIGO' => 'LAC002', 'NOMBRE' => 'Pil Yogurt Bebible Sabor A Frutilla X 1 L', 'IMAGEN' => 'https://farmacorp.com/cdn/shop/files/7772905002306_599x599.jpg?v=1714441318', 'PRECIO' => 13.00, 'CANTIDAD' => 80, 'ESTADO' => true, 'CATEGORIA' => 'Lácteos'],
+            ['CODIGO' => 'LAC003', 'NOMBRE' => 'Queso Sandwichero Guaruja X 200G', 'IMAGEN' => 'https://farmacorp.com/cdn/shop/files/7771908330393_599x599.jpg?v=1742313699', 'PRECIO' => 17.5, 'CANTIDAD' => 50, 'ESTADO' => true, 'CATEGORIA' => 'Lácteos'],
+            ['CODIGO' => 'LAC004', 'NOMBRE' => 'Pil Yogurt Sabor Coco X 1Lt', 'IMAGEN' => 'https://farmacorp.com/cdn/shop/files/7771259754077_599x599.jpg?v=1714440853', 'PRECIO' => 18.10, 'CANTIDAD' => 50, 'ESTADO' => true, 'CATEGORIA' => 'Lácteos'],
+            ['CODIGO' => 'LAC005', 'NOMBRE' => 'Pil Yogurt Sabor A Mora Botella X 1 L', 'IMAGEN' => 'https://farmacorp.com/cdn/shop/files/7772905003181_599x599.jpg?v=1714441323', 'PRECIO' => 18.10, 'CANTIDAD' => 50, 'ESTADO' => true, 'CATEGORIA' => 'Lácteos'],
+
+            ['CODIGO' => 'CAR001', 'NOMBRE' => 'Filete de Pechuga Sofia 1 kg Bandeja', 'IMAGEN' => 'https://hipermaxi.com/tienda-api/marketfile/ImageEcommerce?hashfile=96f6c89_5a58_4ac5_8911_61f38ea87105.jpg&co=5&size=900x900', 'PRECIO' => 49.90, 'CANTIDAD' => 60, 'ESTADO' => true, 'CATEGORIA' => 'Carnes'],
+            ['CODIGO' => 'CAR002', 'NOMBRE' => 'Pechuga con Hueso Sofia 1 kg Bandeja', 'IMAGEN' => 'https://hipermaxi.com/tienda-api/marketfile/ImageEcommerce?hashfile=b24174f_0c20_4b7a_8f31_2763f56c4ca5.jpg&co=5&size=900x900', 'PRECIO' => 35.00, 'CANTIDAD' => 40, 'ESTADO' => true, 'CATEGORIA' => 'Carnes'],
+            ['CODIGO' => 'CAR003', 'NOMBRE' => 'Pierna Sofia Bandeja 1 kg', 'IMAGEN' => 'https://hipermaxi.com/tienda-api/marketfile/ImageEcommerce?hashfile=f838620_bc84_423b_8596_f795df04bb7d.jpg&co=5&size=900x900', 'PRECIO' => 33.50, 'CANTIDAD' => 30, 'ESTADO' => true, 'CATEGORIA' => 'Carnes'],
+            ['CODIGO' => 'CAR004', 'NOMBRE' => 'Punta de S Fridosa al Vacio 1 kg', 'IMAGEN' => 'https://hipermaxi.com/tienda-api/marketfile/ImageEcommerce?hashfile=f05a5d6_a46f_4389_9c55_0a6400483468.png&co=5&size=900x900', 'PRECIO' => 148.00, 'CANTIDAD' => 30, 'ESTADO' => true, 'CATEGORIA' => 'Carnes'],
+
             ['CODIGO' => 'FRU001', 'NOMBRE' => 'Manzanas', 'IMAGEN' => 'imagen7.jpg', 'PRECIO' => 1.20, 'CANTIDAD' => 150, 'ESTADO' => true, 'CATEGORIA' => 'Frutas y Verduras'],
             ['CODIGO' => 'FRU002', 'NOMBRE' => 'Plátanos', 'IMAGEN' => 'imagen8.jpg', 'PRECIO' => 1.00, 'CANTIDAD' => 120, 'ESTADO' => true, 'CATEGORIA' => 'Frutas y Verduras'],
             ['CODIGO' => 'FRU003', 'NOMBRE' => 'Tomates', 'IMAGEN' => 'imagen9.jpg', 'PRECIO' => 1.50, 'CANTIDAD' => 100, 'ESTADO' => true, 'CATEGORIA' => 'Frutas y Verduras'],
             ['CODIGO' => 'CONG001', 'NOMBRE' => 'Papas Congeladas', 'IMAGEN' => 'imagen10.jpg', 'PRECIO' => 2.00, 'CANTIDAD' => 80, 'ESTADO' => true, 'CATEGORIA' => 'Congelados'],
             ['CODIGO' => 'CONG002', 'NOMBRE' => 'Pechugas de Pollo Congeladas', 'IMAGEN' => 'imagen11.jpg', 'PRECIO' => 5.50, 'CANTIDAD' => 60, 'ESTADO' => true, 'CATEGORIA' => 'Congelados'],
             ['CODIGO' => 'CONG003', 'NOMBRE' => 'Verduras Congeladas', 'IMAGEN' => 'imagen12.jpg', 'PRECIO' => 2.50, 'CANTIDAD' => 70, 'ESTADO' => true, 'CATEGORIA' => 'Congelados'],
-            ['CODIGO' => 'BEB001', 'NOMBRE' => 'Agua Mineral', 'IMAGEN' => 'imagen13.jpg', 'PRECIO' => 0.80, 'CANTIDAD' => 200, 'ESTADO' => true, 'CATEGORIA' => 'Bebidas'],
+            ['CODIGO' => 'BEB001', 'NOMBRE' => 'Agua Vital Sin Gas X 600Ml', 'IMAGEN' => 'https://farmacorp.com/cdn/shop/files/909705_599x599.jpg?v=1714434898', 'PRECIO' => 0.80, 'CANTIDAD' => 200, 'ESTADO' => true, 'CATEGORIA' => 'Bebidas'],
             ['CODIGO' => 'BEB002', 'NOMBRE' => 'Cerveza', 'IMAGEN' => 'imagen14.jpg', 'PRECIO' => 1.80, 'CANTIDAD' => 100, 'ESTADO' => true, 'CATEGORIA' => 'Bebidas'],
             ['CODIGO' => 'BEB003', 'NOMBRE' => 'Jugo de Naranja', 'IMAGEN' => 'imagen15.jpg', 'PRECIO' => 2.00, 'CANTIDAD' => 150, 'ESTADO' => true, 'CATEGORIA' => 'Bebidas'],
             ['CODIGO' => 'PAN001', 'NOMBRE' => 'Pan Blanco', 'IMAGEN' => 'imagen16.jpg', 'PRECIO' => 1.00, 'CANTIDAD' => 120, 'ESTADO' => true, 'CATEGORIA' => 'Panadería'],

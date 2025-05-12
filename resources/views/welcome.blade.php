@@ -59,7 +59,7 @@
     </header>
 
     <!-- Main Section -->
-    <h1 class="text-4xl text-white">Bienvenido a nuestra tienda</h1>
+    <h1 class="text-4xl dark:text-white">Bienvenido a nuestra tienda</h1>
     
     <div
         class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
