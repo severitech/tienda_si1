@@ -6,138 +6,126 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class Usuario extends Component
 {
     use WithPagination;
 
-    public $users;
-    public $nombre, $paterno, $materno, $telefono, $email, $password, $estado = true, $ROL, $user_id;
-    public $isEditMode = false;
+    public $nombre, $paterno, $materno, $telefono, $email, $password, $rol, $estado = true;
     public $perPage = 5;
     public $search = '';
+    public $usuario_id;
 
-    public function updatingSearch()
+    // Se resetea la página cuando se cambia el texto de búsqueda
+    public function updatedSearch()
     {
         $this->resetPage();
     }
 
-    protected function validateRules()
+    // Método para obtener los usuarios filtrados
+    public function getUsuarios()
     {
-        return [
-            'nombre' => 'required|string|max:100',
-            'paterno' => 'required|string|max:100',
-            'materno' => 'required|string|max:100',
-            'telefono' => 'required|string|max:50',
-            'email' => 'required|email|unique:users,email,' . $this->user_id,
-            'password' => $this->user_id ? 'nullable|min:6' : 'required|min:6',
-            'ROL' => 'nullable|string',
-        ];
-    }
-
-    public function render()
-    {
-        $usuarios = User::where(function ($query) {
+        return User::where(function ($query) {
             $query->where('nombre', 'like', '%' . $this->search . '%')
                 ->orWhere('paterno', 'like', '%' . $this->search . '%')
+                ->orWhere('materno', 'like', '%' . $this->search . '%')
+                ->orWhere('telefono', 'like', '%' . $this->search . '%')
                 ->orWhere('email', 'like', '%' . $this->search . '%');
-        })->orderBy('nombre')->paginate($this->perPage);
-
-        $roles = DB::table('ROL')->pluck('ROL');
-
-        return view('livewire.usuario.usuario-tabla', compact('usuarios', 'roles'));
+        })
+            ->orderBy('nombre')
+            ->paginate($this->perPage);
     }
-
-    public function crear()
+    // guardar usuarios
+    public function guardar()
     {
-        $this->resetInputs();
-        $this->dispatch('abrir-modal');
+        if ($this->usuario_id) {
+            $usuario = User::findOrFail($this->usuario_id);
+
+            $usuario->update([
+                "nombre" => $this->nombre,
+                "paterno" => $this->paterno,
+                "materno" => $this->materno,
+                "telefono" => $this->telefono,
+                "email" => $this->email,
+                "password" => bcrypt($this->password),
+                "ROL" => $this->rol,
+                "estado" => $this->estado,
+            ]);
+        } else {
+            User::create([
+                "nombre" => $this->nombre,
+                "paterno" => $this->paterno,
+                "materno" => $this->materno,
+                "telefono" => $this->telefono,
+                "email" => $this->email,
+                "password" => bcrypt($this->password),
+                "ROL" => $this->rol,
+                "estado" => true,
+            ]);
+        }
+
+
+
+        session()->flash('message', $this->usuario_id ? 'Usuario actualizado con éxito.' : 'Usuario creado con éxito.');
+        $this->reset([
+            'usuario_id',
+            'nombre',
+            'paterno',
+            'materno',
+            'telefono',
+            'email',
+            'password',
+            'rol',
+            'estado',
+        ]);
+        // Puedes cerrar el modal aquí con JS o evento Livewire si quieres
+        $this->dispatch('cerrarModal');
     }
+
 
     public function editar($id)
     {
-        $usuario = User::findOrFail($id);
+        $usuario = User::findOrFail($id); // o tu modelo de usuarios
 
-        $this->user_id = $usuario->id;
+        $this->usuario_id = $usuario->id;
         $this->nombre = $usuario->nombre;
         $this->paterno = $usuario->paterno;
         $this->materno = $usuario->materno;
-        $this->telefono = $usuario->telefono;
         $this->email = $usuario->email;
-        $this->ROL = $usuario->ROL;
-        $this->estado = $usuario->estado;
-        $this->password = '';
+        $this->telefono = $usuario->telefono;
+        $this->rol = $usuario->rol;
+
+        // Si deseas también puedes emitir un evento para abrir el modal desde JS si es necesario
+        $this->dispatch('abrirModal'); // ← Solo si lo necesitas con JS
     }
 
-    public function guardar()
-    {
-        $this->validate($this->validateRules());
 
-        if ($this->user_id) {
-            $this->update();
-        } else {
-            $this->store();
+    public function render()
+    {
+        // Llamamos a la función para obtener los usuarios
+        $usuarios = $this->getUsuarios();
+
+        // Usamos DB para obtener los roles (o puedes definir un modelo para roles)
+        $roles = DB::table('ROL')->pluck('ROL');
+
+        // Pasamos los datos a la vista
+        return view('livewire.usuario.usuario-tabla', compact('usuarios', 'roles'));
+    }
+
+    //metodo para activar o desactivar el usuario
+    public function cambiarEstado($id)
+    {
+        $usuario = User::find($id);
+
+        if (!$usuario) {
+            session()->flash('message', 'Usuario no encontrado.');
+            return;
         }
-    }
 
-    public function store()
-    {
-        User::create([
-            'nombre' => $this->nombre,
-            'paterno' => $this->paterno,
-            'materno' => $this->materno,
-            'telefono' => $this->telefono,
-            'email' => $this->email,
-            'password' => Hash::make($this->password),
-            'estado' => $this->estado,
-            'ROL' => $this->ROL,
-        ]);
+        $usuario->estado = !$usuario->estado;
+        $usuario->save();
 
-        $this->dispatch('cerrar-modal');
-        $this->resetInputs();
-        session()->flash('message', 'Usuario creado correctamente.');
-    }
-
-    public function update()
-    {
-        $user = User::findOrFail($this->user_id);
-
-        $user->update([
-            'nombre' => $this->nombre,
-            'paterno' => $this->paterno,
-            'materno' => $this->materno,
-            'telefono' => $this->telefono,
-            'email' => $this->email,
-            'estado' => $this->estado,
-            'ROL' => $this->ROL,
-        ]);
-
-        $this->dispatch('cerrar-modal');
-        $this->resetInputs();
-        session()->flash('message', 'Usuario actualizado correctamente.');
-    }
-
-    public function toggleEstado($id)
-    {
-        $user = User::findOrFail($id);
-        $user->estado = !$user->estado;
-        $user->save();
-
-        session()->flash('message', 'Estado del usuario actualizado correctamente.');
-    }
-
-    public function resetInputs()
-    {
-        $this->nombre = '';
-        $this->paterno = '';
-        $this->materno = '';
-        $this->telefono = '';
-        $this->email = '';
-        $this->password = '';
-        $this->estado = true;
-        $this->ROL = '';
-        $this->user_id = null;
-        $this->isEditMode = false;
+        // Emitir evento para mostrar la alerta con el nombre del usuario
+        session()->flash('message', "Estado de {$usuario->nombre} cambiado con éxito.");
     }
 }
