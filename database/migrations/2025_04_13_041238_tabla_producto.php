@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->id('ID');  // AUT_INCREMENT ID
             $table->string('CODIGO', 50)->unique();
             $table->string('NOMBRE', 100);
-            $table->string('IMAGEN', 255)->nullable;
+            $table->string('IMAGEN', 255)->nullable();
             $table->decimal('PRECIO', 10, 2);
             $table->integer('CANTIDAD');
             $table->boolean('ESTADO')->default(true);

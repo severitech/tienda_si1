@@ -12,4 +12,6 @@ class CategoriaModal extends Component
         $categoria = Categoria::all();
         return view('livewire.categoria.categoria-modal', compact('categoria'));
     }
+
+
 }

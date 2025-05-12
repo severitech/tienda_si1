@@ -1,68 +1,74 @@
-{{-- Imagen aquí si tienes ruta --}}
-{{-- <img src="{{ asset('images/' . $producto->IMAGEN) }}" class="object-cover w-10 h-10 mx-auto rounded-md" alt="Imagen" /> --}}
-<!-- Tabla dentro de livewire -->
-<div class="relative overflow-x-auto rounded-lg">
-    <table class="w-full text-sm text-center border border-zinc-200 dark:border-zinc-900">
-        <thead class="text-xs text-white uppercase bg-accent-content dark:text-zinc-950">
-            <tr>
-                <th class="px-4 py-3 font-semibold">Código</th>
-                <th class="px-4 py-3 font-semibold">Imagen</th>
-                <th class="px-4 py-3 font-semibold">Producto</th>
-                <th class="px-4 py-3 font-semibold">Categoría</th>
-                <th class="px-4 py-3 font-semibold">Stock</th>
-                <th class="px-4 py-3 font-semibold">Estado</th>
-                <th class="px-4 py-3 font-semibold">Acción</th>
-            </tr>
-        </thead>
+<div class="space-y-4">
 
-        <tbody class="divide-y divide-zinc-800 bg-zinc-950">
-            @foreach ($productos as $producto)
-                <tr
-                    class="border-b border-zinc-200 odd:bg-white odd:dark:bg-zinc-900 even:bg-zinc-50 even:dark:bg-zinc-800 dark:border-zinc-700">
-                    <td class="px-6 py-3">{{ $producto->CODIGO }}</td>
-                    <td class="px-6 py-3">
+    <!-- Encabezado de acciones -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex gap-2">
+            <button wire:click="abrirModalCrear"
+                class="px-4 py-2 rounded-xl border border-green-800 bg-green-700 text-white hover:bg-green-600 transition">
+                Nuevo Producto
+            </button>
 
-                    </td>
-                    <td class="px-6 py-4 font-medium text-zinc-900 dark:text-white">{{ $producto->NOMBRE }}</td>
-                    <td class="px-6 py-4">{{ $producto->CATEGORIA }}</td>
-                    <td class="px-6 py-4">
-                        @if ($producto->CANTIDAD > 0)
-                            <span class="font-semibold text-green-600">Disponible ({{ $producto->CANTIDAD }})</span>
-                        @else
-                            <span class="font-semibold text-red-600">Agotado</span>
-                        @endif
-                    </td>
-                    <td class="px-6 py-4">
-                        <span class="inline-flex items-center gap-1 text-sm">
-                            <span
-                                class="h-2 w-2 rounded-full {{ $producto->ESTADO ? 'bg-green-500' : 'bg-red-500' }}"></span>
-                            {{ $producto->ESTADO ? 'Activo' : 'Inactivo' }}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4">
+            <button disabled
+                class="px-4 py-2 rounded-xl border border-yellow-800 bg-yellow-700 text-white opacity-60 cursor-not-allowed">
+                Exportar
+            </button>
+        </div>
 
-                        <flux:modal.trigger name="editar-producto">
-                            <a  wire:click="$emit('abrirModalEditar', {{ $producto->ID }})"
-                                class="text-sm text-blue-400 cursor-pointer hover:underline">
-                                Editar
-                            </a>
-                        </flux:modal.trigger>
-
-                    </td>
-
-
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-    <div class="mt-4">
-        {{ $productos->links('vendor.pagination.tailwind') }}
-
+        <div class="w-full sm:w-64 relative">
+            <input type="text" wire:model="search" placeholder="Buscar productos..."
+                class="w-full px-4 py-2 border rounded-lg text-sm bg-zinc-50 dark:bg-zinc-700 dark:text-white" />
+        </div>
     </div>
 
-    <flux:modal name="editar-producto" class="w-full md:w-96">
-        {{-- <livewire:producto-modal /> --}}
-        @livewire('productos.modal-editar-crear')
-    </flux:modal>
+    <!-- Tabla de productos -->
+    <div class="overflow-x-auto rounded-lg shadow">
+        <table class="w-full text-sm text-center border border-zinc-200 dark:border-zinc-900">
+            <thead class="text-xs text-white uppercase bg-zinc-800">
+                <tr>
+                    <th class="px-4 py-2">Código</th>
+                    <th class="px-4 py-2">Nombre</th>
+                    <th class="px-4 py-2">Precio</th>
+                    <th class="px-4 py-2">Cantidad</th>
+                    <th class="px-4 py-2">Categoría</th>
+                    <th class="px-4 py-2">Estado</th>
+                    <th class="px-4 py-2">Acción</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white dark:bg-zinc-900">
+                @forelse ($productos as $producto)
+                    <tr class="border-t dark:border-zinc-700">
+                        <td class="px-4 py-2">{{ $producto->CODIGO }}</td>
+                        <td class="px-4 py-2">{{ $producto->NOMBRE }}</td>
+                        <td class="px-4 py-2">{{ $producto->PRECIO }} Bs</td>
+                        <td class="px-4 py-2">{{ $producto->CANTIDAD ?? 0 }}</td>
+                        <td class="px-4 py-2">{{ $producto->CATEGORIA ?? 'Sin categoría' }}</td>
+                        <td class="px-4 py-2">
+                            <span class="inline-flex items-center gap-1 text-sm">
+                                <span class="h-2 w-2 rounded-full {{ $producto->ESTADO ? 'bg-green-500' : 'bg-red-500' }}"></span>
+                                {{ $producto->ESTADO ? 'Activo' : 'Inactivo' }}
+                            </span>
+                        </td>
+                        <td class="px-4 py-2">
+                            <button wire:click="abrirModalEditar({{ $producto->ID }})"
+                                class="text-blue-500 hover:underline">Editar</button>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" class="px-4 py-2 text-zinc-500">No hay productos.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+
+        <div class="mt-4">
+            {{ $productos->links('vendor.pagination.tailwind') }}
+        </div>
+    </div>
+
+    <!-- Modal -->
+    @if ($modalAbierto)
+        @livewire('productos.modal-editar-crear', ['productoId' => $productoId], key($productoId ?? 'nuevo'))
+    @endif
+
 </div>

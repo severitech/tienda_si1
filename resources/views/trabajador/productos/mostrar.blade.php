@@ -2,22 +2,20 @@
     <div class="p-6 bg-white shadow-xl rounded-xl dark:bg-zinc-900">
         <h2 class="mb-4 text-xl font-semibold">📦 Listado de Productos</h2>
 
-        <!-- Zona de filtros -->
+        <!-- Zona de filtros 
         <div class="flex flex-col gap-3 pb-4 md:flex-row md:items-center md:justify-between">
             <div class="flex flex-col items-start gap-2 sm:flex-row sm:items-center">
-                <flux:modal.trigger name="nuevo-producto">
-                    <flux:button
-                        class="w-full sm:w-auto px-4 py-2 rounded-xl border !border-green-800 !bg-green-700 !text-white hover:!bg-green-600 transition-colors duration-200 shadow-md hover:shadow-lg">
-                        Nuevo Producto
-                    </flux:button>
-                </flux:modal.trigger>
+                <button wire:click="abrirModalCrear"
+                    class="w-full sm:w-auto px-4 py-2 rounded-xl border border-green-800 bg-green-700 text-white hover:bg-green-600 transition-colors duration-200 shadow-md hover:shadow-lg">
+                    Nuevo Producto
+                </button>
 
-                <flux:button
-                    class="w-full sm:w-auto px-4 py-2 rounded-xl border !border-yellow-800 !bg-yellow-700 !text-white hover:!bg-yellow-600 transition-colors duration-200 shadow-md hover:shadow-lg">
+                <button
+                    class="w-full sm:w-auto px-4 py-2 rounded-xl border border-yellow-800 bg-yellow-700 text-white hover:bg-yellow-600 transition-colors duration-200 shadow-md hover:shadow-lg">
                     Exportar
-                </flux:button>
+                </button>
             </div>
-
+-->
             <!-- Filtro de búsqueda -->
             <div class="relative w-full sm:w-60">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -36,10 +34,7 @@
         <!-- Tabla de productos -->
         @livewire('productos.producto-tabla')
 
+        <!-- Modal si está abierto -->
+      
     </div>
-    <flux:modal name="nuevo-producto" class="w-full md:w-96">
-        {{-- <livewire:producto-modal /> --}}
-        @livewire("productos.modal-editar-crear")
-    </flux:modal>
-
 </x-layouts.app>

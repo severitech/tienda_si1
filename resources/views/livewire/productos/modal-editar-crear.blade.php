@@ -1,53 +1,74 @@
-<div>
-    <div class="grid gap-6 mb-6 md:grid-cols-2">
-        <div>
-            <label for="Codigo" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">Código</label>
-            <input type="text" wire:model.defer="codigo" id="Codigo"
-                class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="CD123456789" required />
-        </div>
-        <div>
-            <label for="Precio" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">Precio</label>
-            <input type="number"wire:model.defer="precio" id="Precio"
-                class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="0.00 Bs." required />
-        </div>
-    </div>
-    <div class="mb-6">
-        <label for="Producto" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">Producto</label>
-        <input id="Producto"wire:model.defer="producto"
-            class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Coca Cola 2 lts" required />
-    </div>
-    <div class="mb-6">
+<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white dark:bg-zinc-900 p-6 rounded shadow-lg w-full max-w-md">
+        <h2 class="text-lg font-bold mb-4 text-zinc-800 dark:text-white">
+            {{ $productoId ? 'Editar' : 'Nuevo' }} Producto
+        </h2>
 
-        <label class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white" for="file_input">Imagen</label>
-        <input wire:model.defer="imagen"
-            class="block w-full text-sm border rounded-lg cursor-pointer text-zinc-900 border-zinc-300 bg-zinc-50 dark:text-zinc-400 focus:outline-none dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400"
-            aria-describedby="file_input_help" id="file_input" type="file">
-        <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX.
-            800x400px).</p>
+        <form wire:submit.prevent="guardar" class="space-y-4">
+            <!-- Código -->
+            <input wire:model.defer="codigo" placeholder="Código"
+                class="w-full border p-2 rounded bg-zinc-50 dark:bg-zinc-800 dark:text-white" />
 
-    </div>
-    <div class="mb-6">
-        <label for="small" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">Categoria de
-            Productos</label>
-        @livewire('categoria.categoria-modal')
+            <!-- Nombre -->
+            <input wire:model.defer="nombre" placeholder="Nombre"
+                class="w-full border p-2 rounded bg-zinc-50 dark:bg-zinc-800 dark:text-white" />
 
+            <!-- Precio -->
+            <input wire:model.defer="precio" type="number" step="0.01" placeholder="Precio"
+                class="w-full border p-2 rounded bg-zinc-50 dark:bg-zinc-800 dark:text-white" />
 
-        <label class="inline-flex items-center cursor-pointer">
-            <input type="checkbox" value="" class="sr-only peer">
-            <div
-                class="relative w-11 h-6 bg-red-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-red-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-red-600 peer-checked:bg-green-600 dark:peer-checked:bg-green-600">
+            <!-- Cantidad -->
+            <input wire:model.defer="cantidad" type="number" min="0" placeholder="Cantidad"
+                class="w-full border p-2 rounded bg-zinc-50 dark:bg-zinc-800 dark:text-white" />
+
+            <!-- Categoría -->
+            <div>
+                <label class="block text-sm text-zinc-700 dark:text-zinc-300 mb-1">Categoría</label>
+                <select wire:model.defer="categoria"
+                    class="w-full border p-2 rounded bg-zinc-50 dark:bg-zinc-800 dark:text-white">
+                    <option value="">Seleccione una categoría</option>
+                    @foreach ($categorias as $cat)
+                        <option value="{{ $cat->CATEGORIA }}">{{ $cat->CATEGORIA }}</option>
+                    @endforeach
+                </select>
             </div>
-            <span class="text-sm font-medium text-gray-900 ms-3 dark:text-gray-300">Estado del Producto</span>
-        </label>
+
+            <!-- Imagen -->
+            <div>
+                <label class="block text-sm text-zinc-700 dark:text-zinc-300 mb-1">Imagen</label>
+                <input type="file" wire:model="imagen"
+                    class="w-full border p-2 rounded bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white cursor-pointer" />
+                <p class="text-xs text-zinc-500 mt-1">JPG, PNG o GIF. Máx: 2MB</p>
+            </div>
+
+            <!-- Estado -->
+            <div class="flex items-center gap-2">
+                <label class="text-sm text-zinc-700 dark:text-zinc-300">Estado:</label>
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="checkbox" wire:model="estado" class="sr-only peer">
+                    <div
+                        class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 rounded-full peer peer-checked:bg-green-600 relative transition-all">
+                        <div
+                            class="absolute top-0.5 left-0.5 bg-white w-5 h-5 rounded-full transition peer-checked:translate-x-full">
+                        </div>
+                    </div>
+                    <span class="ml-3 text-sm text-gray-700 dark:text-gray-300">
+                        {{ $estado ? 'Activo' : 'Inactivo' }}
+                    </span>
+                </label>
+            </div>
+
+            <!-- Botones -->
+            <div class="flex justify-end mt-6 gap-2">
+                <button type="button" wire:click="$dispatch('cerrarModal')"
+                    class="px-4 py-2 bg-gray-300 text-zinc-800 rounded hover:bg-gray-400">
+                    Cancelar
+                </button>
+                <button type="submit"
+                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                    Guardar
+                </button>
+            </div>
+        </form>
     </div>
-
-
-
-
-    <button type="submit"wire:click="guardar"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Guardar
-        Producto</button>
 </div>

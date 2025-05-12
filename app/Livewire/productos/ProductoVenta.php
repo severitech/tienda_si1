@@ -22,6 +22,11 @@ class ProductoVenta extends Component
         return view('livewire.productos.producto-venta', compact('productos'));
 
     }
+    public function emit()
+{
+    logger("🚨 emit() fue llamado desde algún lugar inesperado");
+}
+
     public function obtenerProductos()
     {
         return Producto::where(function ($query) {
