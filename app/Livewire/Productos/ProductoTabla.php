@@ -46,6 +46,9 @@ class ProductoTabla extends Component
     public function buscarProductos()
     {
         return Producto::where('CATEGORIA', 'like', '%' . $this->search . '%')
+        ->orWhere('NOMBRE', 'like', '%' . $this->search . '%')
+        ->orWhere('CODIGO', 'like', '%' . $this->search . '%')
+        
         ->orderBy('NOMBRE')
         ->paginate($this->perPage);
     }
