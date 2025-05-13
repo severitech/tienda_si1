@@ -20,7 +20,7 @@
             
 
         <!-- Tabla de productos -->
-        @livewire('productos.producto-tabla')
+        @livewire('Productos.producto-tabla')
 
         <!-- Modal si está abierto -->
       

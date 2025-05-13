@@ -3,21 +3,29 @@
     <!-- Encabezado de acciones -->
     <div class="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
         <div class="flex gap-2">
-            <flux:modal.trigger name="editar-crear">
-                <button
-                    class="px-4 py-2 text-white transition bg-green-700 border border-green-800 rounded-xl hover:bg-green-600">
-                    Nuevo Producto
-                </button>
-            </flux:modal.trigger>
+        <flux:modal.trigger name="editar-crear">
+    <button
+        class="px-4 py-2 text-white transition bg-green-700 border border-green-800 rounded-xl hover:bg-green-600"
+        wire:click="$set('productoId', null)"> <!-- Esto garantiza que se pasa un ID vacío -->
+        Nuevo Producto
+    </button>
+</flux:modal.trigger>
+
             <button disabled
                 class="px-4 py-2 text-white bg-yellow-700 border border-yellow-800 cursor-not-allowed rounded-xl opacity-60">
                 Exportar
             </button>
         </div>
 
-        <div class="relative w-full sm:w-64">
+        <div  class="relative w-full sm:w-64">
             <input type="text" wire:model="search" placeholder="Buscar productos..."
                 class="w-full px-4 py-2 text-sm border rounded-lg bg-zinc-50 dark:bg-zinc-700 dark:text-white" />
+                <button type="submit" wire:click='buscarProductos' class="absolute top-0 end-0 h-full p-2.5 text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+                <span class="sr-only">Search</span>
+            </button>
         </div>
     </div>
 
@@ -91,8 +99,8 @@
     </div>
 
     <!-- Modal -->
-    <flux:modal name="editar-crear" class="w-full md:w-96">
-        @livewire('productos.modal-editar-crear', ['productoId' => $productoId], key($productoId ?? 'nuevo'))
+    <flux:modal name="editar-crear" class="w-full md:w-200">
+        @livewire('productos.modal-editar-crear', ['productoId' => $productoId ?? ''], key($productoId ?? 'nuevo'))
     </flux:modal>
 
 </div>
