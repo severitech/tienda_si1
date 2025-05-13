@@ -1,4 +1,4 @@
-@if (session('message'))
+@if (session('hola'))
     <div x-data="{ isVisible: true }" 
     x-init="setTimeout(() => { isVisible = false }, 2000)"
     x-show="isVisible"

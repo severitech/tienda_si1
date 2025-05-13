@@ -25,12 +25,12 @@ class Carrito extends Model
     // Relación con el cliente (Usuario)
     public function cliente()
     {
-        return $this->belongsTo(User::class, 'CLIENTE');
+        return $this->belongsTo(User::class, 'CLIENTE', 'ID');
     }
 
     // Relación con el método de pago
     public function metodoPago()
     {
-        return $this->belongsTo(MetodoPago::class, 'METODO_PAGO');
+        return $this->belongsTo(MetodoPago::class, 'METODO_PAGO', 'METODO_PAGO');
     }
 }

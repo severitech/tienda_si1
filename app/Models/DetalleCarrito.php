@@ -27,6 +27,6 @@ class DetalleCarrito extends Model
     // Relación con Producto
     public function producto()
     {
-        return $this->belongsTo(Producto::class, 'PRODUCTO');
+        return $this->belongsTo(Producto::class, 'PRODUCTO', 'ID');
     }
 }
