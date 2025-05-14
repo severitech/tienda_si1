@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use App\Models\User; // Importa el modelo User
+use Illuminate\Support\Facades\Hash; // Importa la clase Hash
 
 class UserSeeder extends Seeder
 {
@@ -29,7 +30,7 @@ class UserSeeder extends Seeder
                 'materno' => $admin['materno'],
                 'telefono' => '70000000',
                 'email' => $admin['email'],
-                'password' => Hash::make('12346578'),
+                'password' => Hash::make('12346578'), // Asegúrate de cambiar la contraseña por algo más seguro
                 'ROL' => 'administrador',
             ]);
         }

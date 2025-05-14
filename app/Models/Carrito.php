@@ -14,13 +14,11 @@ class Carrito extends Model
         'DIRECCION',
         'ESTADO',
         'CLIENTE',
-        'METODO_PAGO'
+        'METODO_PAGO',
+        'TOTAL',
     ];
 
-    public function detalles()
-    {
-        return $this->hasMany(DetalleCarrito::class, 'CARRITO', 'ID');
-    }
+
 
     // Relación con el cliente (Usuario)
     public function cliente()

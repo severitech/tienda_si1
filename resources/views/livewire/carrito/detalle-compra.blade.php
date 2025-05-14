@@ -3,15 +3,7 @@
     <flux:button class="relative" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation"
         aria-controls="drawer-navigation">
         <flux:icon.user />
-        @php
-            $cart = session('cart', []);
-            $totalItems = array_sum(array_column($cart, 'CANTIDAD'));
-        @endphp
-        @if ($totalItems > 0)
-            <span class="absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full px-1.5 py-0.5 ml-1">
-                {{ $totalItems }}
-            </span>
-        @endif
+        
     </flux:button>
 
 

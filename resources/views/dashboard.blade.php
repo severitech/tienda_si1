@@ -13,8 +13,8 @@
             </div>
             <div
                 class="relative overflow-hidden border aspect-video rounded-xl border-neutral-200 dark:border-neutral-700">
-                <label for="small" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">Rol de Usuario</label>
-                {{-- @livewire('rol.roles-modal') --}}
+            <x-placeholder-pattern
+                    class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
             </div>
         </div>
         <div class="relative flex-1 h-full overflow-hidden border rounded-xl border-neutral-200 dark:border-neutral-700">

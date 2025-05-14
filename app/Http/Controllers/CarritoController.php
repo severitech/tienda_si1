@@ -58,8 +58,7 @@ class CarritoController extends Controller
 
     public function verDetalleCarrito()
     {
-        $detalles = DetalleCarrito::with(['carrito', 'carrito.cliente', 'producto'])->paginate(10);
-        return view('detalleCarrito.index', compact('detalles'));
+         return view('trabajador.detalleCarrito.index');
     }
 
 }

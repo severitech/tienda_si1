@@ -21,7 +21,7 @@
 
 
 
-<flux:modal name="Carrito" class="p-4 bg-white shadow-lg md:w-96 rounded-xl">
+<flux:modal name="Carrito" class="p-4 bg-white shadow-lg md:w-150 rounded-xl">
     @php
         $cart = session('cart', []);
     @endphp
@@ -30,7 +30,7 @@
         <!-- Encabezado del Carrito -->
         <div class="pb-4 border-b">
             <flux:heading size="lg">🛒 Tu Carrito</flux:heading>
-            <flux:text class="mt-1 text-sm dark:text-gray-300">
+            <flux:text class="mt-1 text-sm text-gray-600">
                 Estos son los productos que has añadido a tu carrito.
             </flux:text>
         </div>
@@ -56,15 +56,14 @@
             </ul>
 
             <!-- Formulario de Checkout -->
-            <form action="{{ route('pagos') }}" method="GET" class="pt-4 mt-4 space-y-3 border-t">
+            <form action="{{ route('cart.checkout') }}" method="POST" class="pt-4 mt-4 space-y-3 border-t">
                 @csrf
                 <flux:input name="direccion" placeholder="Dirección de entrega" required />
 
-                <div class="flex">
-                    <flux:button class="w-full" type="submit" icon:trailing="arrow-up-right">
-                        <flux:icon.credit-card /> Ir a pagar
+                <div class="flex justify-end">
+                    <flux:button type="submit" variant="primary" class="w-full">
+                        💳 Ir al Pago
                     </flux:button>
-
                 </div>
             </form>
         @else
