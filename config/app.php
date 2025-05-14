@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://8000-firebase-tiendasi1-1747144820888.cluster-iesosxm5fzdewqvhlwn5qivgry.cloudworkstations.dev'),
 
     /*
     |--------------------------------------------------------------------------

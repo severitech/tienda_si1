@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('CLIENTE');
             $table->boolean('ESTADO')->default(1);
             $table->string('METODO_PAGO');
+            $table->integer('CAJA')->nullable();;
 
 
             // $table->timestamp('FECHA_CREACION')->default(DB::raw('CURRENT_TIMESTAMP'));
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->foreign('USUARIO')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('CLIENTE')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('METODO_PAGO')->references('METODO_PAGO')->on('METODO_PAGO')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('CAJA')->references('ID')->on('CAJA')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
 

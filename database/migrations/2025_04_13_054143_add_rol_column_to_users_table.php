@@ -20,7 +20,8 @@ return new class extends Migration
                   ->onUpdate('cascade');
         });
     }
-
+    
+    
     /**
      * Reverse the migrations.
      */
@@ -31,4 +32,6 @@ return new class extends Migration
             $table->dropColumn('ROL');
         });
     }
+
+
 };
