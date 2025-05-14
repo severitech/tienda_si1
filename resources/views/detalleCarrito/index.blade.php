@@ -41,7 +41,7 @@
                             <td class="px-6 py-3 text-center">{{ $detalle->PRECIO }}</td>
                             <td class="px-6 py-3 text-center">{{ $detalle->CANTIDAD }}</td>
                             <td class="px-6 py-3 text-center">
-                                {{ $detalle->carrito->cliente->nombre . ' ' . $detalle->carrito->cliente->paterno . ' ' . $detalle->carrito->cliente->materno }}
+                                {{-- {{ $detalle->carrito->cliente->NOMBRE . ' ' . $detalle->carrito->cliente->PATERNO . ' ' . $detalle->carrito->cliente->MATERNO }} --}}{{ $detalle->carrito->cliente}}
                             </td>
                             <!-- Aquí accedes al NOMBRE del cliente -->
 

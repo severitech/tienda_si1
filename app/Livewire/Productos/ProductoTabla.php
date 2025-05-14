@@ -39,10 +39,17 @@ class ProductoTabla extends Component
 
     public function render()
     {
-        $productos = Producto::where('NOMBRE', 'like', '%' . $this->search . '%')
-            ->orderBy('NOMBRE')
-            ->paginate($this->perPage);
+        $productos = $this->buscarProductos();
 
         return view('livewire.productos.producto-tabla', compact('productos'));
+    }
+    public function buscarProductos()
+    {
+        return Producto::where('CATEGORIA', 'like', '%' . $this->search . '%')
+        ->orWhere('NOMBRE', 'like', '%' . $this->search . '%')
+        ->orWhere('CODIGO', 'like', '%' . $this->search . '%')
+        
+        ->orderBy('NOMBRE')
+        ->paginate($this->perPage);
     }
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\PagosController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\PasarelaPagos;
+use App\Http\Controllers\CategoriaController;
 
 
 Route::get('/', [ProductoController::class, 'index'])->name('home');
@@ -66,10 +67,12 @@ Route::get('/lista-de-ventas', [VentaController::class, 'listaventas'])->name('v
 Route::get('/pagos',[PagosController::class, 'index'])->name('pagos');
 Route::post('/pagos',[PagosController::class, 'create'])->name('crear.pago');
 
-// Routa
+// Routa carrito
 Route::get('/detalle_carrito', [CarritoController::class, 'verDetalleCarrito'])->name('detalle.carrito');
 
+// Ruta Categoria
 
+Route::get('/categoria',[CategoriaController::class, 'index'])->name('categoria.mostrar');
 
 Route::get('/metodo-pago', [MetodoPagoController::class, 'index'])->name('metodo_pago.index');
 Route::get('/metodo-pago/create', [MetodoPagoController::class, 'create'])->name('metodo_pago.create');

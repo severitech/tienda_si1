@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categoria extends Model
 {
-    protected $table = 'CATEGORIA'; // 👈 esto le dice a Laravel qué tabla usar
-         // Nombre real de la tabla en tu base de datos
-    protected $primaryKey = 'CATEGORIA';  // Nombre de la columna clave primaria real
+    protected $table = 'CATEGORIA';         // 👈 Nombre exacto de la tabla
+    protected $primaryKey = 'CATEGORIA';    // 👈 Clave primaria
+    public $incrementing = false;           // 👈 Porque es string, no numérico
+    public $keyType = 'string';             // 👈 Laravel espera esto para claves no numéricas
+    public $timestamps = true;   
+    protected $fillable = ['CATEGORIA'];           // 👈 Usa timestamps (porque los incluiste en la tabla)
 
-    public $incrementing = false;         // Porque probablemente no es autoincremental
-    public $timestamps = false; 
     public function productos()
     {
         return $this->hasMany(Producto::class, 'CATEGORIA', 'CATEGORIA');
     }
 }
+
 

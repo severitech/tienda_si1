@@ -16,60 +16,98 @@
         <flux:navlist variant="outline">
 
             <!-- Vista Administrador-->
-            <flux:navlist.group :heading="__('Administrador')" class="grid">
+            <flux:navlist.group :heading="__('Panel')" class="grid">
 
-                <flux:navlist.item icon="home" :href="route('dashboard')"
-                    :current="request() -> routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}
-                </flux:navlist.item>
-
-                <flux:navlist.item icon="cube" :href="route('productos.mostrar')"
-                    :current="request() -> routeIs('productos.mostrar')" wire:navigate>
-                    {{ __('Productos') }}
-                </flux:navlist.item>
-
-
-                <flux:navlist.item icon="chart-bar" :href="route('dashboard')"
-                    :current="request() -> routeIs('Reporte Ventas')" wire:navigate>{{ __('Reporte Ventas') }}
-                </flux:navlist.item>
-
-                <flux:navlist.item icon="shopping-cart" :href="route('detalle.carrito')"
-                    :current="request() -> routeIs('Reporte de Carrito')" wire:navigate>{{ __('Reporte de Carrito') }}
+                {{-- Roles --}}
+                <flux:navlist.group heading="Autenticación y Seguridad">
+                    <flux:navlist.item icon="users" :href="route('usuarios.mostrar')"
+                        :current="request()->routeIs('usuarios.mostrar')" wire:navigate>
+                        {{ __('Gestión de Usuarios') }}
                     </flux:navlist.item>
-                    <flux:navlist.item icon="banknotes" :href="route('dashboard')"
+
+                    <flux:navlist.item icon="finger-print" :href="route('dashboard')"
+                        :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Auditoria de Usuarios') }}
+                    </flux:navlist.item>
+                </flux:navlist.group>
+
+                <flux:navlist.group heading="Gestion de Productos e Inventario">
+
+                    <flux:navlist.item icon="tag" :href="route('categoria.mostrar')"
+                        :current="request() ->  routeIs('categoria.mostrar')" wire:navigate>{{ __('Categoria de Productos') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="archive-box" :href="route('productos.mostrar')"
+                        :current="request() -> routeIs('productos.mostrar')" wire:navigate>
+                        {{ __('Productos') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="chart-pie" :href="route('dashboard')"
+                        :current="request() -> routeIs('Reporte Ventas')" wire:navigate>{{ __('Reportes') }}
+                    </flux:navlist.item>
+
+                </flux:navlist.group>
+
+
+                <flux:navlist.group heading="Compras y Ventas">
+                    <flux:navlist.item icon="shopping-bag" :href="route('venta.mostrar')"
+                        :current="request() -> routeIs('venta.mostrar')" wire:navigate>{{ 'Venta' }}
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="clock" :href="route('venta.listaventas')"
+                        :current="request() -> routeIs('venta.listaventas')" wire:navigate>
+                        {{ 'Historial Ventas' }}
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="shopping-cart" :href="route('detalle.carrito')"
+                        :current="request() -> routeIs('detalle.carrito')" wire:navigate>
+                        {{ __('Reporte de Carrito') }}
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="truck" :href="route('dashboard')"
                         :current="request() -> routeIs('Reporte de Cierres')" wire:navigate>
-                        {{ __('Reporte de Cierres') }}
+                        {{ __('Compra de Productos') }}
                     </flux:navlist.item>
+                    <flux:navlist.item icon="building-storefront" :href="route('dashboard')"
+                        :current="request() -> routeIs('Ingreso de Productos')" wire:navigate>
+                        {{ __('Proveedores') }}
+                    </flux:navlist.item>
+
+                </flux:navlist.group>
+                <flux:navlist.group heading="Administracion de Finanzas">
+
+
                     <flux:navlist.item icon="credit-card" :href="route('metodo_pago.index')"
-                        :current="request() -> routeIs('metodo_pago.*')" wire:navigate>
+                        :current="request() -> routeIs('metodo_pago.index')" wire:navigate>
                         {{ __('Métodos de Pago') }}
                     </flux:navlist.item>
-
-
-                    <flux:navlist.item icon="users" :href="route('usuarios.mostrar')"
-                        :current="request() -> routeIs('usuarios')" wire:navigate>{{ __('Gestión de Usuarios') }}
+                    <flux:navlist.item icon="lock-closed" :href="route('dashboard')"
+                        :current="request() -> routeIs('Cierre de Caja')" wire:navigate>{{ __('Cierre de Caja') }}
                     </flux:navlist.item>
+                    <flux:navlist.item icon="calculator" :href="route('dashboard')"
+                        :current="request() -> routeIs('Cierre de Caja')" wire:navigate>
+                        {{ __('Arqueos de Caja') }}
+                    </flux:navlist.item>
+                </flux:navlist.group>
+
+
+
+
+                <flux:navlist.group heading="Reporte y Análisis">
+                    <flux:navlist.item icon="document-chart-bar" :href="route('dashboard')"
+                        :current="request() -> routeIs('Cierre de Caja')" wire:navigate>
+                        {{ __('Reporte de Compras') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="chart-bar" :href="route('dashboard')"
+                        :current="request() -> routeIs('Cierre de Caja')" wire:navigate>
+                        {{ __('Reporte de Ventas') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="document-magnifying-glass" :href="route('dashboard')"
+                        :current="request() -> routeIs('Cierre de Caja')" wire:navigate>
+                        {{ __('Reporte de Productos') }}
+                    </flux:navlist.item>
+                </flux:navlist.group>
+
             </flux:navlist.group>
 
-            <!-- Vista Vendedor -->
-            <flux:navlist.group :heading="__('Vendedor')" class="grid">
 
-                <flux:navlist.item icon="credit-card" :href="route('venta.mostrar')"
-                    :current="request() -> routeIs('Venta')" wire:navigate>{{ __('Venta') }}
-                </flux:navlist.item>
 
-                <flux:navlist.item icon="clipboard-document-list" :href="route('venta.listaventas')"
-                    :current="request() -> routeIs('Historial de Ventas')" wire:navigate>{{ __('Historial Ventas') }}
-                </flux:navlist.item>
-
-                <flux:navlist.item icon="arrow-down-tray" :href="route('dashboard')"
-                    :current="request() -> routeIs('Ingreso de Productos')" wire:navigate>
-                    {{ __('Ingreso Productos') }}
-                </flux:navlist.item>
-                <flux:navlist.item icon="currency-dollar" :href="route('dashboard')"
-                    :current="request() -> routeIs('Cierre de Caja')" wire:navigate>{{ __('Cierre de Caja') }}
-                </flux:navlist.item>
-
-            </flux:navlist.group>
 
         </flux:navlist>
         <flux:spacer />

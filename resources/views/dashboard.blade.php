@@ -14,7 +14,7 @@
             <div
                 class="relative overflow-hidden border aspect-video rounded-xl border-neutral-200 dark:border-neutral-700">
                 <label for="small" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">Rol de Usuario</label>
-                @livewire('rol.roles-modal')
+                {{-- @livewire('rol.roles-modal') --}}
             </div>
         </div>
         <div class="relative flex-1 h-full overflow-hidden border rounded-xl border-neutral-200 dark:border-neutral-700">
