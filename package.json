@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "start": "vite preview"
     },
     "dependencies": {
         "alpinejs": "^3.14.9",
