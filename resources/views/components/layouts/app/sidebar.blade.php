@@ -33,7 +33,8 @@
                 <flux:navlist.group heading="Gestion de Productos e Inventario">
 
                     <flux:navlist.item icon="tag" :href="route('categoria.mostrar')"
-                        :current="request() ->  routeIs('categoria.mostrar')" wire:navigate>{{ __('Categoria de Productos') }}
+                        :current="request() -> routeIs('categoria.mostrar')" wire:navigate>
+                        {{ __('Categoria de Productos') }}
                     </flux:navlist.item>
                     <flux:navlist.item icon="archive-box" :href="route('productos.mostrar')"
                         :current="request() -> routeIs('productos.mostrar')" wire:navigate>
@@ -113,7 +114,6 @@
         <flux:spacer />
 
 
-
         <!-- Desktop User Menu -->
         <flux:dropdown position="bottom" align="start">
             <flux:profile :name="auth() -> user() -> name" :initials="auth() -> user() -> initials()"
@@ -130,8 +130,8 @@
                                 </span>
                             </span>
 
-                            <div class="grid flex-1 text-sm leading-tight text-start">
-                                <span class="font-semibold truncate">{{ auth()->user()->name }}</span>
+                            <div class="grid flex-1 text-sm leading-tight text-start"><span
+                                    class="font-semibold truncate">{{ auth()->user()->nombre . ' ' . auth()->user()->paterno }}</span>
                                 <span class="text-xs truncate">{{ auth()->user()->email }}</span>
                             </div>
                         </div>
@@ -141,8 +141,8 @@
                 <flux:menu.separator />
 
                 <flux:menu.radio.group>
-                    <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>
-                        {{ __('Settings') }}
+                    <flux:menu.item :href="route('perfil-usuario')" icon="cog" wire:navigate>
+                        {{ __('Ver Perfil') }}
                     </flux:menu.item>
                 </flux:menu.radio.group>
 
@@ -179,7 +179,8 @@
                             </span>
 
                             <div class="grid flex-1 text-sm leading-tight text-start">
-                                <span class="font-semibold truncate">{{ auth()->user()->name }}</span>
+                                <span
+                                    class="font-semibold truncate">{{ auth()->user()->nombre . ' ' . auth()->user()->paterno }}</span>
                                 <span class="text-xs truncate">{{ auth()->user()->email }}</span>
                             </div>
                         </div>
@@ -189,8 +190,8 @@
                 <flux:menu.separator />
 
                 <flux:menu.radio.group>
-                    <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>
-                        {{ __('Settings') }}
+                    <flux:menu.item :href="route('perfil-usuario')" icon="cog" wire:navigate>
+                        {{ __('Ver Perfil') }}
                     </flux:menu.item>
                 </flux:menu.radio.group>
 

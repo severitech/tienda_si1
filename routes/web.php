@@ -55,6 +55,8 @@ Route::get('/productos/crear', [ProductoController::class, 'crear'])->name('prod
 //Rutas Usuarios
 
 Route::get('/usuarios', [User::class, 'mostrar'])->name('usuarios.mostrar');
+//Perfil de usuarios
+Route::get('/perfil', [User::class, 'perfil_cliente'])->name('perfil-usuario');
 
 
 //Rutas Ventas

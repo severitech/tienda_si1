@@ -1,13 +1,6 @@
-<div>
-
-    <flux:button class="relative" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation"
-        aria-controls="drawer-navigation">
-        <flux:icon.user />
-        
-    </flux:button>
 
 
-
+{{-- @livewire('carrito.detalle-compra') --}}
     <div id="drawer-navigation"
         class="fixed top-0 left-0 z-40 w-96 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white/90 dark:bg-[#121212]/90 backdrop-blur-md shadow-md border-b border-gray-200 dark:border-gray-800"
         tabindex="-1" aria-labelledby="drawer-navigation-label">
@@ -67,5 +60,3 @@
 
 
     </div>
-
-</div>

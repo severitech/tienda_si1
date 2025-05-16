@@ -12,7 +12,6 @@
         @endif
     </flux:button>
 </flux:modal.trigger>
-@livewire('carrito.detalle-compra')
 {{-- @if (session('success'))
 
 

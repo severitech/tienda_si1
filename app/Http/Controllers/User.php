@@ -1,9 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
-
-
-
 use App\Models\User as Usuario;
 use Illuminate\Http\Request;
 
@@ -13,6 +10,15 @@ class User extends Controller
     {
         $usuarios = Usuario::all();
         return view('trabajador.usuarios.mostrar', compact('usuarios'));
+    }
+
+    public function perfil_cliente()
+    {
+        return view('perfil-usuario.perfil-cliente');
+    }
+    public function perfil_trabajador()
+    {
+        return view('perfil-usuario.perfil-trabajador');
     }
 
     public function actualizar(Request $request, $id)
