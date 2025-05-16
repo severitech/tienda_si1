@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         $admins = [
             ['nombre' => 'Isael', 'paterno' => 'Ortiz', 'materno' => 'Flores', 'email' => 'isaelortiz74@gmail.com'],
             ['nombre' => 'David', 'paterno' => 'Sequeiros', 'materno' => 'Cruz', 'email' => 'sequeiros.dc44@gmail.com'],
-            ['nombre' => 'Jhon', 'paterno' => 'Salas', 'materno' => 'Quispe', 'email' => 'jhonsalas68@gmail.com'],
+            ['nombre' => 'Jhon', 'paterno' => 'Salas', 'materno' => 'Rodas', 'email' => 'jhonsalas68@gmail.com'],
             ['nombre' => 'Alex', 'paterno' => 'Man', 'materno' => 'Alsta', 'email' => 'alex.lx.man.alstaraciend@gmail.com'],
             ['nombre' => 'Douglas', 'paterno' => 'Padilla', 'materno' => 'Severiche', 'email' => 'padilladouglas6@gmail.com'],
             ['nombre' => 'María', 'paterno' => 'Torrez', 'materno' => 'Vargas', 'email' => 'admin6@correo.com'],
