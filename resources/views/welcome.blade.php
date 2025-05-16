@@ -27,20 +27,20 @@
             @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
                     @auth
-                    <div class="flex items-center gap-4">
-                        @if (Auth::user()->ROL !== 'cliente')
-                            <flux:button variant="filled" class="px-4 py-2">
-                                <a href="{{ url('/dashboard') }}" class="text-white dark:text-zinc-300">Dashboard</a>
-                            </flux:button>
-                        @endif
-                        
-                    </div>
+                        <div class="flex items-center gap-4">
+                            @if (Auth::user()->ROL !== 'cliente')
+                                <flux:button variant="filled" class="px-4 py-2">
+                                    <a href="{{ url('/dashboard') }}" class="text-white dark:text-zinc-300">Dashboard</a>
+                                </flux:button>
+                            @endif
+
+                        </div>
                     @endauth
                     @include('cliente.carrito')
                     @auth
-                        
+
                         <flux:dropdown position="bottom" align="start">
-                            <flux:profile :name="auth() -> user() -> name" :initials="auth() -> user() -> initials()"
+                            <flux:profile :name="auth() -> user()->name" :initials="auth() -> user() -> initials()"
                                 icon-trailing="chevrons-up-down" />
 
                             <flux:menu class="w-[220px]">
@@ -66,12 +66,15 @@
 
                                 <flux:menu.separator />
 
-                                <flux:menu.radio.group>
-                                    <flux:menu.item :href="route('perfil-usuario')" icon="cog" wire:navigate>
-                                        {{ __('Ver Perfil') }}
-                                    </flux:menu.item>
-                                </flux:menu.radio.group>
+                                <flux:modal.trigger name="carrito">
 
+                                    <flux:menu.radio.group>
+                                        <flux:menu.item  icon="cog" wire:navigate>
+                                            {{ __('Ver Perfil') }}
+                                        </flux:menu.item>
+                                    </flux:menu.radio.group>
+
+                                </flux:modal.trigger>
                                 <form method="POST" action="{{ route('logout') }}" class="w-full">
                                     @csrf
                                     <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle"
@@ -93,6 +96,16 @@
             @endif
         </div>
     </header>
+
+<flux:modal name="carrito"
+  class="w-screen h-screen p-0 bg-white rounded-none shadow-none"
+  overlay-class="backdrop-blur-sm bg-black/30">
+
+ <div class="w-full h-full overflow-y-auto">
+    @livewire('perfil.perfil-usuario')
+</div>
+
+</flux:modal>
 
 
     <!-- Main Section -->

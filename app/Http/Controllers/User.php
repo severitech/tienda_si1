@@ -12,10 +12,6 @@ class User extends Controller
         return view('trabajador.usuarios.mostrar', compact('usuarios'));
     }
 
-    public function perfil_cliente()
-    {
-        return view('perfil-usuario.perfil-cliente');
-    }
     public function perfil_trabajador()
     {
         return view('perfil-usuario.perfil-trabajador');

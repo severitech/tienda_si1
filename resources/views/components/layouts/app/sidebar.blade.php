@@ -141,7 +141,7 @@
                 <flux:menu.separator />
 
                 <flux:menu.radio.group>
-                    <flux:menu.item :href="route('perfil-usuario')" icon="cog" wire:navigate>
+                    <flux:menu.item :href="route('perfil-trabajador')" icon="cog" wire:navigate>
                         {{ __('Ver Perfil') }}
                     </flux:menu.item>
                 </flux:menu.radio.group>
@@ -190,7 +190,7 @@
                 <flux:menu.separator />
 
                 <flux:menu.radio.group>
-                    <flux:menu.item :href="route('perfil-usuario')" icon="cog" wire:navigate>
+                    <flux:menu.item :href="route('perfil-trabajador')" icon="cog" wire:navigate>
                         {{ __('Ver Perfil') }}
                     </flux:menu.item>
                 </flux:menu.radio.group>

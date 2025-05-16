@@ -55,8 +55,9 @@ Route::get('/productos/crear', [ProductoController::class, 'crear'])->name('prod
 //Rutas Usuarios
 
 Route::get('/usuarios', [User::class, 'mostrar'])->name('usuarios.mostrar');
-//Perfil de usuarios
-Route::get('/perfil', [User::class, 'perfil_cliente'])->name('perfil-usuario');
+// //Perfil de usuarios
+// Route::get('/perfil', [User::class, 'perfil_cliente'])->name('perfil-usuario');
+Route::get('/perfil-usuario', [User::class, 'perfil_trabajador'])->name('perfil-trabajador');
 
 
 //Rutas Ventas
@@ -67,7 +68,6 @@ Route::get('/lista-de-ventas', [VentaController::class, 'listaventas'])->name('v
 
 // Route::get('/', [ProductoController::class, 'index'])->name('home');
 Route::get('/pagos',[PagosController::class, 'index'])->name('pagos');
-Route::post('/pagos',[PagosController::class, 'create'])->name('crear.pago');
 
 // Routa carrito
 Route::get('/detalle_carrito', [CarritoController::class, 'verDetalleCarrito'])->name('detalle.carrito');
@@ -75,11 +75,7 @@ Route::get('/detalle_carrito', [CarritoController::class, 'verDetalleCarrito'])-
 // Ruta Categoria
 
 Route::get('/categoria',[CategoriaController::class, 'index'])->name('categoria.mostrar');
-
+//ruta metodo de pago
 Route::get('/metodo-pago', [MetodoPagoController::class, 'index'])->name('metodo_pago.index');
-Route::get('/metodo-pago/create', [MetodoPagoController::class, 'create'])->name('metodo_pago.create');
-Route::post('/metodo-pago', [MetodoPagoController::class, 'store'])->name('metodo_pago.store');
-Route::get('/metodo-pago/{METODO_PAGO}/edit', [MetodoPagoController::class, 'edit'])->name('metodo_pago.edit');
-Route::put('/metodo-pago/{METODO_PAGO}', [MetodoPagoController::class, 'update'])->name('metodo_pago.update');
-Route::delete('/metodo-pago/{METODO_PAGO}', [MetodoPagoController::class, 'destroy'])->name('metodo_pago.destroy');
+
 require __DIR__ . '/auth.php';
