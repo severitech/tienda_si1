@@ -14,12 +14,14 @@ class PerfilUsuario extends Component
 
     public function mount()
     {
+
         $user = Auth::user();
+        if($user){
         $this->nombre = $user->nombre;
         $this->paterno = $user->paterno;
         $this->materno = $user->materno;
         $this->telefono = $user->telefono;
-        $this->email = $user->email;
+        $this->email = $user->email;}
     }
 
     public function actualizarPerfil()
