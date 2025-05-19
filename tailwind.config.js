@@ -4,7 +4,9 @@ module.exports = {
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
     "./resources/**/*.vue",
-    "./node_modules/flowbite/**/*.js"
+    "./node_modules/flowbite/**/*.js",
+    './vendor/usernotnull/tall-toasts/config/**/*.php',
+    './vendor/usernotnull/tall-toasts/resources/views/**/*.blade.php',
   ],
   theme: {
     extend: {},

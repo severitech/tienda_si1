@@ -5,9 +5,9 @@ namespace App\Livewire\Categoria;
 use Livewire\Component;
 use App\Models\Categoria;
 use Livewire\WithPagination;
+
 class CategoriaCrud extends Component
 {
-
     use WithPagination;
     public $perPage = 5;
     public $search = '';
@@ -47,14 +47,13 @@ class CategoriaCrud extends Component
             ]);
             session()->flash('message', 'Categoría actualizada correctamente.');
         } else {
-           
+
 
             Categoria::create([
                 'CATEGORIA' => $this->categoria,
             ]);
             session()->flash('message', 'Categoría creada correctamente.');
         }
-
         $this->reset(['categoria', 'modoEdicion', 'categoria_original']);
     }
 

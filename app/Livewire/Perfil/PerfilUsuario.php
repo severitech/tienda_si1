@@ -15,11 +15,11 @@ class PerfilUsuario extends Component
     public function mount()
     {
         $user = Auth::user();
-        $this->nombre = $user->nombre;
-        $this->paterno = $user->paterno;
-        $this->materno = $user->materno;
-        $this->telefono = $user->telefono;
-        $this->email = $user->email;
+        $this->nombre = $user->NOMBRE;
+        $this->paterno = $user->PATERNO;
+        $this->materno = $user->MATERNO;
+        $this->telefono = $user->TELEFONO;
+        $this->email = $user->EMAIL;
     }
 
     public function actualizarPerfil()
@@ -33,11 +33,11 @@ class PerfilUsuario extends Component
         ]);
 
         Auth::user()->update([
-            'nombre' => $this->nombre,
-            'paterno' => $this->paterno,
-            'materno' => $this->materno,
-            'telefono' => $this->telefono,
-            'email' => $this->email,
+            'nombre' => $this->NOMBRE,
+            'paterno' => $this->PATERNO,
+            'materno' => $this->MATERNO,
+            'telefono' => $this->TELEFONO,
+            'email' => $this->EMAIL,
         ]);
 
         session()->flash('mensaje_perfil', 'Perfil actualizado correctamente.');

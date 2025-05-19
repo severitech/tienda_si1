@@ -40,7 +40,7 @@
                     @auth
 
                         <flux:dropdown position="bottom" align="start">
-                            <flux:profile :name="auth() -> user()->name" :initials="auth() -> user() -> initials()"
+                            <flux:profile :name="auth() -> user() -> name" :initials="auth() -> user() -> initials()"
                                 icon-trailing="chevrons-up-down" />
 
                             <flux:menu class="w-[220px]">
@@ -69,7 +69,7 @@
                                 <flux:modal.trigger name="carrito">
 
                                     <flux:menu.radio.group>
-                                        <flux:menu.item  icon="cog" wire:navigate>
+                                        <flux:menu.item icon="cog" wire:navigate>
                                             {{ __('Ver Perfil') }}
                                         </flux:menu.item>
                                     </flux:menu.radio.group>
@@ -97,15 +97,14 @@
         </div>
     </header>
 
-<flux:modal name="carrito"
-  class="w-screen h-screen p-0 bg-white rounded-none shadow-none"
-  overlay-class="backdrop-blur-sm bg-black/30">
+    <flux:modal name="carrito" class="w-screen h-screen p-0 bg-white rounded-none shadow-none"
+        overlay-class="backdrop-blur-sm bg-black/30">
 
- <div class="w-full h-full overflow-y-auto">
-    @livewire('perfil.perfil-usuario')
-</div>
+        <div class="w-full h-full overflow-y-auto">
+            @livewire('perfil.perfil-usuario')
+        </div>
 
-</flux:modal>
+    </flux:modal>
 
 
     <!-- Main Section -->

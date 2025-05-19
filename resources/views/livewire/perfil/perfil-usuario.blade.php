@@ -32,21 +32,21 @@
             @endif
 
             <div class="space-y-4">
-                <x-input label="Nombre" wire:model.defer="nombre" />
+              {{--  <x-input label="Nombre" wire:model.defer="nombre" />
                 <x-input label="Apellido Paterno" wire:model.defer="paterno" />
                 <x-input label="Apellido Materno" wire:model.defer="materno" />
                 <x-input label="Teléfono" wire:model.defer="telefono" />
                 <x-input label="Correo" type="email" wire:model.defer="email" />
-
+--}}
                 <button wire:click="actualizarPerfil"
-                    class="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700">
+                    class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">
                     Guardar Cambios
                 </button>
             </div>
         </div>
     @endif
     @if ($vista === 'compras')
-        <div>
+        <div class="p-6 bg-white rounded-lg shadow-md dark:bg-zinc-900">
             @livewire('carrito.detalle-compra')
         </div>
     @endif
@@ -65,7 +65,7 @@
                 <x-input label="Nueva Contraseña" type="password" wire:model.defer="password_nueva" />
                 <x-input label="Confirmar Nueva Contraseña" type="password" wire:model.defer="password_confirmar" />
                 <button wire:click="actualizarPassword"
-                    class="px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700">
+                    class="px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700">
                     Cambiar Contraseña
                 </button>
             </div>
