@@ -9,6 +9,7 @@ class BuscarCompra extends Component
 {
     public $search = '';
     public $id_proveedor;
+    public $mostrarResultados = true;
     protected $listeners = [
         'limpiar' => 'limpiar'
     ];
@@ -25,13 +26,19 @@ class BuscarCompra extends Component
                 ->orWhere('telefono', 'like', '%' . $this->search . '%');
         })
             ->orderBy('nombre');
+            
     }
     public function limpiar()
     {
         $this->search = '';
         $this->id_proveedor = null;
+        $this->mostrarResultados = true; // mostrar la lista
     }
-
+    public function updatingSearch()
+    {
+        $this->mostrarResultados = true; // Mostrar resultados otra vez si se escribe algo nuevo
+    }
+    
 
     public function guardarProveedor($id)
     {
@@ -41,10 +48,11 @@ class BuscarCompra extends Component
             $this->search = $proveedor->NOMBRE; // Muestra el nombre completo
             $this->mostrarResultados = false; // Oculta la lista
             // Enviar el cliente seleccionado al componente padre
-            //$this->dispatch('proveedorSeleccionado', $proveedor->id);
-            //  session()->flash('message', 'Usuario asignado correctamente.');
+            $this->dispatch('proveedorSeleccionadoCompra', $proveedor->ID);
+              session()->flash('message', 'Proveedor asignado correctamente.');
         } else {
             session()->flash('message', 'Proveedor no encontrado.');
         }
+        
     }
 }

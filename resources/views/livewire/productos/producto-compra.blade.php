@@ -2,7 +2,7 @@
     <x-sucess-message />
     <div class="relative w-full mx-auto mb-3">
         <label for="form" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Productos para la venta
+            Productos para aumentar el stock
         </label>
 
         <div class="flex flex-col w-full gap-2 md:flex-row md:items-end md:gap-4">
@@ -35,13 +35,17 @@
                 class="w-full md:w-24 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
 
             <!-- Precio -->
-            <input type="text" id="cantidad_compra" wire:model="stock_comprar"
+            <input type="number" id="cantidad_compra" wire:model="stock_comprar" wire:change = 'stockaumentar'
                 class="w-full md:w-32 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
 
             <!-- Subtotal -->
-            <input type="text" readonly id="subtotal"
+            <input type="text" readonly id="subtotal" wire:model="stock"
                 class="w-full md:w-32 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
-
+              
+            <!-- PRecio proveedor -->
+                <input type="text" id="precio_proveedor" wire:model="precio_proveedor"
+                class="w-full md:w-32 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
+               
 
             <!-- Botón Agregar -->
             <button type="button" wire:click="agregarProducto"
@@ -50,16 +54,13 @@
             </button>
         </div>
 
-   {{-- @foreach ($productos as $producto)
-       {{$producto}}
-   @endforeach --}}
 
         <!-- Autocompletado -->
-        {{-- @if (strlen($search) > 0 && $productos->count() > 0)
+        @if (strlen($search) > 0 && $productos->count() > 0)
             <ul
                 class="absolute z-20 w-full mt-1 overflow-auto bg-white border border-gray-300 rounded-md shadow-lg max-h-60 dark:bg-zinc-800 dark:border-zinc-600">
                 @forelse ($productos as $producto)
-                    <li wire:click="guardarProducto({{ $producto->id }})"
+                    <li wire:click="guardarProducto({{ $producto->ID }})"
                         class="px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-700 dark:text-white">
                         {{ $producto->CATEGORIA . ' ' . $producto->NOMBRE }}
                         <br>
@@ -70,7 +71,8 @@
                     <li class="px-4 py-2 text-sm text-gray-500 dark:text-gray-400">Sin resultados...</li>
                 @endforelse
             </ul>
-        @endif --}}
+        @endif
     </div>
 
+    <x-sucess-message />
 </div>

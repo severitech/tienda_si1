@@ -32,11 +32,11 @@
  
 
     {{-- Autocompletado --}}
-        @if (strlen($search) > 0 && $proveedores->count() > 0)
+        @if ($mostrarResultados && strlen($search) && $proveedores->count() > 0)
             <ul
                 class="absolute z-20 w-full mt-1 overflow-auto bg-white border border-gray-300 rounded-md shadow-lg max-h-60 dark:bg-zinc-800 dark:border-zinc-600">
                 @forelse ($proveedores as $proveedor)
-                    <li
+                    <li wire:click="guardarProveedor({{ $proveedor->ID }})"
                         class="px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-700 dark:text-white">
                         {{ $proveedor->NOMBRE }}
 

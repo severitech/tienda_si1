@@ -19,17 +19,17 @@
                     <tr>
                         <th scope="col" class="px-6 py-3">Producto</th>
                         <th scope="col" class="px-6 py-3 text-center">Cantidad</th>
-                        <th scope="col" class="px-6 py-3 text-right">Precio</th>
+                        <th scope="col" class="px-6 py-3 text-center">Precio Proveedor</th>
                         <th scope="col" class="px-6 py-3 text-right">Subtotal</th>
                         <th scope="col" class="px-6 py-3 text-center">Acción</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @forelse ($productosSeleccionados as $producto)
+                     @forelse ($productosSeleccionados as $producto)
                         <tr class="bg-white border-b dark:bg-zinc-900 dark:border-zinc-700">
                             <td class="px-6 py-4">{{ $producto['nombre'] }}</td>
                             <td class="px-6 py-4 text-center">{{ $producto['cantidad'] }}</td>
-                            <td class="px-6 py-4 text-right">Bs. {{ $producto['precio'] }}</td>
+                            <td class="px-6 py-4 text-center">Bs. {{ $producto['precio'] }}</td>
                             <td class="px-6 py-4 text-right">Bs. {{ $producto['subtotal'] }}</td>
                             <td class="px-6 py-4 text-center">
                                 <button wire:click="eliminar({{ $producto['id'] }})"
@@ -44,7 +44,7 @@
                                 No hay productos seleccionados.
                             </td>
                         </tr>
-                    @endforelse --}}
+                    @endforelse 
                 </tbody>
             </table>
 
@@ -52,7 +52,7 @@
 
         {{-- Métodos y total --}}
         <div class="grid items-center gap-4 mb-6 md:grid-cols-2">
-            {{-- 
+            
             @livewire('metodo-pago.metodo-pago')
 
             <div class="mt-4 text-right">
@@ -60,7 +60,7 @@
                 <p class="text-2xl font-bold text-green-600 dark:text-green-400">
                     Bs {{ number_format($totalVenta, 2, '.', ',') }}
                 </p>
-            </div> --}}
+            </div> 
 
         </div>
 
