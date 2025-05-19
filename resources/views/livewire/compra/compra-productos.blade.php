@@ -56,6 +56,9 @@
             @livewire('metodo-pago.metodo-pago')
 
             <div class="mt-4 text-right">
+                <p class="block text-sm font-medium text-gray-700 dark:text-gray-300">Cantidad de productos a ingresar: 
+                    <span class = ' font-bold text-lg'>{{ $totalProductos ? number_format($totalProductos, 0, '.', ',') : 0}}</span></label>
+                
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Total</label>
                 <p class="text-2xl font-bold text-green-600 dark:text-green-400">
                     Bs {{ number_format($totalVenta, 2, '.', ',') }}
@@ -68,7 +71,7 @@
         <div class="text-right">
             <button type="button" wire:click="registrarVenta" wire:loading.attr="disabled" wire:target="registrarVenta"
                 class="px-6 py-3 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-700 dark:hover:bg-green-800 dark:focus:ring-green-900">
-                Registrar Venta
+                Registrar Compra de Productos
             </button>
         </div>
     </div>

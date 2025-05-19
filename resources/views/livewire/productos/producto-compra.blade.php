@@ -30,21 +30,21 @@
                 </button>
             </form>
 
-            <!-- Cantidad -->
-            <input type="number" min="1" id="cantidad" wire:model="stock_actual"
+            <!-- stock_actual -->
+            <input type="number" min="1" readonly id="cantidad" wire:model="stock_actual"
                 class="w-full md:w-24 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
 
-            <!-- Precio -->
+            <!-- stock_comprar -->
             <input type="number" id="cantidad_compra" wire:model="stock_comprar" wire:change = 'stockaumentar'
-                class="w-full md:w-32 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
+                class="w-full md:w-24 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
 
-            <!-- Subtotal -->
-            <input type="text" readonly id="subtotal" wire:model="stock"
-                class="w-full md:w-32 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
+            <!-- stock  -->
+            <input type="number" readonly id="subtotal" wire:model="stock"
+                class="w-full md:w-24 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
               
             <!-- PRecio proveedor -->
-                <input type="text" id="precio_proveedor" wire:model="precio_proveedor"
-                class="w-full md:w-32 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
+                <input type="number" id="precio_proveedor" wire:model="precio_proveedor"
+                class="w-full md:w-24 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
                
 
             <!-- Botón Agregar -->

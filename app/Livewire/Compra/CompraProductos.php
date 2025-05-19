@@ -14,6 +14,7 @@ class CompraProductos extends Component
     public $productosSeleccionados = [];
     public $metodoPago = '';
     public $totalVenta = 0;
+    public $totalProductos = 0;
     public $metodoPagoSeleccionado;
     protected $listeners = [
         'proveedorSeleccionadoCompra' => 'recibirProveedor'
@@ -61,6 +62,7 @@ class CompraProductos extends Component
 
         // Recalcular total
         $this->totalVenta = array_sum(array_column($this->productosSeleccionados, 'subtotal'));
+        $this->totalProductos = array_sum(array_column($this->productosSeleccionados, 'cantidad'));
 
     } else {
         session()->flash('message', 'Producto no encontrado.');

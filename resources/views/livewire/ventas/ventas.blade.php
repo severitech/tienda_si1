@@ -55,6 +55,7 @@
             @livewire('metodo-pago.metodo-pago')
 
             <div class="mt-4 text-right">
+                
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Total</label>
                 <p class="text-2xl font-bold text-green-600 dark:text-green-400">
                     Bs {{ number_format($totalVenta, 2, '.', ',') }}
