@@ -9,7 +9,7 @@
      @fluxAppearance
 </head>
 
-<body><livewire:toasts />
+<body>
     <nav>
         <!-- Aquí puedes poner tu navbar -->
     </nav>

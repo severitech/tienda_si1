@@ -11,6 +11,8 @@ use App\Http\Controllers\PagosController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\PasarelaPagos;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\CompraController;
 
 
 Route::get('/', [ProductoController::class, 'index'])->name('home');
@@ -77,5 +79,10 @@ Route::get('/detalle_carrito', [CarritoController::class, 'verDetalleCarrito'])-
 Route::get('/categoria',[CategoriaController::class, 'index'])->name('categoria.mostrar');
 //ruta metodo de pago
 Route::get('/metodo-pago', [MetodoPagoController::class, 'index'])->name('metodo_pago.index');
+
+// ruta del proveedor
+Route::get('/proveedor',[ProveedorController::class, 'index'])->name('proveedor.mostrar');
+// ruta de la compra
+Route::get('/compra-productos',[CompraController::class, 'mostrar'])->name('compra.productos');
 
 require __DIR__ . '/auth.php';

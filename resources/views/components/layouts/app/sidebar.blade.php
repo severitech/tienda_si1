@@ -5,7 +5,7 @@
     @include('partials.head')
 </head>
 
-<body class="min-h-screen bg-white dark:bg-zinc-800"><livewire:toasts />
+<body class="min-h-screen bg-white dark:bg-zinc-800">
     <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
         <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
@@ -61,12 +61,12 @@
                         {{ __('Reporte de Carrito') }}
                     </flux:navlist.item>
 
-                    <flux:navlist.item icon="truck" :href="route('dashboard')"
-                        :current="request() -> routeIs('Reporte de Cierres')" wire:navigate>
+                    <flux:navlist.item icon="truck" :href="route('compra.productos')"
+                        :current="request() -> routeIs('compra.productos')" wire:navigate>
                         {{ __('Compra de Productos') }}
                     </flux:navlist.item>
-                    <flux:navlist.item icon="building-storefront" :href="route('dashboard')"
-                        :current="request() -> routeIs('Ingreso de Productos')" wire:navigate>
+                    <flux:navlist.item icon="building-storefront" :href="route('proveedor.mostrar')"
+                        :current="request() -> routeIs('proveedor.mostrar')" wire:navigate>
                         {{ __('Proveedores') }}
                     </flux:navlist.item>
 
