@@ -99,7 +99,7 @@
 
     </div>
     <div class="mt-4">
-        {{ $productos->links('vendor.pagination.tailwind') }}
+        {{ $productos->links() }}
     </div>
     <!-- Modal -->
     <flux:modal name="editar-crear" class="w-full md:w-200">

@@ -47,22 +47,23 @@ class UserSeeder extends Seeder
             ]);
         }
         DB::table('VENTA')->insert([
-            ['TOTAL' => 150.75, 'USUARIO' => 1, 'CLIENTE' => 3, 'ESTADO' => 1, 'METODO_PAGO' => 'QR'],
-            ['TOTAL' => 230.50, 'USUARIO' => 2, 'CLIENTE' => 4, 'ESTADO' => 1, 'METODO_PAGO' => 'Tarjeta'],
-            ['TOTAL' => 120.00, 'USUARIO' => 3, 'CLIENTE' => 5, 'ESTADO' => 1, 'METODO_PAGO' => 'Efectivo'],
-            ['TOTAL' => 450.20, 'USUARIO' => 4, 'CLIENTE' => 6, 'ESTADO' => 1, 'METODO_PAGO' => 'Transferencia Bancaria'],
-            ['TOTAL' => 75.99, 'USUARIO' => 5, 'CLIENTE' => 7, 'ESTADO' => 1, 'METODO_PAGO' => 'Stripe'],
-            ['TOTAL' => 200.30, 'USUARIO' => 6, 'CLIENTE' => 8, 'ESTADO' => 1, 'METODO_PAGO' => 'QR'],
-            ['TOTAL' => 99.99, 'USUARIO' => 7, 'CLIENTE' => 9, 'ESTADO' => 1, 'METODO_PAGO' => 'Tarjeta'],
-            ['TOTAL' => 380.45, 'USUARIO' => 8, 'CLIENTE' => 10, 'ESTADO' => 1, 'METODO_PAGO' => 'Efectivo'],
-            ['TOTAL' => 510.00, 'USUARIO' => 9, 'CLIENTE' => 11, 'ESTADO' => 1, 'METODO_PAGO' => 'Transferencia Bancaria'],
-            ['TOTAL' => 1500.75, 'USUARIO' => 10, 'CLIENTE' => 12, 'ESTADO' => 1, 'METODO_PAGO' => 'Stripe'],
-            ['TOTAL' => 95.99, 'USUARIO' => 11, 'CLIENTE' => 13, 'ESTADO' => 1, 'METODO_PAGO' => 'QR'],
-            ['TOTAL' => 870.50, 'USUARIO' => 12, 'CLIENTE' => 14, 'ESTADO' => 1, 'METODO_PAGO' => 'Tarjeta'],
-            ['TOTAL' => 135.60, 'USUARIO' => 13, 'CLIENTE' => 15, 'ESTADO' => 1, 'METODO_PAGO' => 'Efectivo'],
-            ['TOTAL' => 220.00, 'USUARIO' => 14, 'CLIENTE' => 16, 'ESTADO' => 1, 'METODO_PAGO' => 'Transferencia Bancaria'],
-            ['TOTAL' => 310.80, 'USUARIO' => 15, 'CLIENTE' => 13, 'ESTADO' => 1, 'METODO_PAGO' => 'Stripe'],
+            ['TOTAL' => 150.75, 'USUARIO' => 1, 'CLIENTE' => 3, 'ESTADO' => 1, 'METODO_PAGO' => 'QR', 'created_at' => now()->subDays(3)],
+            ['TOTAL' => 230.50, 'USUARIO' => 2, 'CLIENTE' => 4, 'ESTADO' => 1, 'METODO_PAGO' => 'Tarjeta', 'created_at' => now()->subDays(3)],
+            ['TOTAL' => 120.00, 'USUARIO' => 3, 'CLIENTE' => 5, 'ESTADO' => 1, 'METODO_PAGO' => 'Efectivo', 'created_at' => now()->subDays(3)],
+            ['TOTAL' => 450.20, 'USUARIO' => 4, 'CLIENTE' => 6, 'ESTADO' => 1, 'METODO_PAGO' => 'Transferencia Bancaria', 'created_at' => now()->subDays(3)],
+            ['TOTAL' => 75.99, 'USUARIO' => 5, 'CLIENTE' => 7, 'ESTADO' => 1, 'METODO_PAGO' => 'Stripe', 'created_at' => now()->subDays(2)],
+            ['TOTAL' => 200.30, 'USUARIO' => 6, 'CLIENTE' => 8, 'ESTADO' => 1, 'METODO_PAGO' => 'QR', 'created_at' => now()->subDays(2)],
+            ['TOTAL' => 99.99, 'USUARIO' => 7, 'CLIENTE' => 9, 'ESTADO' => 1, 'METODO_PAGO' => 'Tarjeta', 'created_at' => now()->subDays(2)],
+            ['TOTAL' => 380.45, 'USUARIO' => 8, 'CLIENTE' => 10, 'ESTADO' => 1, 'METODO_PAGO' => 'Efectivo', 'created_at' => now()->subDays(2)],
+            ['TOTAL' => 510.00, 'USUARIO' => 9, 'CLIENTE' => 11, 'ESTADO' => 1, 'METODO_PAGO' => 'Transferencia Bancaria', 'created_at' => now()->subDays(1)],
+            ['TOTAL' => 1500.75, 'USUARIO' => 10, 'CLIENTE' => 12, 'ESTADO' => 1, 'METODO_PAGO' => 'Stripe', 'created_at' => now()->subDays(1)],
+            ['TOTAL' => 95.99, 'USUARIO' => 11, 'CLIENTE' => 13, 'ESTADO' => 1, 'METODO_PAGO' => 'QR', 'created_at' => now()->subDays(1)],
+            ['TOTAL' => 870.50, 'USUARIO' => 12, 'CLIENTE' => 14, 'ESTADO' => 1, 'METODO_PAGO' => 'Tarjeta', 'created_at' => now()->subDays(1)],
+            ['TOTAL' => 135.60, 'USUARIO' => 13, 'CLIENTE' => 15, 'ESTADO' => 1, 'METODO_PAGO' => 'Efectivo', 'created_at' => now()],
+            ['TOTAL' => 220.00, 'USUARIO' => 14, 'CLIENTE' => 16, 'ESTADO' => 1, 'METODO_PAGO' => 'Transferencia Bancaria', 'created_at' => now()],
+            ['TOTAL' => 310.80, 'USUARIO' => 15, 'CLIENTE' => 13, 'ESTADO' => 1, 'METODO_PAGO' => 'Stripe', 'created_at' => now()],
         ]);
+        
         DB::table('DETALLE_VENTA')->insert([
             // Venta 1: 2 productos
             ['VENTA' => 1, 'PRODUCTO' => 1, 'PRECIO' => 50.00, 'CANTIDAD' => 2],
@@ -145,6 +146,7 @@ class UserSeeder extends Seeder
                 'ESTADO' => true,
                 'CLIENTE' => 1, // ID de cliente 1
                 'METODO_PAGO' => 'Stripe', // Método de pago 'Tarjeta'
+                'created_at' => now(),
             ],
             // Carrito 2
             [
@@ -153,6 +155,7 @@ class UserSeeder extends Seeder
                 'ESTADO' => true,
                 'CLIENTE' => 2, // ID de cliente 2
                 'METODO_PAGO' => 'Stripe', // Método de pago 'Efectivo'
+                'created_at' => now(),
             ],
             // Carrito 3
             [
@@ -161,6 +164,7 @@ class UserSeeder extends Seeder
                 'ESTADO' => false, // Carrito en estado "no activo"
                 'CLIENTE' => 3, // ID de cliente 3
                 'METODO_PAGO' => 'Stripe', // Método de pago 'QR'
+                'created_at' => now()->subDays(1),
             ],
             // Carrito 4
             [
@@ -169,6 +173,7 @@ class UserSeeder extends Seeder
                 'ESTADO' => true,
                 'CLIENTE' => 4, // ID de cliente 4
                 'METODO_PAGO' => 'Stripe', // Método de pago 'Transferencia Bancaria'
+                'created_at' => now()->subDays(1),
             ],
             // Carrito 5
             [
@@ -177,88 +182,100 @@ class UserSeeder extends Seeder
                 'ESTADO' => true,
                 'CLIENTE' => 5, // ID de cliente 5
                 'METODO_PAGO' => 'Stripe', // Método de pago 'Stripe'
+                'created_at' => now()->subDays(1),
             ],
             // Carrito 6
-        [
-            'TOTAL' => 310.00,
-            'DIRECCION' => 'Calle Luna 112, Lima, Perú',
-            'ESTADO' => true,
-            'CLIENTE' => 6,
-            'METODO_PAGO' => 'Stripe',
-        ],
-        // Carrito 7
-        [
-            'TOTAL' => 99.99,
-            'DIRECCION' => 'Av. Reforma 345, Ciudad de México, México',
-            'ESTADO' => false,
-            'CLIENTE' => 7,
-            'METODO_PAGO' => 'Stripe',
-        ],
-        // Carrito 8
-        [
-            'TOTAL' => 500.25,
-            'DIRECCION' => 'Rua das Flores 567, São Paulo, Brasil',
-            'ESTADO' => true,
-            'CLIENTE' => 8,
-            'METODO_PAGO' => 'Stripe',
-        ],
-        // Carrito 9
-        [
-            'TOTAL' => 275.60,
-            'DIRECCION' => 'Av. Bolívar 789, Caracas, Venezuela',
-            'ESTADO' => true,
-            'CLIENTE' => 9,
-            'METODO_PAGO' => 'Stripe',
-        ],
-        // Carrito 10
-        [
-            'TOTAL' => 145.45,
-            'DIRECCION' => 'Av. del Libertador 321, Buenos Aires, Argentina',
-            'ESTADO' => false,
-            'CLIENTE' => 10,
-            'METODO_PAGO' => 'Stripe',
-        ],
-        // Carrito 11
-        [
-            'TOTAL' => 210.10,
-            'DIRECCION' => 'Calle Mayor 121, Madrid, España',
-            'ESTADO' => true,
-            'CLIENTE' => 11,
-            'METODO_PAGO' => 'Stripe',
-        ],
-        // Carrito 12
-        [
-            'TOTAL' => 88.88,
-            'DIRECCION' => 'Boulevard de los Sueños 45, Guadalajara, México',
-            'ESTADO' => true,
-            'CLIENTE' => 12,
-            'METODO_PAGO' => 'Stripe',
-        ],
-        // Carrito 13
-        [
-            'TOTAL' => 390.00,
-            'DIRECCION' => 'Carrera 10 No. 20-30, Bogotá, Colombia',
-            'ESTADO' => false,
-            'CLIENTE' => 13,
-            'METODO_PAGO' => 'Stripe',
-        ],
-        // Carrito 14
-        [
-            'TOTAL' => 60.00,
-            'DIRECCION' => 'Av. Insurgentes 900, Ciudad de México, México',
-            'ESTADO' => true,
-            'CLIENTE' => 14,
-            'METODO_PAGO' => 'Stripe',
-        ],
-        // Carrito 15
-        [
-            'TOTAL' => 120.75,
-            'DIRECCION' => 'Calle Real 56, Cusco, Perú',
-            'ESTADO' => true,
-            'CLIENTE' => 15,
-            'METODO_PAGO' => 'Stripe',
-        ],
+            [
+                'TOTAL' => 310.00,
+                'DIRECCION' => 'Calle Luna 112, Lima, Perú',
+                'ESTADO' => true,
+                'CLIENTE' => 6,
+                'METODO_PAGO' => 'Stripe',
+                'created_at' => now()->subDays(1),
+            ],
+            // Carrito 7
+            [
+                'TOTAL' => 99.99,
+                'DIRECCION' => 'Av. Reforma 345, Ciudad de México, México',
+                'ESTADO' => false,
+                'CLIENTE' => 7,
+                'METODO_PAGO' => 'Stripe',
+                'created_at' => now()->subDays(2),
+            ],
+            // Carrito 8
+            [
+                'TOTAL' => 500.25,
+                'DIRECCION' => 'Rua das Flores 567, São Paulo, Brasil',
+                'ESTADO' => true,
+                'CLIENTE' => 8,
+                'METODO_PAGO' => 'Stripe',
+                'created_at' => now()->subDays(2),
+            ],
+            // Carrito 9
+            [
+                'TOTAL' => 275.60,
+                'DIRECCION' => 'Av. Bolívar 789, Caracas, Venezuela',
+                'ESTADO' => true,
+                'CLIENTE' => 9,
+                'METODO_PAGO' => 'Stripe',
+                'created_at' => now()->subDays(2),
+            ],
+            // Carrito 10
+            [
+                'TOTAL' => 145.45,
+                'DIRECCION' => 'Av. del Libertador 321, Buenos Aires, Argentina',
+                'ESTADO' => false,
+                'CLIENTE' => 10,
+                'METODO_PAGO' => 'Stripe',
+                'created_at' => now()->subDays(2),
+            ],
+            // Carrito 11
+            [
+                'TOTAL' => 210.10,
+                'DIRECCION' => 'Calle Mayor 121, Madrid, España',
+                'ESTADO' => true,
+                'CLIENTE' => 11,
+                'METODO_PAGO' => 'Stripe',
+                'created_at' => now()->subDays(2),
+            ],
+            // Carrito 12
+            [
+                'TOTAL' => 88.88,
+                'DIRECCION' => 'Boulevard de los Sueños 45, Guadalajara, México',
+                'ESTADO' => true,
+                'CLIENTE' => 12,
+                'METODO_PAGO' => 'Stripe',
+                'created_at' => now()->subDays(2),
+            ],
+            // Carrito 13
+            [
+                'TOTAL' => 390.00,
+                'DIRECCION' => 'Carrera 10 No. 20-30, Bogotá, Colombia',
+                'ESTADO' => false,
+                'CLIENTE' => 13,
+                'METODO_PAGO' => 'Stripe',
+                'created_at' => now()->subDays(3),
+            ],
+            // Carrito 14
+            [
+                'TOTAL' => 60.00,
+                'DIRECCION' => 'Av. Insurgentes 900, Ciudad de México, México',
+                'ESTADO' => true,
+                'CLIENTE' => 14,
+                'METODO_PAGO' => 'Stripe',
+                'created_at' => now()->subDays(3),
+            ],
+            // Carrito 15
+            [
+                'TOTAL' => 120.75,
+                'DIRECCION' => 'Calle Real 56, Cusco, Perú',
+                'ESTADO' => true,
+                'CLIENTE' => 15,
+                'METODO_PAGO' => 'Stripe',
+                'created_at' => now()->subDays(3),
+            ],
         ]);
+        
         DB::table('DETALLE_CARRITO')->insert([
             // Detalle Carrito 1
             ['CARRITO' => 1, 'PRODUCTO' => 1, 'PRECIO' => 50.00, 'CANTIDAD' => 2],
@@ -335,6 +352,7 @@ class UserSeeder extends Seeder
                 'METODO_PAGO' => 'Transferencia Bancaria',
                 'USUARIO' => 1,
                 'PROVEEDOR' => 2,
+                'created_at' => now(),
             ],
             // Compra 2
             [
@@ -343,6 +361,7 @@ class UserSeeder extends Seeder
                 'METODO_PAGO' => 'Efectivo',
                 'USUARIO' => 2,
                 'PROVEEDOR' => 3,
+                'created_at' => now()->subDays(1),
             ],
             // Compra 3
             [
@@ -351,6 +370,7 @@ class UserSeeder extends Seeder
                 'METODO_PAGO' => 'Tarjeta',
                 'USUARIO' => 3,
                 'PROVEEDOR' => 1,
+                'created_at' => now()->subDays(1),
             ],
             // Compra 4
             [
@@ -359,6 +379,7 @@ class UserSeeder extends Seeder
                 'METODO_PAGO' => 'Stripe',
                 'USUARIO' => 4,
                 'PROVEEDOR' => 4,
+                'created_at' => now()->subDays(1),
             ],
             // Compra 5
             [
@@ -367,6 +388,7 @@ class UserSeeder extends Seeder
                 'METODO_PAGO' => 'QR',
                 'USUARIO' => 5,
                 'PROVEEDOR' => 5,
+                'created_at' => now()->subDays(1),
             ],
             // Compra 6
             [
@@ -375,6 +397,7 @@ class UserSeeder extends Seeder
                 'METODO_PAGO' => 'Transferencia Bancaria',
                 'USUARIO' => 6,
                 'PROVEEDOR' => 2,
+                'created_at' => now()->subDays(2),
             ],
             // Compra 7
             [
@@ -383,6 +406,7 @@ class UserSeeder extends Seeder
                 'METODO_PAGO' => 'Efectivo',
                 'USUARIO' => 7,
                 'PROVEEDOR' => 3,
+                'created_at' => now()->subDays(2),
             ],
             // Compra 8
             [
@@ -391,6 +415,7 @@ class UserSeeder extends Seeder
                 'METODO_PAGO' => 'Tarjeta',
                 'USUARIO' => 8,
                 'PROVEEDOR' => 4,
+                'created_at' => now()->subDays(2),
             ],
             // Compra 9
             [
@@ -399,6 +424,7 @@ class UserSeeder extends Seeder
                 'METODO_PAGO' => 'Stripe',
                 'USUARIO' => 9,
                 'PROVEEDOR' => 1,
+                'created_at' => now()->subDays(3),
             ],
             // Compra 10
             [
@@ -407,8 +433,10 @@ class UserSeeder extends Seeder
                 'METODO_PAGO' => 'QR',
                 'USUARIO' => 10,
                 'PROVEEDOR' => 5,
+                'created_at' => now()->subDays(3),
             ],
         ]);
+        
     
         DB::table('DETALLE_COMPRA')->insert([
             // Detalle Compra 1
@@ -463,62 +491,73 @@ class UserSeeder extends Seeder
                 'ID' => 1,
                 'DESCRIPCION' => 'Caja de ventas de la tienda principal.',
                 'USUARIO' => 1, // Asumiendo que el usuario con ID 1 existe
+                'created_at' => now()->subDays(6), // 6 días atrás
             ],
             // Caja 2
             [
                 'ID' => 2,
                 'DESCRIPCION' => 'Caja de ventas de la sucursal A.',
                 'USUARIO' => 2,
+                'created_at' => now()->subDays(5), // 5 días atrás
             ],
             // Caja 3
             [
                 'ID' => 3,
                 'DESCRIPCION' => 'Caja de ventas de la sucursal B.',
                 'USUARIO' => 3,
+                'created_at' => now()->subDays(4), // 4 días atrás
             ],
             // Caja 4
             [
                 'ID' => 4,
                 'DESCRIPCION' => 'Caja de devoluciones de productos defectuosos.',
                 'USUARIO' => 4,
+                'created_at' => now()->subDays(3), // 3 días atrás
             ],
             // Caja 5
             [
                 'ID' => 5,
                 'DESCRIPCION' => 'Caja de pagos de proveedores.',
                 'USUARIO' => 5,
+                'created_at' => now()->subDays(2), // 2 días atrás
             ],
             // Caja 6
             [
                 'ID' => 6,
                 'DESCRIPCION' => 'Caja para pagos de clientes en efectivo.',
                 'USUARIO' => 6,
+                'created_at' => now()->subDay(1), // 1 día atrás
             ],
             // Caja 7
             [
                 'ID' => 7,
                 'DESCRIPCION' => 'Caja de pagos con tarjeta.',
                 'USUARIO' => 7,
+                'created_at' => now(), // Hoy
             ],
             // Caja 8
             [
                 'ID' => 8,
                 'DESCRIPCION' => 'Caja de pagos en línea (Stripe, PayPal).',
                 'USUARIO' => 8,
+                'created_at' => now()->addDay(1), // 1 día futuro
             ],
             // Caja 9
             [
                 'ID' => 9,
                 'DESCRIPCION' => 'Caja de ventas por la tienda en línea.',
                 'USUARIO' => 9,
+                'created_at' => now()->addDays(2), // 2 días futuros
             ],
             // Caja 10
             [
                 'ID' => 10,
                 'DESCRIPCION' => 'Caja de pagos de compras al por mayor.',
                 'USUARIO' => 10,
+                'created_at' => now()->addDays(3), // 3 días futuros
             ],
         ]);
+        
             
         DB::table('CAJA_PAGO')->insert([
             // Caja 1 (No tiene Transferencia Bancaria ni Stripe)
@@ -576,57 +615,58 @@ class UserSeeder extends Seeder
         ]);
         DB::table('GASTOS')->insert([
             // Usuario 1 (No tiene Transferencia Bancaria ni Stripe)
-            ['DESCRIPCION' => 'Compra de suministros', 'MONTO' => 120.00, 'CANTIDAD' => 3, 'USUARIO' => 1, 'METODO_PAGO' => 'QR'],
-            ['DESCRIPCION' => 'Pago de servicios', 'MONTO' => 150.00, 'CANTIDAD' => 1, 'USUARIO' => 1, 'METODO_PAGO' => 'Tarjeta'],
-            ['DESCRIPCION' => 'Compra de equipo', 'MONTO' => 80.00, 'CANTIDAD' => 2, 'USUARIO' => 1, 'METODO_PAGO' => 'Efectivo'],
+            ['DESCRIPCION' => 'Compra de suministros', 'MONTO' => 120.00, 'CANTIDAD' => 3, 'USUARIO' => 1, 'METODO_PAGO' => 'QR', 'created_at' => now()->subDays(6)], // 6 días atrás
+            ['DESCRIPCION' => 'Pago de servicios', 'MONTO' => 150.00, 'CANTIDAD' => 1, 'USUARIO' => 1, 'METODO_PAGO' => 'Tarjeta', 'created_at' => now()->subDays(5)], // 5 días atrás
+            ['DESCRIPCION' => 'Compra de equipo', 'MONTO' => 80.00, 'CANTIDAD' => 2, 'USUARIO' => 1, 'METODO_PAGO' => 'Efectivo', 'created_at' => now()->subDays(4)], // 4 días atrás
         
             // Usuario 2 (No tiene Efectivo)
-            ['DESCRIPCION' => 'Pago de proveedores', 'MONTO' => 200.00, 'CANTIDAD' => 5, 'USUARIO' => 2, 'METODO_PAGO' => 'QR'],
-            ['DESCRIPCION' => 'Compra de licencias', 'MONTO' => 220.00, 'CANTIDAD' => 2, 'USUARIO' => 2, 'METODO_PAGO' => 'Tarjeta'],
-            ['DESCRIPCION' => 'Pago de servicios bancarios', 'MONTO' => 180.00, 'CANTIDAD' => 1, 'USUARIO' => 2, 'METODO_PAGO' => 'Transferencia Bancaria'],
-            ['DESCRIPCION' => 'Pago online', 'MONTO' => 210.00, 'CANTIDAD' => 4, 'USUARIO' => 2, 'METODO_PAGO' => 'Stripe'],
+            ['DESCRIPCION' => 'Pago de proveedores', 'MONTO' => 200.00, 'CANTIDAD' => 5, 'USUARIO' => 2, 'METODO_PAGO' => 'QR', 'created_at' => now()->subDays(3)], // 3 días atrás
+            ['DESCRIPCION' => 'Compra de licencias', 'MONTO' => 220.00, 'CANTIDAD' => 2, 'USUARIO' => 2, 'METODO_PAGO' => 'Tarjeta', 'created_at' => now()->subDays(2)], // 2 días atrás
+            ['DESCRIPCION' => 'Pago de servicios bancarios', 'MONTO' => 180.00, 'CANTIDAD' => 1, 'USUARIO' => 2, 'METODO_PAGO' => 'Transferencia Bancaria', 'created_at' => now()->subDay(1)], // 1 día atrás
+            ['DESCRIPCION' => 'Pago online', 'MONTO' => 210.00, 'CANTIDAD' => 4, 'USUARIO' => 2, 'METODO_PAGO' => 'Stripe', 'created_at' => now()], // Hoy
         
             // Usuario 3 (Tiene todos los métodos de pago)
-            ['DESCRIPCION' => 'Compra de material de oficina', 'MONTO' => 100.00, 'CANTIDAD' => 10, 'USUARIO' => 3, 'METODO_PAGO' => 'QR'],
-            ['DESCRIPCION' => 'Pago de factura eléctrica', 'MONTO' => 120.00, 'CANTIDAD' => 1, 'USUARIO' => 3, 'METODO_PAGO' => 'Tarjeta'],
-            ['DESCRIPCION' => 'Compra de equipos de computo', 'MONTO' => 130.00, 'CANTIDAD' => 2, 'USUARIO' => 3, 'METODO_PAGO' => 'Efectivo'],
-            ['DESCRIPCION' => 'Pago de software', 'MONTO' => 110.00, 'CANTIDAD' => 3, 'USUARIO' => 3, 'METODO_PAGO' => 'Transferencia Bancaria'],
-            ['DESCRIPCION' => 'Pago de suscripción mensual', 'MONTO' => 115.00, 'CANTIDAD' => 1, 'USUARIO' => 3, 'METODO_PAGO' => 'Stripe'],
+            ['DESCRIPCION' => 'Compra de material de oficina', 'MONTO' => 100.00, 'CANTIDAD' => 10, 'USUARIO' => 3, 'METODO_PAGO' => 'QR', 'created_at' => now()->addDay(1)], // 1 día futuro
+            ['DESCRIPCION' => 'Pago de factura eléctrica', 'MONTO' => 120.00, 'CANTIDAD' => 1, 'USUARIO' => 3, 'METODO_PAGO' => 'Tarjeta', 'created_at' => now()->addDays(2)], // 2 días futuros
+            ['DESCRIPCION' => 'Compra de equipos de computo', 'MONTO' => 130.00, 'CANTIDAD' => 2, 'USUARIO' => 3, 'METODO_PAGO' => 'Efectivo', 'created_at' => now()->addDays(3)], // 3 días futuros
+            ['DESCRIPCION' => 'Pago de software', 'MONTO' => 110.00, 'CANTIDAD' => 3, 'USUARIO' => 3, 'METODO_PAGO' => 'Transferencia Bancaria', 'created_at' => now()->addDays(4)], // 4 días futuros
+            ['DESCRIPCION' => 'Pago de suscripción mensual', 'MONTO' => 115.00, 'CANTIDAD' => 1, 'USUARIO' => 3, 'METODO_PAGO' => 'Stripe', 'created_at' => now()->addDays(5)], // 5 días futuros
         
             // Usuario 4 (No tiene Tarjeta ni Stripe)
-            ['DESCRIPCION' => 'Compra de suministros de oficina', 'MONTO' => 90.00, 'CANTIDAD' => 5, 'USUARIO' => 4, 'METODO_PAGO' => 'QR'],
-            ['DESCRIPCION' => 'Pago de servicios de internet', 'MONTO' => 85.00, 'CANTIDAD' => 1, 'USUARIO' => 4, 'METODO_PAGO' => 'Efectivo'],
-            ['DESCRIPCION' => 'Compra de material', 'MONTO' => 95.00, 'CANTIDAD' => 10, 'USUARIO' => 4, 'METODO_PAGO' => 'Transferencia Bancaria'],
+            ['DESCRIPCION' => 'Compra de suministros de oficina', 'MONTO' => 90.00, 'CANTIDAD' => 5, 'USUARIO' => 4, 'METODO_PAGO' => 'QR', 'created_at' => now()->addDays(6)], // 6 días futuros
+            ['DESCRIPCION' => 'Pago de servicios de internet', 'MONTO' => 85.00, 'CANTIDAD' => 1, 'USUARIO' => 4, 'METODO_PAGO' => 'Efectivo', 'created_at' => now()->addDays(7)], // 7 días futuros
+            ['DESCRIPCION' => 'Compra de material', 'MONTO' => 95.00, 'CANTIDAD' => 10, 'USUARIO' => 4, 'METODO_PAGO' => 'Transferencia Bancaria', 'created_at' => now()->addDays(8)], // 8 días futuros
         
             // Usuario 5 (No tiene QR ni Stripe)
-            ['DESCRIPCION' => 'Compra de cámaras de seguridad', 'MONTO' => 150.00, 'CANTIDAD' => 2, 'USUARIO' => 5, 'METODO_PAGO' => 'Tarjeta'],
-            ['DESCRIPCION' => 'Pago de gastos operativos', 'MONTO' => 100.00, 'CANTIDAD' => 1, 'USUARIO' => 5, 'METODO_PAGO' => 'Efectivo'],
-            ['DESCRIPCION' => 'Compra de software de contabilidad', 'MONTO' => 120.00, 'CANTIDAD' => 1, 'USUARIO' => 5, 'METODO_PAGO' => 'Transferencia Bancaria'],
+            ['DESCRIPCION' => 'Compra de cámaras de seguridad', 'MONTO' => 150.00, 'CANTIDAD' => 2, 'USUARIO' => 5, 'METODO_PAGO' => 'Tarjeta', 'created_at' => now()->addDays(9)], // 9 días futuros
+            ['DESCRIPCION' => 'Pago de gastos operativos', 'MONTO' => 100.00, 'CANTIDAD' => 1, 'USUARIO' => 5, 'METODO_PAGO' => 'Efectivo', 'created_at' => now()->addDays(10)], // 10 días futuros
+            ['DESCRIPCION' => 'Compra de software de contabilidad', 'MONTO' => 120.00, 'CANTIDAD' => 1, 'USUARIO' => 5, 'METODO_PAGO' => 'Transferencia Bancaria', 'created_at' => now()->addDays(11)], // 11 días futuros
         
             // Usuario 6 (No tiene Transferencia Bancaria ni Stripe)
-            ['DESCRIPCION' => 'Compra de equipos para oficina', 'MONTO' => 110.00, 'CANTIDAD' => 2, 'USUARIO' => 6, 'METODO_PAGO' => 'QR'],
-            ['DESCRIPCION' => 'Pago de servicios de mantenimiento', 'MONTO' => 130.00, 'CANTIDAD' => 3, 'USUARIO' => 6, 'METODO_PAGO' => 'Tarjeta'],
-            ['DESCRIPCION' => 'Compra de muebles de oficina', 'MONTO' => 125.00, 'CANTIDAD' => 4, 'USUARIO' => 6, 'METODO_PAGO' => 'Efectivo'],
+            ['DESCRIPCION' => 'Compra de equipos para oficina', 'MONTO' => 110.00, 'CANTIDAD' => 2, 'USUARIO' => 6, 'METODO_PAGO' => 'QR', 'created_at' => now()->addDays(12)], // 12 días futuros
+            ['DESCRIPCION' => 'Pago de servicios de mantenimiento', 'MONTO' => 130.00, 'CANTIDAD' => 3, 'USUARIO' => 6, 'METODO_PAGO' => 'Tarjeta', 'created_at' => now()->addDays(13)], // 13 días futuros
+            ['DESCRIPCION' => 'Compra de muebles de oficina', 'MONTO' => 125.00, 'CANTIDAD' => 4, 'USUARIO' => 6, 'METODO_PAGO' => 'Efectivo', 'created_at' => now()->addDays(14)], // 14 días futuros
         
             // Usuario 7 (Solo tiene QR y Transferencia Bancaria)
-            ['DESCRIPCION' => 'Pago de insumos de oficina', 'MONTO' => 90.00, 'CANTIDAD' => 6, 'USUARIO' => 7, 'METODO_PAGO' => 'QR'],
-            ['DESCRIPCION' => 'Compra de equipos electrónicos', 'MONTO' => 160.00, 'CANTIDAD' => 3, 'USUARIO' => 7, 'METODO_PAGO' => 'Transferencia Bancaria'],
+            ['DESCRIPCION' => 'Pago de insumos de oficina', 'MONTO' => 90.00, 'CANTIDAD' => 6, 'USUARIO' => 7, 'METODO_PAGO' => 'QR', 'created_at' => now()->addDays(15)], // 15 días futuros
+            ['DESCRIPCION' => 'Compra de equipos electrónicos', 'MONTO' => 160.00, 'CANTIDAD' => 3, 'USUARIO' => 7, 'METODO_PAGO' => 'Transferencia Bancaria', 'created_at' => now()->addDays(16)], // 16 días futuros
         
             // Usuario 8 (Solo tiene Efectivo y Transferencia Bancaria)
-            ['DESCRIPCION' => 'Compra de material de oficina', 'MONTO' => 75.00, 'CANTIDAD' => 10, 'USUARIO' => 8, 'METODO_PAGO' => 'Efectivo'],
-            ['DESCRIPCION' => 'Pago de suscripción mensual', 'MONTO' => 80.00, 'CANTIDAD' => 1, 'USUARIO' => 8, 'METODO_PAGO' => 'Transferencia Bancaria'],
+            ['DESCRIPCION' => 'Compra de material de oficina', 'MONTO' => 75.00, 'CANTIDAD' => 10, 'USUARIO' => 8, 'METODO_PAGO' => 'Efectivo', 'created_at' => now()->addDays(17)], // 17 días futuros
+            ['DESCRIPCION' => 'Pago de suscripción mensual', 'MONTO' => 80.00, 'CANTIDAD' => 1, 'USUARIO' => 8, 'METODO_PAGO' => 'Transferencia Bancaria', 'created_at' => now()->addDays(18)], // 18 días futuros
         
             // Usuario 9 (No tiene QR ni Tarjeta)
-            ['DESCRIPCION' => 'Pago de servicios de telecomunicaciones', 'MONTO' => 60.00, 'CANTIDAD' => 1, 'USUARIO' => 9, 'METODO_PAGO' => 'Efectivo'],
-            ['DESCRIPCION' => 'Compra de equipos de trabajo', 'MONTO' => 95.00, 'CANTIDAD' => 2, 'USUARIO' => 9, 'METODO_PAGO' => 'Transferencia Bancaria'],
-            ['DESCRIPCION' => 'Pago de software de gestión', 'MONTO' => 110.00, 'CANTIDAD' => 1, 'USUARIO' => 9, 'METODO_PAGO' => 'Stripe'],
+            ['DESCRIPCION' => 'Pago de servicios de telecomunicaciones', 'MONTO' => 60.00, 'CANTIDAD' => 1, 'USUARIO' => 9, 'METODO_PAGO' => 'Efectivo', 'created_at' => now()->addDays(19)], // 19 días futuros
+            ['DESCRIPCION' => 'Compra de equipos de trabajo', 'MONTO' => 95.00, 'CANTIDAD' => 2, 'USUARIO' => 9, 'METODO_PAGO' => 'Transferencia Bancaria', 'created_at' => now()->addDays(20)], // 20 días futuros
+            ['DESCRIPCION' => 'Pago de software de gestión', 'MONTO' => 110.00, 'CANTIDAD' => 1, 'USUARIO' => 9, 'METODO_PAGO' => 'Stripe', 'created_at' => now()->addDays(21)], // 21 días futuros
         
             // Usuario 10 (Todos los métodos con valores variados)
-            ['DESCRIPCION' => 'Compra de equipos tecnológicos', 'MONTO' => 100.00, 'CANTIDAD' => 2, 'USUARIO' => 10, 'METODO_PAGO' => 'QR'],
-            ['DESCRIPCION' => 'Pago de servicios de internet', 'MONTO' => 140.00, 'CANTIDAD' => 1, 'USUARIO' => 10, 'METODO_PAGO' => 'Tarjeta'],
-            ['DESCRIPCION' => 'Pago de salario', 'MONTO' => 120.00, 'CANTIDAD' => 1, 'USUARIO' => 10, 'METODO_PAGO' => 'Efectivo'],
-            ['DESCRIPCION' => 'Compra de herramientas de oficina', 'MONTO' => 115.00, 'CANTIDAD' => 3, 'USUARIO' => 10, 'METODO_PAGO' => 'Transferencia Bancaria'],
-            ['DESCRIPCION' => 'Pago de suscripción anual', 'MONTO' => 130.00, 'CANTIDAD' => 1, 'USUARIO' => 10, 'METODO_PAGO' => 'Stripe'],
+            ['DESCRIPCION' => 'Compra de equipos tecnológicos', 'MONTO' => 100.00, 'CANTIDAD' => 2, 'USUARIO' => 10, 'METODO_PAGO' => 'QR', 'created_at' => now()->addDays(22)], // 22 días futuros
+            ['DESCRIPCION' => 'Pago de servicios de internet', 'MONTO' => 140.00, 'CANTIDAD' => 1, 'USUARIO' => 10, 'METODO_PAGO' => 'Tarjeta', 'created_at' => now()->addDays(23)], // 23 días futuros
+            ['DESCRIPCION' => 'Pago de salario', 'MONTO' => 120.00, 'CANTIDAD' => 1, 'USUARIO' => 10, 'METODO_PAGO' => 'Efectivo', 'created_at' => now()->addDays(24)], // 24 días futuros
+            ['DESCRIPCION' => 'Compra de herramientas de oficina', 'MONTO' => 115.00, 'CANTIDAD' => 3, 'USUARIO' => 10, 'METODO_PAGO' => 'Transferencia Bancaria', 'created_at' => now()->addDays(25)], // 25 días futuros
+            ['DESCRIPCION' => 'Pago de suscripción anual', 'MONTO' => 130.00, 'CANTIDAD' => 1, 'USUARIO' => 10, 'METODO_PAGO' => 'Stripe', 'created_at' => now()->addDays(26)], // 26 días futuros
         ]);
+        
     }
 }

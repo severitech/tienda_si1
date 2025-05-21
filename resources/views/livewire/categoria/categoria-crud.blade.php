@@ -83,7 +83,7 @@
 
     {{-- Paginación --}}
     <div class="mt-4">
-        {{ $categorias->links('vendor.pagination.tailwind') }}
+        {{ $categorias->links() }}
     </div>
 
 

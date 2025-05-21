@@ -79,7 +79,7 @@ class ListaVentas extends Component
                     });
 
             })
-            ->orderBy('venta.created_at', 'desc')
+            ->orderBy('venta.id', 'desc')
             ->paginate($this->perPage);
 
     }

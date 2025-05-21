@@ -74,7 +74,7 @@
 
         <!-- Paginación -->
         <div class="mt-4">
-            {{ $proveedores->links('vendor.pagination.tailwind') }}
+            {{ $proveedores->links() }}
         </div>
     </div>
     <!-- Modal -->

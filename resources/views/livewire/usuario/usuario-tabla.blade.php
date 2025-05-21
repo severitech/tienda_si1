@@ -1,6 +1,7 @@
 <div class="relative overflow-x-auto rounded-lg">
+    <!-- Los controles y botones de la parte superior no se ven afectados por el scroll -->
     <div class="flex flex-col gap-3 pb-4 md:flex-row md:items-center md:justify-between">
-
+        <!-- Contenido de botones -->
         <div class="flex flex-col items-start gap-2 sm:flex-row sm:items-center">
             <flux:modal.trigger name="editar-crear">
                 <flux:button
@@ -14,98 +15,98 @@
                 Exportar
             </flux:button>
         </div>
-        <!-- Sin formulario -->
-        <div class="flex">
-            <div class="relative w-full">
-                <input wire:model='search' wire:keypress='getUsuarios' autocomplete="off"
-                    class="rounded-xl block w-[400px] p-2.5 text-sm text-gray-900 bg-gray-50 border border-gray-300 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-zinc-500"
-                    placeholder="Buscar usuario..." />
 
-                <div
-                    class="absolute top-0 end-0 p-2.5 h-full text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700">
-                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                    </svg>
-                </div>
-            </div>
+        <!-- Input de búsqueda -->
+
+        
+        <div class="relative w-full sm:w-64">
+            <input type="text" wire:model="search"  wire:keydown.enter='getUsuarios' placeholder="Buscar usuarios..."
+                class="w-full px-4 py-2 text-sm border rounded-lg bg-zinc-50 dark:bg-zinc-700 dark:text-white" />
+            <button 
+                class="absolute top-0 end-0 h-full p-2.5 text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                </svg>
+                <span class="sr-only">Search</span>
+            </button>
         </div>
+
+
     </div>
+
     <x-sucess-message />
 
-    <table class="w-full text-sm text-left text-zinc-700 dark:text-zinc-300">
-        <thead class="text-xs uppercase text-zinc-700 bg-zinc-300 dark:bg-zinc-600 dark:text-zinc-200">
-            <tr>
-                <th class="px-4 py-3 font-semibold">Nombre</th>
-                <th class="px-4 py-3 font-semibold">Paterno</th>
-                <th class="px-4 py-3 font-semibold">Materno</th>
-                <th class="px-4 py-3 font-semibold">Email</th>
-                <th class="px-4 py-3 font-semibold">Rol</th>
-                <th class="px-4 py-3 font-semibold">Estado</th>
-                <th class="px-4 py-3 font-semibold">Acción</th>
-            </tr>
-        </thead>
+    <!-- Aquí está el contenedor para la tabla con scroll horizontal -->
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left text-zinc-700 dark:text-zinc-300">
+            <thead class="text-xs uppercase text-zinc-700 bg-zinc-300 dark:bg-zinc-600 dark:text-zinc-200">
+                <tr>
+                    <th class="px-4 py-3 font-semibold text-center">Nombre Completo</th>
+                    <th class="px-4 py-3 font-semibold text-center">Email</th>
+                    <th class="px-4 py-3 font-semibold text-center">Rol</th>
+                    <th class="px-4 py-3 font-semibold text-center">Estado</th>
+                    <th class="px-4 py-3 font-semibold text-center">Acción</th>
+                </tr>
+            </thead>
 
-        <tbody class="divide-y divide-zinc-800 bg-zinc-950">
-            @foreach ($usuarios as $usuario)
-                <tr
-                    class="border-b border-zinc-200 odd:bg-white odd:dark:bg-zinc-900 even:bg-zinc-50 even:dark:bg-zinc-800 dark:border-zinc-700">
-                    <td class="px-6 py-3">{{ $usuario->nombre }}</td>
-                    <td class="px-6 py-3">{{ $usuario->paterno }}</td>
-                    <td class="px-6 py-3">{{ $usuario->materno }}</td>
-                    <td class="px-6 py-3">{{ $usuario->email }}</td>
-                    <td class="px-6 py-3">{{ $usuario->rol }}</td>
-                    <td class="px-6 py-3">
-                        {{-- Etiquetas de colores --}}
-                        <span
-                            class="inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-sm
-{{ $usuario->estado ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' }}">
+            <tbody class="divide-y divide-zinc-800 bg-zinc-950">
+                @foreach ($usuarios as $usuario)
+                    <tr
+                        class="border-b border-zinc-200 odd:bg-white odd:dark:bg-zinc-900 even:bg-zinc-50 even:dark:bg-zinc-800 dark:border-zinc-700">
+                        <td class="px-6 py-3 text-center">
+                            {{ $usuario->nombre . ' ' . $usuario->paterno . ' ' . $usuario->materno }}</td>
+                        <td class="px-6 py-3 text-center">{{ $usuario->email }}</td>
+                        <td class="px-6 py-3 text-center">{{ $usuario->rol }}</td>
+                        <td class="px-6 py-3 text-center">
                             <span
-                                class="h-2 w-2 rounded-full {{ $usuario->estado ? 'bg-green-500' : 'bg-red-500' }}"></span>
-                            {{ $usuario->estado ? 'Activo' : 'Inactivo' }}
-                        </span>
+                                class="inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-sm
+                            {{ $usuario->estado ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' }}">
+                                <span
+                                    class="h-2 w-2 rounded-full {{ $usuario->estado ? 'bg-green-500' : 'bg-red-500' }}"></span>
+                                {{ $usuario->estado ? 'Activo' : 'Inactivo' }}
+                            </span>
+                        </td>
+                        </td>
+                        <td class="px-6 py-3 text-center">
+                            <div class="inline-flex overflow-hidden rounded-md shadow-sm" role="group">
+                                <!-- Botón Editar -->
+                                <flux:modal.trigger name="editar-crear">
+                                    <button type="button" wire:click="editar({{ $usuario->id }})"
+                                        class="p-2 text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-600"
+                                        aria-label="Editar">
+                                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M11 5h2M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                                        </svg>
+                                    </button>
 
-                    </td>
-                    <td class="px-6 py-3">
-                        <div class="inline-flex overflow-hidden rounded-md shadow-sm" role="group">
-                            <!-- Botón Editar -->
-                            <flux:modal.trigger name="editar-crear">
-                                <button type="button" wire:click="editar({{ $usuario->id }})"
-                                    class="p-2 text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-600"
-                                    aria-label="Editar">
+                                </flux:modal.trigger>
+
+                                <!-- Botón Desactivar -->
+                                <button type="button" wire:click="cambiarEstado('{{ $usuario->id }}')"
+                                    class="p-2 text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-700"
+                                    aria-label="Eliminar o Desactivar">
                                     <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M11 5h2M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 </button>
+                            </div>
 
-                            </flux:modal.trigger>
-
-                            <!-- Botón Desactivar -->
-                            <button type="button" wire:click="cambiarEstado('{{ $usuario->id }}')"
-                                class="p-2 text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-700"
-                                aria-label="Eliminar o Desactivar">
-                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </div>
-
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-
-    {{-- Paginación --}}
-    <div class="mt-4">
-        {{ $usuarios->links('vendor.pagination.tailwind') }}
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 
+    <!-- Paginación -->
+    <div class="mt-4">
+        {{ $usuarios->links() }}
+    </div>
 
     <flux:modal name="editar-crear" class="w-full md:w-96">
         <div class="mb-4">
