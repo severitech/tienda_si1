@@ -65,6 +65,12 @@
                         :current="request() -> routeIs('Reporte de Cierres')" wire:navigate>
                         {{ __('Compra de Productos') }}
                     </flux:navlist.item>
+
+                      <flux:navlist.item icon="building-storefront" :href="route('gasto.index')"
+                        :current="request() -> routeIs('Ingreso de Gastos')" wire:navigate>
+                        {{ __('Gastos') }}
+
+                    </flux:navlist.item>
                     <flux:navlist.item icon="building-storefront" :href="route('dashboard')"
                         :current="request() -> routeIs('Ingreso de Productos')" wire:navigate>
                         {{ __('Proveedores') }}
