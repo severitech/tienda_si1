@@ -32,12 +32,12 @@
             @endif
 
             <div class="space-y-4">
-              {{--  <x-input label="Nombre" wire:model.defer="nombre" />
+                <x-input label="Nombre" wire:model.defer="nombre" />
                 <x-input label="Apellido Paterno" wire:model.defer="paterno" />
                 <x-input label="Apellido Materno" wire:model.defer="materno" />
                 <x-input label="Teléfono" wire:model.defer="telefono" />
                 <x-input label="Correo" type="email" wire:model.defer="email" />
---}}
+
                 <button wire:click="actualizarPerfil"
                     class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">
                     Guardar Cambios

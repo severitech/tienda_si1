@@ -5,7 +5,7 @@
             <flux:modal.trigger name="editar-crear">
                 <flux:button
                     class="w-full sm:w-auto px-4 py-2 rounded-xl border !border-green-800 !bg-green-700 !text-white hover:!bg-green-600 transition-colors duration-200 shadow-md hover:shadow-lg">
-                    Nuevo Usuario
+                    Nuevo Proveedor
                 </flux:button>
             </flux:modal.trigger>
 
@@ -18,9 +18,9 @@
         <!-- Barra de búsqueda -->
         <div class="w-full md:w-auto">
             <div class="relative">
-                <input wire:model='search' wire:keypress='getUsuarios' autocomplete="off"
+                <input wire:model='search' wire:keypress='getProveedor' autocomplete="off"
                     class="block w-full md:w-[400px] p-2.5 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-xl focus:ring-zinc-500 focus:border-zinc-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="Buscar usuario..." />
+                    placeholder="Buscar proveedor..." />
                 <div
                     class="absolute top-0 right-0 p-2.5 h-full text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700">
                     <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">

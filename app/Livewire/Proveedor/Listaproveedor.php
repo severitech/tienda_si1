@@ -13,6 +13,7 @@ class Listaproveedor extends Component
     public $perPage = 5;
     public $nombre, $telefono;
     public $id_proveedor;
+    public $search ='';
 
     public function mount()
     {
@@ -21,8 +22,12 @@ class Listaproveedor extends Component
 
     public function render()
     {
-        $proveedores = Proveedor::orderBy('nombre')->paginate($this->perPage);
+        $proveedores = $this->getProveedor();
         return view('livewire.proveedor.listaproveedor', compact('proveedores'));
+    }
+    public function getProveedor(){
+        return Proveedor::where(function ($query) {
+            $query->where('nombre', 'like', '%' . $this->search . '%');})->orderBy('nombre')->paginate($this->perPage);
     }
 
     public function editar($id)

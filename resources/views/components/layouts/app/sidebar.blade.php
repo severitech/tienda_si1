@@ -16,7 +16,7 @@
         <flux:navlist variant="outline">
 
             <!-- Vista Administrador-->
-            <flux:navlist.group :heading="__('Panel')" class="grid">
+            <flux:navlist.group class="grid">
 
                 {{-- Roles --}}
                 <flux:navlist.group heading="Autenticación y Seguridad">
@@ -91,8 +91,8 @@
 
 
                 <flux:navlist.group heading="Reporte y Análisis">
-                    <flux:navlist.item icon="document-chart-bar" :href="route('dashboard')"
-                        :current="request() -> routeIs('Cierre de Caja')" wire:navigate>
+                    <flux:navlist.item icon="document-chart-bar" :href="route('detalle.compra')"
+                        :current="request() -> routeIs('detalle.compra')" wire:navigate>
                         {{ __('Reporte de Compras') }}
                     </flux:navlist.item>
                     <flux:navlist.item icon="chart-bar" :href="route('dashboard')"

@@ -13,6 +13,8 @@ use App\Http\Controllers\PasarelaPagos;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\CompraController;
+use App\Http\Controllers\DetalleCompraController;
+
 
 
 Route::get('/', [ProductoController::class, 'index'])->name('home');
@@ -84,5 +86,8 @@ Route::get('/metodo-pago', [MetodoPagoController::class, 'index'])->name('metodo
 Route::get('/proveedor',[ProveedorController::class, 'index'])->name('proveedor.mostrar');
 // ruta de la compra
 Route::get('/compra-productos',[CompraController::class, 'mostrar'])->name('compra.productos');
+
+
+Route::get('/lista-de-compra',[DetalleCompraController::class, 'index'])->name('detalle.compra');
 
 require __DIR__ . '/auth.php';
