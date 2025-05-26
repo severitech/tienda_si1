@@ -70,6 +70,16 @@
                         {{ __('Proveedores') }}
                     </flux:navlist.item>
 
+                    <flux:navlist.item icon="building-storefront" :href="route('gasto.index')"
+                        :current="request() -> routeIs('Ingreso de Gastos')" wire:navigate>
+                        {{ __('Gastos') }}
+                    </flux:navlist.item>
+                    
+                    <flux:navlist.item icon="building-storefront" :href="route('dashboard')"
+                        :current="request() -> routeIs('Ingreso de Productos')" wire:navigate>
+                    </flux:navlist.item>
+
+
                 </flux:navlist.group>
                 <flux:navlist.group heading="Administracion de Finanzas">
 
@@ -131,7 +141,8 @@
                             </span>
 
                             <div class="grid flex-1 text-sm leading-tight text-start"><span
-                                    class="font-semibold truncate">{{ auth()->user()->nombre . ' ' . auth()->user()->paterno }}</span>
+                                    class="font-semibold truncate">{{ auth()->user()->nombre . ' ' .
+                                    auth()->user()->paterno }}</span>
                                 <span class="text-xs truncate">{{ auth()->user()->email }}</span>
                             </div>
                         </div>
@@ -179,8 +190,8 @@
                             </span>
 
                             <div class="grid flex-1 text-sm leading-tight text-start">
-                                <span
-                                    class="font-semibold truncate">{{ auth()->user()->nombre . ' ' . auth()->user()->paterno }}</span>
+                                <span class="font-semibold truncate">{{ auth()->user()->nombre . ' ' .
+                                    auth()->user()->paterno }}</span>
                                 <span class="text-xs truncate">{{ auth()->user()->email }}</span>
                             </div>
                         </div>

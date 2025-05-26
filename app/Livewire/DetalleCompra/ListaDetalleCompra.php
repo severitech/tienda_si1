@@ -3,11 +3,14 @@
 namespace App\Livewire\DetalleCompra;
 
 use Livewire\Component;
-use App\Model\Compra;
+use App\Models\Compra;
+use App\Models\Proveedor;
+use Illuminate\Support\Facades\DB;
 
 class ListaDetalleCompra extends Component
+
 {
-    use WithPagination;
+  //  use WithPagination;
     public $perPage = 10;
     public $idcompra = '', $proveedor = '', $usuario = '', $metodo_pago, $estado;
     public $fecha_inicio, $fecha_fin;
@@ -18,55 +21,52 @@ class ListaDetalleCompra extends Component
 
     public function obtenerVentas()
     {
-        $this->buscarDatos();
         return Compra::query()
-            ->join('proveedor', 'compra.id_proveedor', '=', 'proveedor.id')
-            ->join('users as usuario', 'venta.usuario', '=', 'usuario.id')
-            ->select(
-                'venta.*',
-                DB::raw("cliente.nombre as cliente_nombre"),
-                DB::raw("cliente.paterno as cliente_paterno"),
-                DB::raw("cliente.materno as cliente_materno"),
-                DB::raw("usuario.nombre as usuario_nombre")
-            )
-            ->where(function ($query) {
-                $query->when(
-                    $this->idventa,
-                    fn($q) =>
-                    $q->where('venta.id', 'like', '%' . $this->idventa . '%')
-                )
-                    ->when(
-                        $this->cliente,
-                        fn($q) =>
-                        $q->where(DB::raw("cliente.nombre || ' ' || cliente.paterno || ' ' || cliente.materno"), 'like', '%' . $this->cliente . '%')
-                    )
-                    ->when(
-                        $this->vendedor,
-                        fn($q) =>
-                        $q->where(DB::raw("usuario.nombre || ' ' || usuario.paterno || ' ' || usuario.materno"), 'like', '%' . $this->vendedor . '%')
-                    )
-                    ->when(
-                        $this->metodo_pago,
-                        fn($q) =>
-                        $q->where('venta.metodo_pago', 'like', '%' . $this->metodo_pago . '%')
-                    )
-                    ->when(
-                        $this->fecha_inicio,
-                        fn($q) =>
-                        $q->whereDate('venta.created_at', '>=', $this->fecha_inicio)
-                    )
-                    ->when(
-                        $this->fecha_fin,
-                        fn($q) =>
-                        $q->whereDate('venta.created_at', '<=', $this->fecha_fin)
-                    )->when($this->estado !== null && $this->estado !== '', function ($q) {
-                        $estadoBool = $this->estado == '1' ? true : false;
-                        $q->where('venta.estado', '=', $estadoBool);
-                    });
+        ->join('proveedor', 'compra.proveedor', '=', 'proveedor.id')
+        ->join('users as usuario', 'compra.usuario', '=', 'usuario.id')
+        ->select(
+            'compra.*',
+            DB::raw("usuario.nombre as cliente_nombre"),
+            DB::raw("usuario.paterno as cliente_paterno"),
+            DB::raw("usuario.materno as cliente_materno")
+        )
+        ->where(function ($query) {
+            $query->when($this->idcompra, function ($q) {
+                $q->where('compra.id', 'like', '%' . $this->idcompra . '%');
+            });
 
-            })
-            ->orderBy('venta.id', 'desc')
-            ->paginate($this->perPage);
+            $query->when($this->proveedor, function ($q) {
+                $q->where('compra.proveedor', 'like', '%' . $this->proveedor . '%');
+            });
+
+            $query->when($this->usuario, function ($q) {
+                // Concatenar nombre completo (nota: esta parte depende del motor SQL, para MySQL usar CONCAT_WS)
+                $q->where(
+                    DB::raw("CONCAT(usuario.nombre, ' ', usuario.paterno, ' ', usuario.materno)"),
+                    'like',
+                    '%' . $this->usuario . '%'
+                );
+            });
+
+            $query->when($this->metodo_pago, function ($q) {
+                $q->where('compra.metodo_pago', 'like', '%' . $this->metodo_pago . '%');
+            });
+
+            $query->when($this->fecha_inicio, function ($q) {
+                $q->whereDate('compra.created_at', '>=', $this->fecha_inicio);
+            });
+
+            $query->when($this->fecha_fin, function ($q) {
+                $q->whereDate('compra.created_at', '<=', $this->fecha_fin);
+            });
+
+            $query->when($this->estado !== null && $this->estado !== '', function ($q) {
+                $estadoBool = $this->estado == '1' ? true : false;
+                $q->where('compra.estado', '=', $estadoBool);
+            });
+        })
+        ->orderBy('compra.id', 'desc')
+        ->paginate($this->perPage);
 
     }
 
@@ -116,6 +116,8 @@ class ListaDetalleCompra extends Component
     }
     public function render()
     {
-        return view('livewire.detalle-compra.lista-detalle-compra');
+        $compra = $this->obtenerVentas();
+        $proveedores = Proveedor::all();
+        return view('livewire.detalle-compra.lista-detalle-compra', compact('compra', 'proveedores'));
     }
 }

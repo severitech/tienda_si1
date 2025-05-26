@@ -16,6 +16,7 @@ use App\Http\Controllers\CompraController;
 use App\Http\Controllers\DetalleCompraController;
 
 
+use App\Http\Controllers\GastoController;
 
 Route::get('/', [ProductoController::class, 'index'])->name('home');
 Route::post('/cart/checkout', [PasarelaPagos::class, 'checkout'])->name('cart.checkout');
@@ -88,6 +89,8 @@ Route::get('/proveedor',[ProveedorController::class, 'index'])->name('proveedor.
 Route::get('/compra-productos',[CompraController::class, 'mostrar'])->name('compra.productos');
 
 
+
 Route::get('/lista-de-compra',[DetalleCompraController::class, 'index'])->name('detalle.compra');
+Route::get('/gasto',[GastoController::class, 'index'])->name('gasto.index');
 
 require __DIR__ . '/auth.php';

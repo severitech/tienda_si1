@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->decimal('TOTAL', 10, 2);
             $table->string('METODO_PAGO');
             $table->integer('USUARIO');
+            $table->boolean('ESTADO')->default(true);
             $table->integer('PROVEEDOR');
             // $table->timestamp('FECHA_CREACION')->default(DB::raw('CURRENT_TIMESTAMP'));
             // $table->timestamp('FECHA_ACTUALIZACION')->nullable()->default(null)->onUpdate(DB::raw('CURRENT_TIMESTAMP'));

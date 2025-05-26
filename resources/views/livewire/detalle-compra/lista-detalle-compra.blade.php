@@ -1,29 +1,32 @@
 <div>
     <form class="p-4 mb-3 bg-white rounded-lg shadow-md dark:bg-zinc-800" wire:submit.prevent="obtenerVentas">
-        <h2 class="mb-4 text-sm font-semibold text-zinc-800 dark:text-zinc-200">Buscar Venta</h2>
+        <h2 class="mb-4 text-sm font-semibold text-zinc-800 dark:text-zinc-200">Buscar Compra</h2>
 
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-            <!-- Nro de Venta -->
+            <!-- Nro de compra -->
             <div>
-                <label for="nro_venta" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Nro de
-                    Venta</label>
-                <input type="text" id="nro_venta" wire:model='idventa' placeholder="Ingrese Nro de venta"
+                <label for="nro_compra" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Nro de
+                    Compra</label>
+                <input type="text" id="nro_compra" wire:model='idcompra' placeholder="Ingrese Nro de compra"
                     class="block w-full px-2.5 py-2 text-sm text-zinc-900 bg-transparent border border-zinc-300 rounded-lg appearance-none dark:text-white dark:border-zinc-600 focus:outline-none focus:ring-0 focus:border-blue-600" />
             </div>
 
             <!-- Cliente -->
             <div>
                 <label for="cliente"
-                    class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Cliente</label>
-                <input type="text" wire:model='cliente' id="cliente" placeholder="Nombre del cliente"
-                    class="block w-full px-2.5 py-2 text-sm text-zinc-900 bg-transparent border border-zinc-300 rounded-lg appearance-none dark:text-white dark:border-zinc-600 focus:outline-none focus:ring-0 focus:border-blue-600" />
-            </div>
+                    class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Proveedor</label>
+                    <select wire:model="proveedor"  id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="" selected>-- Elige un proveedor--</option>
+                        @foreach ($proveedores as $list )
+                        <option  value={{ $list->id }}>{{ $list->NOMBRE }}</option>
+                        @endforeach
+                      </select> </div>
 
             <!-- Vendedor -->
             <div>
                 <label for="vendedor"
                     class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Vendedor</label>
-                <input type="text"wire:model='vendedor' id="vendedor" placeholder="Nombre del vendedor"
+                <input type="text"wire:model='usuario' id="vendedor" placeholder="Nombre del vendedor"
                     class="block w-full px-2.5 py-2 text-sm text-zinc-900 bg-transparent border border-zinc-300 rounded-lg appearance-none dark:text-white dark:border-zinc-600 focus:outline-none focus:ring-0 focus:border-blue-600" />
             </div>
 
@@ -52,7 +55,7 @@
             <div>
                 <label for="transferencia"
                     class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Estado de
-                    venta</label><select id="small" wire:model="estado"
+                    compra</label><select id="small" wire:model="estado"
                     class="block w-full p-2 mb-6 text-sm border rounded-lg text-zinc-900 border-zinc-300 bg-zinc-50 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500">
 
                     <option value="" selected>- estado -</option>
@@ -98,9 +101,9 @@
                 <thead class="text-xs uppercase text-zinc-700 bg-zinc-300 dark:bg-zinc-600 dark:text-zinc-200">
                     <tr>
                         <th scope="col" class="px-2 py-3 text-center">Ver</th>
-                        <th scope="col" class="px-2 py-3 text-center">Nro Venta</th>
-                        <th scope="col" class="px-6 py-3 text-center">Cliente</th>
-                        <th scope="col" class="px-6 py-3 text-center">Fecha de Venta</th>
+                        <th scope="col" class="px-2 py-3 text-center">Nro Compra</th>
+                        <th scope="col" class="px-6 py-3 text-center">Proveedor</th>
+                        <th scope="col" class="px-6 py-3 text-center">Fecha de Compra</th>
                         <th scope="col" class="px-6 py-3 text-center">Metodo de Pago</th>
                         <th scope="col" class="px-6 py-3 text-right">Total</th>
                         <th scope="col" class="px-6 py-3 text-center">Estado</th>
@@ -108,7 +111,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($ventas as $venta)
+                    @forelse ($compra as $venta)
                         <tr class="bg-white border-b dark:bg-zinc-900 dark:border-zinc-700">
                             <td class="px-1 py-4">
                                 <flux:modal.trigger name="ver-detalle-venta">
@@ -138,9 +141,9 @@
                                 @endif
 
                             </td>
-                            <td class="px-4 py-4 text-center"> {{ $venta->id }}</td>
+                            <td class="px-4 py-4 text-center"> {{ $venta->ID }}</td>
                             <td class="px-6 py-4 text-center">
-                                {{ $venta->cliente->nombre . ' ' . $venta->cliente->paterno . ' ' . $venta->cliente->materno }}
+                                {{ $venta->proveedor->NOMBRE  }}
                             </td>
                             <td class="px-6 py-4 text-center">{{ $venta->created_at->format('h:i d/m/Y') }}</td>
                             <td class="px-6 py-4 text-center"> {{ $venta->METODO_PAGO }}</td>
@@ -152,7 +155,7 @@
                                         class="h-2 w-2 rounded-full {{ $venta->ESTADO ? 'bg-green-500' : 'bg-red-500' }}"></span>
                                     {{ $venta->ESTADO ? 'Activo' : 'Inactivo' }}
                                 </span></td>
-                            <td class="px-6 py-4 text-center"> {{ $venta->usuario->nombre }}</td>
+                            <td class="px-6 py-4 text-center"> {{ $venta->usuario->nombre . ' ' . $venta->usuario->paterno . ' ' . $venta->usuario->materno }}</td>
 
                         </tr>
                     @empty
@@ -169,9 +172,9 @@
     </div>
     {{-- Paginación --}}
 
-    {{ $ventas->links() }}
+    {{ $compra->links() }}
 
     <flux:modal name="ver-detalle-venta" class="w-full md:w-200">
-        @livewire('detalle-venta.lista-detalle-venta', ['idventa' => $venta_parm], key($venta_parm))
+        {{-- @livewire('detalle-venta.lista-detalle-venta', ['idventa' => $venta_parm], key($venta_parm)) --}}
     </flux:modal>
 </div>
