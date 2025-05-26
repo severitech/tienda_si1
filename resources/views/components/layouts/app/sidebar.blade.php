@@ -65,10 +65,23 @@
                         :current="request() -> routeIs('compra.productos')" wire:navigate>
                         {{ __('Compra de Productos') }}
                     </flux:navlist.item>
+<<<<<<< HEAD
                     <flux:navlist.item icon="building-storefront" :href="route('proveedor.mostrar')"
                         :current="request() -> routeIs('proveedor.mostrar')" wire:navigate>
-                        {{ __('Proveedores') }}
+                              {{ __('Proveedores') }}
                     </flux:navlist.item>
+=======
+
+                      <flux:navlist.item icon="building-storefront" :href="route('gasto.index')"
+                        :current="request() -> routeIs('Ingreso de Gastos')" wire:navigate>
+                        {{ __('Gastos') }}
+
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="building-storefront" :href="route('dashboard')"
+                        :current="request() -> routeIs('Ingreso de Productos')" wire:navigate>
+>>>>>>> jhon2
+                  
+                    
 
                 </flux:navlist.group>
                 <flux:navlist.group heading="Administracion de Finanzas">
