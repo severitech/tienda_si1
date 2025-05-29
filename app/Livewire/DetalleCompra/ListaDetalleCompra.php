@@ -70,9 +70,9 @@ class ListaDetalleCompra extends Component
 
     }
 
-    public function verDetalle($idventa)
+    public function verDetalle($idcompra)
     {
-        $this->venta_parm = $idventa;
+        $this->param_compra = $idcompra;
     }
     public $mensaje = '';
     public function mount()
@@ -83,7 +83,7 @@ class ListaDetalleCompra extends Component
     }
     public function buscarDatos()
     {
-        $this->mensaje = 'idventa: ' . $this->idventa .
+        $this->mensaje = 'idcompra: ' . $this->idcompra .
             ' cliente: ' . $this->cliente .
             ' vendedor: ' . $this->vendedor .
             ' metodo_pago: ' . $this->metodo_pago .
@@ -105,7 +105,7 @@ class ListaDetalleCompra extends Component
     }
     public function editarEstado($id)
     {
-        $venta = Venta::find($id);
+        $venta = Compra::find($id);
         if ($venta) {
             $venta->ESTADO = $venta->ESTADO == 1 ? 0 : 1; // Cambia el estado
             $venta->save(); // Reinicia la paginación
@@ -119,5 +119,9 @@ class ListaDetalleCompra extends Component
         $compra = $this->obtenerVentas();
         $proveedores = Proveedor::all();
         return view('livewire.detalle-compra.lista-detalle-compra', compact('compra', 'proveedores'));
+    }
+    public function resetPage ()
+    {
+        $this->page = 1;
     }
 }
