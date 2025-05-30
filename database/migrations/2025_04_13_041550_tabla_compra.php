@@ -18,10 +18,11 @@ return new class extends Migration {
             $table->integer('USUARIO');
             $table->boolean('ESTADO')->default(true);
             $table->integer('PROVEEDOR');
-            // $table->timestamp('FECHA_CREACION')->default(DB::raw('CURRENT_TIMESTAMP'));
-            // $table->timestamp('FECHA_ACTUALIZACION')->nullable()->default(null)->onUpdate(DB::raw('CURRENT_TIMESTAMP'));
-
+            $table->integer('CAJA')->nullable();
+            
             // RELACION CON LA TABLA METODO_PAGO, USUARIO, PROVEEDOR
+            $table->foreign('CAJA')->references('ID')->on('CAJA')->onDelete('cascade')->onUpdate('cascade');
+
             $table->foreign('METODO_PAGO')->references('METODO_PAGO')->on('METODO_PAGO')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('USUARIO')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('PROVEEDOR')->references('ID')->on('PROVEEDOR')->onDelete('cascade')->onUpdate('cascade');

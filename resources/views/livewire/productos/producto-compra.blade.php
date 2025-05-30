@@ -29,31 +29,39 @@
                     </svg>
                 </button>
             </form>
+            <div class=" flex gap-5">
+                <div>
+                    <!-- stock_actual -->
+                    <p>Stock Actual</p>
+                    <input type="number" min="1" readonly id="cantidad" wire:model="stock_actual"
+                        class="w-full md:w-24 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <div>
+                    <!-- stock_comprar -->
+                    <p>Cantidad</p>
+                    <input type="number" id="cantidad_compra" wire:model="stock_comprar" wire:change = 'stockaumentar'
+                        class="w-full md:w-24 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <div>
+                    <!-- stock  -->
+                    <p>Actualizado</p>
+                    <input type="number" readonly id="subtotal" wire:model="stock"
+                        class="w-full md:w-24 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <div>
+                    <!-- PRecio proveedor -->
+                    <p>Costo Unitario</p>
+                    <input type="number" id="precio_proveedor" wire:model="precio_proveedor"
+                        class="w-full md:w-24 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
+                </div>
 
-            <!-- stock_actual -->
-            <input type="number" min="1" readonly id="cantidad" wire:model="stock_actual"
-                class="w-full md:w-24 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
-
-            <!-- stock_comprar -->
-            <input type="number" id="cantidad_compra" wire:model="stock_comprar" wire:change = 'stockaumentar'
-                class="w-full md:w-24 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
-
-            <!-- stock  -->
-            <input type="number" readonly id="subtotal" wire:model="stock"
-                class="w-full md:w-24 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
-              
-            <!-- PRecio proveedor -->
-                <input type="number" id="precio_proveedor" wire:model="precio_proveedor"
-                class="w-full md:w-24 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-500" />
-               
-
+            </div>
             <!-- Botón Agregar -->
             <button type="button" wire:click="agregarProducto"
                 class="w-full md:w-auto text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-700 dark:hover:bg-blue-800 dark:focus:ring-blue-900">
                 Agregar
             </button>
         </div>
-
 
         <!-- Autocompletado -->
         @if (strlen($search) > 0 && $productos->count() > 0)

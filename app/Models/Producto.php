@@ -16,6 +16,8 @@ class Producto extends Model
         'IMAGEN',
         'PRECIO',
         'CANTIDAD',
+        'COSTO_UNITARIO',
+        'COSTO_PROMEDIO',
         'ESTADO',
         'CATEGORIA'
     ];
@@ -31,6 +33,10 @@ class Producto extends Model
     public function detalleCompra()
     {
         return $this->hasMany(DetalleCompra::class);
+    }
+    public function detalleVenta()
+    {
+        return $this->hasMany(DetalleVenta::class);
     }
 
 }

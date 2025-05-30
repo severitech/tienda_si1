@@ -4,24 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Gasto extends Model
+class Caja extends Model
 {
+    protected $table = 'CAJA';
     protected $primaryKey = 'ID';
-    public $incrementing = true;
-    protected $keyType = 'int';
-    protected $table = 'GASTOS';
+    public $timestamps = true;
 
     protected $fillable = [
         'DESCRIPCION',
-        'MONTO',
-        'CANTIDAD',
+        'ESTADO',
         'USUARIO',
-        'METODO_PAGO',
-        'CAJA'
     ];
     public function usuario()
     {
         return $this->belongsTo(User::class, 'USUARIO');
     }
-
 }

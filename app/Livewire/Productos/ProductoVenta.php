@@ -46,8 +46,11 @@ class ProductoVenta extends Component
     public function guardarProducto($id)
     {
         $producto = Producto::find($id);
+        
+       // dd($producto);
+        
         if ($producto) {
-            $this->producto_id = $id; // Guardas el ID del cliente seleccionado
+            $this->producto_id = $producto->ID; // Guardas el ID del cliente seleccionado
             $this->precio = $producto->PRECIO; // Guardas el precio del producto seleccionado
             $this->search = $producto->CATEGORIA . ' ' . $producto->NOMBRE ; // Muestra el nombre completo
             $this->mostrarResultados = false; // Oculta la lista

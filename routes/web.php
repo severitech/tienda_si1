@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CajaController;
 use App\Http\Controllers\MetodoPagoController;
 use App\Http\Controllers\User;
 use App\Http\Controllers\VentaController;
@@ -92,5 +93,9 @@ Route::get('/compra-productos',[CompraController::class, 'mostrar'])->name('comp
 
 Route::get('/lista-de-compra',[DetalleCompraController::class, 'index'])->name('detalle.compra');
 Route::get('/gasto',[GastoController::class, 'index'])->name('gasto.index');
+
+
+Route::get('/cierre-caja',[CajaController::class, 'index'])->name('cierre.caja');
+Route::get('/arqueo',[CajaController::class, 'arqueo'])->name('cierre.arqueo');
 
 require __DIR__ . '/auth.php';

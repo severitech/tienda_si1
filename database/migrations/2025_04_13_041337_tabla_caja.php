@@ -11,11 +11,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('CAJA', function (Blueprint $table) {
-            $table->integer('ID')->primary();
+            $table->id('ID');
             $table->text('DESCRIPCION')->nullable();
-            // $table->timestamp('FECHA_CREACION')->default(DB::raw('CURRENT_TIMESTAMP'));
-            // $table->timestamp('FECHA_ACTUALIZACION')->nullable()->default(null)->onUpdate(DB::raw('CURRENT_TIMESTAMP'));
-            // Relacion con la tabla usuarios
+            $table->boolean('ESTADO')->default(true);
             $table->integer('USUARIO');
             $table->foreign('USUARIO')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 

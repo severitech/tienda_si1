@@ -40,6 +40,8 @@
                     <th class="px-4 py-2">Código</th>
                     <th class="px-4 py-2">Nombre</th>
                     <th class="px-4 py-2">Precio</th>
+                    <th class="px-4 py-2">Costo Unitario</th>
+                    <th class="px-4 py-2">Costo Promedio</th>
                     <th class="px-4 py-2">Cantidad</th>
                     <th class="px-4 py-2">Categoría</th>
                     <th class="px-4 py-2">Estado</th>
@@ -51,7 +53,10 @@
                     <tr class="border-t dark:border-zinc-700">
                         <td class="px-4 py-2">{{ $producto->CODIGO }}</td>
                         <td class="px-4 py-2">{{ $producto->NOMBRE }}</td>
-                        <td class="px-4 py-2">{{ $producto->PRECIO }} Bs</td>
+                        <td class="px-4 py-2">{{ number_format($producto->PRECIO, 2) }} Bs</td>
+                        <td class="px-4 py-2">{{ number_format($producto->COSTO_UNITARIO ?? 0, 2) }} Bs</td>
+                        <td class="px-4 py-2">{{ number_format($producto->COSTO_PROMEDIO ?? 0, 2) }} Bs</td>
+
                         <td class="px-4 py-2">{{ $producto->CANTIDAD ?? 0 }}</td>
                         <td class="px-4 py-2">{{ $producto->CATEGORIA ?? 'Sin categoría' }}</td>
                         <td class="px-4 py-2">

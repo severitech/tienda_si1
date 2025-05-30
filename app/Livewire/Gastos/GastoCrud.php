@@ -16,7 +16,6 @@ class GastoCrud extends Component
     public $gasto_id;
     public $search = '';
 
-    public $usuarios = [];
     public $metodosPago = [];
 
     protected $rules = [
@@ -29,9 +28,7 @@ class GastoCrud extends Component
 
     public function render()
     {
-        $this->usuarios = User::all();
         $this->metodosPago = MetodoPago::all();
-
 
         $gastos = Gasto::where('DESCRIPCION', 'like', '%' . $this->search . '%')->paginate(10);
         return view('livewire.gastos.gasto-crud', compact('gastos'));
@@ -42,40 +39,43 @@ class GastoCrud extends Component
         $this->reset(['descripcion', 'monto', 'cantidad', 'usuario', 'metodo_pago', 'gasto_id']);
     }
 
-    public function guardarNuevo()
+    public function guardar()
     {
-        $this->validate();
+      //  $this->validate();
+      // $this->limpiar();
+      //  dd(auth()->id());
 
-        Gasto::Create([
-            'DESCRIPCION' => $this->descripcion,
-            'MONTO' => $this->monto,
-            'CANTIDAD' => $this->cantidad,
-            'USUARIO' => $this->usuario,
-            'METODO_PAGO' => $this->metodo_pago,
-        ]);
+        if ($this->gasto_id) {
+            // Si existe, actualiza
+            Gasto::where('ID', $this->gasto_id)->update([
+                'DESCRIPCION' => $this->descripcion,
+                'MONTO' => $this->monto,
+                'CANTIDAD' => $this->cantidad,
+                'USUARIO' => auth()->id(),
+                'METODO_PAGO' => $this->metodo_pago,
+            ]);
+        } else {
+            // Si no, crea uno nuevo
+            Gasto::create([
+                'DESCRIPCION' => $this->descripcion,
+                'MONTO' => $this->monto,
+                'CANTIDAD' => $this->cantidad,
+                'USUARIO' => auth()->id(),
+                'METODO_PAGO' => $this->metodo_pago,
+            ]);
+        }
 
         $this->limpiar();
+        session()->flash('message', 'Gasto guardado correctamente.');
         $this->dispatch('cerrar-modal');
     }
-    public function guardarActualizado()
+
+    public function updatedSearch()
     {
-
-        $this->validate();
-
-        $gasto = Gasto::find($this->gasto_id);
-    
-        $gasto->update([
-            'ID' => $this->gasto_id,
-            'DESCRIPCION' => $this->descripcion,
-            'MONTO' => $this->monto,
-            'CANTIDAD' => $this->cantidad,
-            'USUARIO' => $this->usuario,
-            'METODO_PAGO' => $this->metodo_pago,
-        ]);
-
-        $this->limpiar();
-        $this->dispatch('cerrar-modal');
+        $this->resetPage();
     }
+
+
 
     public function editar($id)
     {
@@ -86,6 +86,7 @@ class GastoCrud extends Component
         $this->cantidad = $gasto->CANTIDAD;
         $this->usuario = $gasto->USUARIO;
         $this->metodo_pago = $gasto->METODO_PAGO;
+
     }
 
     public function eliminar($id)

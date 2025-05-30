@@ -37,37 +37,37 @@ class CompraProductos extends Component
         $this->proveedor_id = $id;
     }
     public function recibirProducto($productoData)
-{
-    $producto = Producto::find($productoData['id']);
-    if ($producto) {
-        $existente = collect($this->productosSeleccionados)->firstWhere('id', $productoData['id']);
+    {
+        $producto = Producto::find($productoData['id']);
+        if ($producto) {
+            $existente = collect($this->productosSeleccionados)->firstWhere('id', $productoData['id']);
 
-        if ($existente) {
-            foreach ($this->productosSeleccionados as &$item) {
-                if ($item['id'] === $productoData['id']) {
-                    $item['cantidad'] += $productoData['cantidad'];
-                    $item['subtotal'] = $item['cantidad'] * $item['precio']; // ✅ corrección aquí
-                    break;
+            if ($existente) {
+                foreach ($this->productosSeleccionados as &$item) {
+                    if ($item['id'] === $productoData['id']) {
+                        $item['cantidad'] += $productoData['cantidad'];
+                        $item['subtotal'] = $item['cantidad'] * $item['precio']; 
+                        break;
+                    }
                 }
+            } else {
+                $this->productosSeleccionados[] = [
+                    'id' => $productoData['id'],
+                    'nombre' => $producto->NOMBRE,
+                    'precio' => $productoData['precio'],
+                    'cantidad' => $productoData['cantidad'],
+                    'subtotal' => $productoData['subtotal'],
+                ];
             }
+
+            // Recalcular total
+            $this->totalVenta = array_sum(array_column($this->productosSeleccionados, 'subtotal'));
+            $this->totalProductos = array_sum(array_column($this->productosSeleccionados, 'cantidad'));
+
         } else {
-            $this->productosSeleccionados[] = [
-                'id' => $productoData['id'],
-                'nombre' => $producto->NOMBRE,
-                'precio' => $productoData['precio'],
-                'cantidad' => $productoData['cantidad'],
-                'subtotal' => $productoData['subtotal'],
-            ];
+            session()->flash('message', 'Producto no encontrado.');
         }
-
-        // Recalcular total
-        $this->totalVenta = array_sum(array_column($this->productosSeleccionados, 'subtotal'));
-        $this->totalProductos = array_sum(array_column($this->productosSeleccionados, 'cantidad'));
-
-    } else {
-        session()->flash('message', 'Producto no encontrado.');
     }
-}
 
 
     public function eliminar($id)
@@ -119,9 +119,27 @@ class CompraProductos extends Component
             $productoModel = Producto::find($producto['id']);
             if ($productoModel) {
                 $productoModel->CANTIDAD += $producto['cantidad'];
+                $productoModel->COSTO_UNITARIO = $producto['precio'];
+
+                // Obtener todas las compras anteriores del producto
+                $datos = DB::table('DETALLE_COMPRA')
+                    ->where('PRODUCTO', $producto['id'])
+                    ->selectRaw('SUM(PRECIO * CANTIDAD) as total, SUM(CANTIDAD) as cantidad_total')
+                    ->first();
+
+                if ($datos && $datos->cantidad_total > 0) {
+                    $productoModel->COSTO_PROMEDIO = $datos->total / $datos->cantidad_total;
+                } else {
+                    $productoModel->COSTO_PROMEDIO = $producto['precio']; // Primera compra
+                }
+
                 $productoModel->save();
             }
+
+
+
         }
+
 
         $this->reset([
             'proveedor_id',
@@ -132,7 +150,7 @@ class CompraProductos extends Component
         //limpiar metodo de pago y nombre del cliente en el input
         $this->dispatch('limpiar');
 
-        session()->flash('message', 'Venta registrada correctamente.');
+        session()->flash('message', 'Compra registrada correctamente.');
     }
 
 }

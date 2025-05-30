@@ -88,11 +88,11 @@
                         :current="request() -> routeIs('metodo_pago.index')" wire:navigate>
                         {{ __('Métodos de Pago') }}
                     </flux:navlist.item>
-                    <flux:navlist.item icon="lock-closed" :href="route('dashboard')"
-                        :current="request() -> routeIs('Cierre de Caja')" wire:navigate>{{ __('Cierre de Caja') }}
+                    <flux:navlist.item icon="lock-closed" :href="route('cierre.caja')"
+                        :current="request() -> routeIs('cierre.caja')" wire:navigate>{{ __('Cierre de Caja') }}
                     </flux:navlist.item>
-                    <flux:navlist.item icon="calculator" :href="route('dashboard')"
-                        :current="request() -> routeIs('Cierre de Caja')" wire:navigate>
+                    <flux:navlist.item icon="calculator" :href="route('cierre.arqueo')"
+                        :current="request() -> routeIs('cierre.arqueo')" wire:navigate>
                         {{ __('Arqueos de Caja') }}
                     </flux:navlist.item>
                 </flux:navlist.group>

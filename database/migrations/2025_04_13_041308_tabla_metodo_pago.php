@@ -14,10 +14,6 @@ return new class extends Migration
     {
         Schema::create('METODO_PAGO', function (Blueprint $table) {
             $table->string('METODO_PAGO', 50)->primary();
-            // $table->timestamp('FECHA_CREACION')->default(DB::raw('CURRENT_TIMESTAMP'));
-            // $table->timestamp('FECHA_ACTUALIZACION')->nullable()->default(null)->onUpdate(DB::raw('CURRENT_TIMESTAMP'));
-            
-            
             $table->timestamps();
         });
         DB::table('METODO_PAGO')->insert([
