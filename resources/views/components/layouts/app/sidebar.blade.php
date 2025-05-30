@@ -75,9 +75,7 @@
                         {{ __('Gastos') }}
                     </flux:navlist.item>
                     
-                    <flux:navlist.item icon="building-storefront" :href="route('dashboard')"
-                        :current="request() -> routeIs('Ingreso de Productos')" wire:navigate>
-                    </flux:navlist.item>
+                   
 
 
                 </flux:navlist.group>
