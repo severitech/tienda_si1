@@ -1,25 +1,28 @@
 FROM php:8.2-apache
 
-# Instalar dependencias necesarias del sistema
+# Habilitar mod_rewrite (necesario para Laravel)
+RUN a2enmod rewrite
+
+# Instalar dependencias del sistema y extensiones PHP necesarias
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
     zip \
-    sqlite3 \
     libzip-dev \
+    sqlite3 \
     libsqlite3-dev \
-    libxml2-dev \
     libcurl4-openssl-dev \
+    libonig-dev \
+    libxml2-dev \
+    && docker-php-ext-configure zip \
     && docker-php-ext-install \
         pdo \
         pdo_sqlite \
-        zip \
         mbstring \
+        zip \
+        curl \
         xml \
-        curl
-
-# Activar mod_rewrite de Apache
-RUN a2enmod rewrite
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Establecer directorio de trabajo
 WORKDIR /var/www/html
@@ -27,22 +30,22 @@ WORKDIR /var/www/html
 # Copiar Composer desde imagen oficial
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copiar todos los archivos del proyecto
+# Copiar los archivos de la aplicación
 COPY . .
 
-# Instalar dependencias PHP
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+# Instalar dependencias de PHP
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Cache de configuración Laravel
+# Cache de configuración de Laravel
 RUN php artisan config:cache && \
     php artisan route:cache && \
     php artisan view:cache
 
-# Permisos
+# Asignar permisos necesarios
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Puerto expuesto por Apache
+# Exponer puerto 80
 EXPOSE 80
 
-# Comando por defecto
+# Iniciar Apache
 CMD ["apache2-foreground"]
