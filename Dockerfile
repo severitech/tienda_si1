@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     zip \
     libzip-dev \
+    pdo_mysql \
     sqlite3 \
     libsqlite3-dev \
     libcurl4-openssl-dev \
