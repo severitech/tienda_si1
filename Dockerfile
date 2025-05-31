@@ -8,7 +8,10 @@ RUN apt-get update && apt-get install -y \
     zip \
     sqlite3 \
     libsqlite3-dev \
-    && docker-php-ext-install pdo pdo_sqlite zip
+    libxml2-dev \
+    libcurl4-openssl-dev \
+    libonig-dev \
+    && docker-php-ext-install pdo pdo_sqlite zip mbstring tokenizer xml curl
 
 RUN a2enmod rewrite
 
@@ -20,7 +23,8 @@ COPY composer.json composer.lock ./
 # Instalar composer (de la imagen oficial)
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --verbose
+
 
 # Ahora copiar el resto de la app
 COPY . .
