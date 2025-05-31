@@ -12,7 +12,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('CAJA_PAGO', function (Blueprint $table) {
-            $table->integer('CAJA');
+            $table->unsignedBigInteger('CAJA');
             $table->string('METODO_PAGO');
             $table->decimal('MONTO', 10, 2);
           

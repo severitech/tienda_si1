@@ -13,8 +13,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('DETALLE_CARRITO', function (Blueprint $table) {
-            $table->integer('CARRITO');
-            $table->integer('PRODUCTO');
+            $table->unsignedBigInteger('CARRITO');
+            $table->unsignedBigInteger('PRODUCTO');
             $table->decimal('PRECIO', 10, 2);
             $table->integer('CANTIDAD');
             $table->timestamp('updated_at')->nullable()->default(null)->onUpdate(DB::raw('CURRENT_TIMESTAMP'));

@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id('ID');
             $table->text('DESCRIPCION')->nullable();
             $table->boolean('ESTADO')->default(true);
-            $table->integer('USUARIO');
+            $table->unsignedBigInteger('USUARIO');
             $table->foreign('USUARIO')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();

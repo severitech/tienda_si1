@@ -15,10 +15,10 @@ return new class extends Migration {
             $table->text('DESCRIPCION');
             $table->decimal('TOTAL', 10, 2);
             $table->string('METODO_PAGO');
-            $table->integer('USUARIO');
+            $table->unsignedBigInteger('USUARIO');
             $table->boolean('ESTADO')->default(true);
-            $table->integer('PROVEEDOR');
-            $table->integer('CAJA')->nullable();
+            $table->unsignedBigInteger('PROVEEDOR');
+            $table->unsignedBigInteger('CAJA')->nullable();
             
             // RELACION CON LA TABLA METODO_PAGO, USUARIO, PROVEEDOR
             $table->foreign('CAJA')->references('ID')->on('CAJA')->onDelete('cascade')->onUpdate('cascade');

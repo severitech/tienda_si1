@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('VENTA', function (Blueprint $table) {
             $table->id();
             $table->decimal('TOTAL', 10, 2);
-            $table->integer('USUARIO');
-            $table->integer('CLIENTE');
+            $table->unsignedBigInteger('USUARIO');
+            $table->unsignedBigInteger('CLIENTE');
             $table->boolean('ESTADO')->default(1);
             $table->string('METODO_PAGO');
-            $table->integer('CAJA')->nullable();;
+            $table->unsignedBigInteger('CAJA')->nullable();;
 
 
             // $table->timestamp('FECHA_CREACION')->default(DB::raw('CURRENT_TIMESTAMP'));

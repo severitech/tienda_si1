@@ -18,10 +18,10 @@ return new class extends Migration {
             // $table->timestamp('FECHA_CREACION')->default(DB::raw('CURRENT_TIMESTAMP'));
             // $table->timestamp('FECHA_ACTUALIZACION')->nullable()->default(null)->onUpdate(DB::raw('CURRENT_TIMESTAMP'));
 
-            $table->integer('CAJA')->nullable();
+            $table->unsignedBigInteger('CAJA')->nullable();
             $table->foreign('CAJA')->references('ID')->on('CAJA')->onDelete('cascade')->onUpdate('cascade');
             // RELACION CON LA TABLA USUARIO Y METODO DE PAGO
-            $table->integer('USUARIO');
+            $table->unsignedBigInteger('USUARIO');
             $table->foreign('USUARIO')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
             $table->string('METODO_PAGO');

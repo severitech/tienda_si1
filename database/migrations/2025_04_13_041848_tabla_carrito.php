@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->boolean('ESTADO')->default(true);
             // $table->timestamp('FECHA_CREACION')->default(DB::raw('CURRENT_TIMESTAMP'));
             // $table->timestamp('FECHA_ACTUALIZACION')->nullable()->default(null)->onUpdate(DB::raw('CURRENT_TIMESTAMP'));
-            $table->integer('CLIENTE');
+            $table->unsignedBigInteger('CLIENTE');
             $table->string('METODO_PAGO');
 
             $table->foreign('CLIENTE')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

@@ -13,8 +13,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('DETALLE_VENTA', function (Blueprint $table) {
-            $table->integer('VENTA');
-            $table->integer('PRODUCTO');
+            $table->unsignedBigInteger('VENTA');
+            $table->unsignedBigInteger('PRODUCTO');
             $table->decimal('PRECIO', 10, 2);
             $table->integer('CANTIDAD');
 

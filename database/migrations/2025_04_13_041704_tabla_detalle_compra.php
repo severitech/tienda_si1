@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('DETALLE_COMPRA', function (Blueprint $table) {
-            $table->integer('COMPRA');
-            $table->integer('PRODUCTO');
+            $table->unsignedBigInteger('COMPRA');
+            $table->unsignedBigInteger('PRODUCTO');
             $table->decimal('PRECIO', 10, 2);
             $table->integer('CANTIDAD');
             $table->timestamp('updated_at')->nullable()->default(null);
