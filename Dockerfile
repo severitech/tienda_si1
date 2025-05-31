@@ -1,9 +1,7 @@
 FROM php:8.2-apache
 
-# Habilitar mod_rewrite y establecer ServerName para evitar advertencias de Apache
-RUN a2enmod rewrite \
-    && echo "ServerName localhost" > /etc/apache2/conf-available/servername.conf \
-    && a2enconf servername
+# Habilitar mod_rewrite (necesario para Laravel)
+RUN a2enmod rewrite
 
 # Instalar dependencias del sistema y extensiones PHP necesarias
 RUN apt-get update && apt-get install -y \
