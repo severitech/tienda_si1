@@ -43,6 +43,15 @@ RUN php artisan config:cache && \
 
 # Asignar permisos necesarios
 RUN chown -R www-data:www-data storage bootstrap/cache
+# Cambiar el DocumentRoot de Apache a /var/www/html/public
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
+
+# Asegurar que Apache permita acceso al directorio public
+RUN echo "<Directory /var/www/html/public>\n\
+    Options Indexes FollowSymLinks\n\
+    AllowOverride All\n\
+    Require all granted\n\
+</Directory>" >> /etc/apache2/apache2.conf
 
 # Exponer puerto 80
 EXPOSE 80
