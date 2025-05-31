@@ -10,7 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-      "laravel/framework": "dev-main",
+        "laravel/framework": "12.x-dev",
         "laravel/tinker": "^2.10.1",
         "livewire/flux": "^2.1",
         "livewire/livewire": "^3.6",
@@ -77,12 +77,12 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
     "prefer-stable": true,
     "repositories": [
         {
             "type": "vcs",
             "url": "https://github.com/severitech/laravel"
         }
-    ]
+    ],
+    "minimum-stability": "dev"
 }
