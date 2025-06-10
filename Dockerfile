@@ -1,5 +1,8 @@
 FROM php:8.2-apache
 
+# Suprimir advertencia de Apache: AH00558
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
 # Habilitar mod_rewrite (necesario para Laravel)
 RUN a2enmod rewrite
 
@@ -9,15 +12,14 @@ RUN apt-get update && apt-get install -y \
     unzip \
     zip \
     libzip-dev \
-    sqlite3 \
-    libsqlite3-dev \
     libcurl4-openssl-dev \
     libonig-dev \
     libxml2-dev \
+    default-mysql-client \
     && docker-php-ext-configure zip \
     && docker-php-ext-install \
         pdo \
-        pdo_sqlite \
+        pdo_mysql \
         mbstring \
         zip \
         curl \
@@ -36,10 +38,18 @@ COPY . .
 # Instalar dependencias de PHP
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Cache de configuración de Laravel
-RUN php artisan config:cache && \
-    php artisan route:cache && \
-    php artisan view:cache
+# Cambiar el DocumentRoot de Apache a /var/www/html/public
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
+
+# Asegurar que Apache permita acceso al directorio public
+RUN echo "<Directory /var/www/html/public>\n\
+    Options Indexes FollowSymLinks\n\
+    AllowOverride All\n\
+    Require all granted\n\
+</Directory>" >> /etc/apache2/apache2.conf
+
+# Cache de configuración de Laravel (opcional durante testing)
+RUN php artisan config:clear && php artisan route:clear && php artisan view:clear
 
 # Asignar permisos necesarios
 RUN chown -R www-data:www-data storage bootstrap/cache
