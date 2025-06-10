@@ -56,6 +56,9 @@ Route::middleware(['auth'])->group(function () {
 
 /*Productos*/
 Route::get('/productos', [ProductoController::class, 'mostrar'])->name('productos.mostrar');
+Route::get('/productos/exportar-pdf', [ProductoController::class, 'exportarPdf'])->name('productos.exportar-pdf');
+Route::get('/productos-reportes', [ProductoController::class, 'reporte_sin_stock'])->name('productos.reporte');
+Route::get('/producto-reportes/pdf', [ProductoController::class, 'reporte_pdf_sinStock'])->name('productos.reporte.sin.stock');
 Route::get('/productos/crear', [ProductoController::class, 'crear'])->name('productos.crear');
 
 //Rutas Usuarios
@@ -68,34 +71,36 @@ Route::get('/perfil-usuario', [User::class, 'perfil_trabajador'])->name('perfil-
 
 //Rutas Ventas
 
+Route::get('ventas/exportar-pdf', [VentaController::class, 'exportarPdf'])->name('ventas.exportar-pdf');
+
 Route::get('/ventas', [VentaController::class, 'mostrar'])->name('venta.mostrar');
 Route::get('/lista-de-ventas', [VentaController::class, 'listaventas'])->name('venta.listaventas');
 /*Rutas de la tienda */
 
 // Route::get('/', [ProductoController::class, 'index'])->name('home');
-Route::get('/pagos',[PagosController::class, 'index'])->name('pagos');
+Route::get('/pagos', [PagosController::class, 'index'])->name('pagos');
 
 // Routa carrito
 Route::get('/detalle_carrito', [CarritoController::class, 'verDetalleCarrito'])->name('detalle.carrito');
 
 // Ruta Categoria
 
-Route::get('/categoria',[CategoriaController::class, 'index'])->name('categoria.mostrar');
+Route::get('/categoria', [CategoriaController::class, 'index'])->name('categoria.mostrar');
 //ruta metodo de pago
 Route::get('/metodo-pago', [MetodoPagoController::class, 'index'])->name('metodo_pago.index');
 
 // ruta del proveedor
-Route::get('/proveedor',[ProveedorController::class, 'index'])->name('proveedor.mostrar');
+Route::get('/proveedor', [ProveedorController::class, 'index'])->name('proveedor.mostrar');
 // ruta de la compra
-Route::get('/compra-productos',[CompraController::class, 'mostrar'])->name('compra.productos');
+Route::get('/compra-productos', [CompraController::class, 'mostrar'])->name('compra.productos');
 
 
 
-Route::get('/lista-de-compra',[DetalleCompraController::class, 'index'])->name('detalle.compra');
-Route::get('/gasto',[GastoController::class, 'index'])->name('gasto.index');
+Route::get('/lista-de-compra', [DetalleCompraController::class, 'index'])->name('detalle.compra');
+Route::get('/gasto', [GastoController::class, 'index'])->name('gasto.index');
 
 
-Route::get('/cierre-caja',[CajaController::class, 'index'])->name('cierre.caja');
-Route::get('/arqueo',[CajaController::class, 'arqueo'])->name('cierre.arqueo');
+Route::get('/cierre-caja', [CajaController::class, 'index'])->name('cierre.caja');
+Route::get('/arqueo', [CajaController::class, 'arqueo'])->name('cierre.arqueo');
 
 require __DIR__ . '/auth.php';

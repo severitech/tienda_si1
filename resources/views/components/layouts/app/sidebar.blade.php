@@ -40,8 +40,8 @@
                         :current="request() -> routeIs('productos.mostrar')" wire:navigate>
                         {{ __('Productos') }}
                     </flux:navlist.item>
-                    <flux:navlist.item icon="chart-pie" :href="route('dashboard')"
-                        :current="request() -> routeIs('Reporte Ventas')" wire:navigate>{{ __('Reportes') }}
+                    <flux:navlist.item icon="chart-pie" :href="route('productos.reporte')"
+                        :current="request() -> routeIs('productos.reporte')" wire:navigate>{{ __('Reportes') }}
                     </flux:navlist.item>
 
                 </flux:navlist.group>

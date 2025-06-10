@@ -12,7 +12,7 @@ class GastoController extends Controller
 
         $gastos = Gasto::all();
 
-        return view('gastos.index', compact('gastos'));
+        return view('trabajador.gastos.index', compact('gastos'));
     }
 
 }

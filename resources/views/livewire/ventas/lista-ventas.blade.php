@@ -3,7 +3,6 @@
         <h2 class="mb-4 text-sm font-semibold text-zinc-800 dark:text-zinc-200">Buscar Venta</h2>
 
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-            <!-- Nro de Venta -->
             <div>
                 <label for="nro_venta" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Nro de
                     Venta</label>
@@ -11,7 +10,6 @@
                     class="block w-full px-2.5 py-2 text-sm text-zinc-900 bg-transparent border border-zinc-300 rounded-lg appearance-none dark:text-white dark:border-zinc-600 focus:outline-none focus:ring-0 focus:border-blue-600" />
             </div>
 
-            <!-- Cliente -->
             <div>
                 <label for="cliente"
                     class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Cliente</label>
@@ -19,7 +17,6 @@
                     class="block w-full px-2.5 py-2 text-sm text-zinc-900 bg-transparent border border-zinc-300 rounded-lg appearance-none dark:text-white dark:border-zinc-600 focus:outline-none focus:ring-0 focus:border-blue-600" />
             </div>
 
-            <!-- Vendedor -->
             <div>
                 <label for="vendedor"
                     class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Vendedor</label>
@@ -30,10 +27,8 @@
 
         </div>
         <div class="grid grid-cols-1 gap-4 mt-3 sm:grid-cols-2 md:grid-cols-4">
-            <!-- Tipo de Transferencia -->
             @livewire('metodo-pago.metodo-pago')
 
-            <!-- Fecha Desde -->
             <div>
                 <label for="fecha_inicio" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Fecha
                     desde</label>
@@ -41,14 +36,12 @@
                     class="block w-full px-2.5 py-2 text-sm text-zinc-900 bg-white border border-zinc-300 rounded-lg dark:bg-zinc-700 dark:text-white dark:border-zinc-600 focus:outline-none focus:ring-0 focus:border-blue-600" />
             </div>
 
-            <!-- Fecha Hasta -->
             <div>
                 <label for="fecha_fin" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Fecha
                     hasta</label>
                 <input wire:model='fecha_fin' type="date" id="fecha_fin"
                     class="block w-full px-2.5 py-2 text-sm text-zinc-900 bg-white border border-zinc-300 rounded-lg dark:bg-zinc-700 dark:text-white dark:border-zinc-600 focus:outline-none focus:ring-0 focus:border-blue-600" />
             </div>
-            <!-- Estado alineado a la izquierda -->
             <div>
                 <label for="transferencia"
                     class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Estado de
@@ -62,21 +55,20 @@
                 </select>
 
             </div>
+
+
         </div>
-        <!-- Botones -->
         <div class="flex flex-wrap items-center justify-between gap-3 mt-6">
 
 
-            <!-- Acciones alineadas a la derecha -->
             <div class="flex flex-wrap items-center gap-3">
-                <!-- Botón Buscar -->
                 <button type="submit" wire:click='obtenerVentas'
                     class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     Buscar
                 </button>
 
                 <!-- Botón Exportar PDF (solo ícono) -->
-                <button type="button"
+                <button type="button"wire:click="exportarPdf"
                     class="p-2 text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path

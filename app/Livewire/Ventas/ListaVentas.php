@@ -34,10 +34,10 @@ class ListaVentas extends Component
     {
         $this->buscarDatos();
         return Venta::query()
-            ->join('users as cliente', 'venta.cliente', '=', 'cliente.id')
-            ->join('users as usuario', 'venta.usuario', '=', 'usuario.id')
+            ->join('users as cliente', 'VENTA.cliente', '=', 'cliente.id')
+            ->join('users as usuario', 'VENTA.usuario', '=', 'usuario.id')
             ->select(
-                'venta.*',
+                'VENTA.*',
                 DB::raw("cliente.nombre as cliente_nombre"),
                 DB::raw("cliente.paterno as cliente_paterno"),
                 DB::raw("cliente.materno as cliente_materno"),
@@ -47,7 +47,7 @@ class ListaVentas extends Component
                 $query->when(
                     $this->idventa,
                     fn($q) =>
-                    $q->where('venta.id', 'like', '%' . $this->idventa . '%')
+                    $q->where('VENTA.id', 'like', '%' . $this->idventa . '%')
                 )
                     ->when(
                         $this->cliente,
@@ -62,24 +62,24 @@ class ListaVentas extends Component
                     ->when(
                         $this->metodo_pago,
                         fn($q) =>
-                        $q->where('venta.metodo_pago', 'like', '%' . $this->metodo_pago . '%')
+                        $q->where('VENTA.metodo_pago', 'like', '%' . $this->metodo_pago . '%')
                     )
                     ->when(
                         $this->fecha_inicio,
                         fn($q) =>
-                        $q->whereDate('venta.created_at', '>=', $this->fecha_inicio)
+                        $q->whereDate('VENTA.created_at', '>=', $this->fecha_inicio)
                     )
                     ->when(
                         $this->fecha_fin,
                         fn($q) =>
-                        $q->whereDate('venta.created_at', '<=', $this->fecha_fin)
+                        $q->whereDate('VENTA.created_at', '<=', $this->fecha_fin)
                     )->when($this->estado !== null && $this->estado !== '', function ($q) {
                         $estadoBool = $this->estado == '1' ? true : false;
-                        $q->where('venta.estado', '=', $estadoBool);
+                        $q->where('VENTA.estado', '=', $estadoBool);
                     });
 
             })
-            ->orderBy('venta.id', 'desc')
+            ->orderBy('VENTA.id', 'desc')
             ->paginate($this->perPage);
 
     }
@@ -88,6 +88,22 @@ class ListaVentas extends Component
     {
         $this->venta_parm = $idventa;
     }
+
+    public function exportarPdf()
+    {
+        $query = http_build_query([
+            'idventa' => $this->idventa,
+            'cliente' => $this->cliente,
+            'vendedor' => $this->vendedor,
+            'metodo_pago' => $this->metodo_pago,
+            'fecha_inicio' => $this->fecha_inicio,
+            'fecha_fin' => $this->fecha_fin,
+            'estado' => $this->estado,
+        ]);
+
+        return redirect()->to(route('ventas.exportar-pdf') . '?' . $query);
+    }
+
     public $mensaje = '';
     public function mount()
     {
@@ -119,10 +135,10 @@ class ListaVentas extends Component
     }
     public function editarEstado($id)
     {
-        $venta = Venta::find($id);
-        if ($venta) {
-            $venta->ESTADO = $venta->ESTADO == 1 ? 0 : 1; // Cambia el estado
-            $venta->save(); // Reinicia la paginación
+        $VENTA = Venta::find($id);
+        if ($VENTA) {
+            $VENTA->ESTADO = $VENTA->ESTADO == 1 ? 0 : 1; // Cambia el estado
+            $VENTA->save(); // Reinicia la paginación
             session()->flash('message', 'Estado actualizado correctamente.');
         } else {
             session()->flash('error', 'Venta no encontrada.');
