@@ -116,7 +116,11 @@
             </flux:navlist.group>
 
 
-
+ <flux:navlist.group heading="Control">
+            <flux:navlist.item icon="shield-check" :href="route('control.bitacora')" :current="request()->routeIs('control.bitacora*')" wire:navigate>
+                {{ __('Bitácora') }}
+            </flux:navlist.item>
+        </flux:navlist.group>
 
         </flux:navlist>
         <flux:spacer />
@@ -216,6 +220,8 @@
         </flux:dropdown>
     </flux:header>
 
+
+  
     {{ $slot }}
 
 

@@ -103,4 +103,8 @@ Route::get('/gasto', [GastoController::class, 'index'])->name('gasto.index');
 Route::get('/cierre-caja', [CajaController::class, 'index'])->name('cierre.caja');
 Route::get('/arqueo', [CajaController::class, 'arqueo'])->name('cierre.arqueo');
 
+
+
+// routes/web.php
+Route::view('/control/bitacora', 'trabajador.control.bitacora')->middleware(['auth'])->name('control.bitacora');
 require __DIR__ . '/auth.php';
