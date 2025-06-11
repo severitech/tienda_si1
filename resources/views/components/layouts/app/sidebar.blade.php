@@ -28,6 +28,16 @@
                     <flux:navlist.item icon="finger-print" :href="route('dashboard')"
                         :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Auditoria de Usuarios') }}
                     </flux:navlist.item>
+
+                      <flux:navlist.item icon="finger-print" :href="route('control.bitacora')"
+                        :current="request()->routeIs('control.bitacora*')" wire:navigate>
+                {{ __('Bitácora') }}
+                    </flux:navlist.item>
+
+
+
+
+
                 </flux:navlist.group>
 
                 <flux:navlist.group heading="Gestion de Productos e Inventario">
@@ -116,11 +126,6 @@
             </flux:navlist.group>
 
 
- <flux:navlist.group heading="Control">
-            <flux:navlist.item icon="shield-check" :href="route('control.bitacora')" :current="request()->routeIs('control.bitacora*')" wire:navigate>
-                {{ __('Bitácora') }}
-            </flux:navlist.item>
-        </flux:navlist.group>
 
         </flux:navlist>
         <flux:spacer />
