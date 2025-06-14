@@ -51,26 +51,6 @@
             background-color: #f1f7fc;
         }
 
-        .estado-activo {
-            background-color: #d4edda;
-            color: #155724;
-            font-weight: 600;
-            padding: 4px 8px;
-            border-radius: 12px;
-            display: inline-block;
-            min-width: 70px;
-        }
-
-        .estado-inactivo {
-            background-color: #f8d7da;
-            color: #721c24;
-            font-weight: 600;
-            padding: 4px 8px;
-            border-radius: 12px;
-            display: inline-block;
-            min-width: 70px;
-        }
-
         .text-right {
             text-align: right;
             font-weight: 700;
@@ -95,8 +75,6 @@
                 <th>Fecha de Venta</th>
                 <th>Método de Pago</th>
                 <th>Total</th>
-                <th>Estado</th>
-                <th>Trabajador</th>
             </tr>
         </thead>
         <tbody>
@@ -107,14 +85,6 @@
                     <td>{{ \Carbon\Carbon::parse($venta->created_at)->format('d/m/Y H:i') }}</td>
                     <td>{{ $venta->METODO_PAGO }}</td>
                     <td class="text-right">{{ number_format($venta->TOTAL, 2) }} Bs.</td>
-                    <td>
-                        @if ($venta->ESTADO)
-                            <span class="estado-activo">Activo</span>
-                        @else
-                            <span class="estado-inactivo">Inactivo</span>
-                        @endif
-                    </td>
-                    <td>{{ $venta->usuario_nombre }}</td>
                 </tr>
             @endforeach
         </tbody>

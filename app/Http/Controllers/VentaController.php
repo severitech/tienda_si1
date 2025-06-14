@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class VentaController extends Controller
 {
+    public function index()
+    {
+        $ventas = Venta::all();
+        return view('trabajador.venta.index', compact('ventas'));
+    }
     public function mostrar()
     {
         return view('trabajador.venta.mostrar');
@@ -60,5 +65,12 @@ class VentaController extends Controller
 
         return $pdf->download('ventas-filtradas.pdf');
     }
-
+    public function exportarPdfVenta(Request $request)
+    {
+        $ventas = Venta::with(['cliente', 'usuario'])->orderBy('created_at', 'desc')->get();
+    
+        $pdf = Pdf::loadView('trabajador.venta.pdf', compact('ventas'));
+    
+        return $pdf->download('reporte_ventas.pdf');
+    }
 }

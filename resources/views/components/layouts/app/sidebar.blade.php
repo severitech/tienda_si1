@@ -62,8 +62,8 @@
                         :current="request() -> routeIs('venta.mostrar')" wire:navigate>{{ 'Venta' }}
                     </flux:navlist.item>
 
-                    <flux:navlist.item icon="clock" :href="route('venta.listaventas')"
-                        :current="request() -> routeIs('venta.listaventas')" wire:navigate>
+                    <flux:navlist.item icon="clock" :href="route('historial')"
+                        :current="request() -> routeIs('historial')" wire:navigate>
                         {{ 'Historial Ventas' }}
                     </flux:navlist.item>
                     <flux:navlist.item icon="shopping-cart" :href="route('detalle.carrito')"

@@ -107,4 +107,10 @@ Route::get('/arqueo', [CajaController::class, 'arqueo'])->name('cierre.arqueo');
 
 // routes/web.php
 Route::view('/control/bitacora', 'trabajador.control.bitacora')->middleware(['auth'])->name('control.bitacora');
+
+// ruta historial ventas
+Route::get('historial',[VentaController::class, 'index'])->name('historial'); 
+Route::get('/ventas/exportar-pdf', [VentaController::class, 'exportarPdfVenta'])->name('ventaPdf');
+
+
 require __DIR__ . '/auth.php';
