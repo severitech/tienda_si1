@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Compra extends Model
 {
     protected $table = 'COMPRA';
+    protected $primaryKey = 'ID';
+    public $incrementing = true;
+    public $timestamps = true;
 
     protected $fillable = [
         'TOTAL',
@@ -30,5 +33,10 @@ class Compra extends Model
     public function metodoPago()
     {
         return $this->belongsTo(MetodoPago::class, 'METODO_PAGO', 'METODO_PAGO');
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo(User::class, 'CLIENTE');
     }
 }

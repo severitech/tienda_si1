@@ -6,7 +6,7 @@
             <div>
                 <label for="nro_venta" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Nro de
                     Venta</label>
-                <input type="text" id="nro_venta" wire:model='idventa' placeholder="Ingrese Nro de venta"
+                <input type="text" id="nro_venta" wire:model='idventa' placeholder="Ingrese Nro de compra"
                     class="block w-full px-2.5 py-2 text-sm text-zinc-900 bg-transparent border border-zinc-300 rounded-lg appearance-none dark:text-white dark:border-zinc-600 focus:outline-none focus:ring-0 focus:border-blue-600" />
             </div>
 

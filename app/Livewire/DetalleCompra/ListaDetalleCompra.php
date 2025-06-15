@@ -6,11 +6,11 @@ use Livewire\Component;
 use App\Models\Compra;
 use App\Models\Proveedor;
 use Illuminate\Support\Facades\DB;
+use Livewire\WithPagination;
 
 class ListaDetalleCompra extends Component
-
 {
-  //  use WithPagination;
+    use WithPagination;
     public $perPage = 10;
     public $idcompra = '', $proveedor = '', $usuario = '', $metodo_pago, $estado;
     public $fecha_inicio, $fecha_fin;
@@ -22,21 +22,21 @@ class ListaDetalleCompra extends Component
     public function obtenerVentas()
     {
         return Compra::query()
-        ->join('proveedor', 'compra.proveedor', '=', 'proveedor.id')
-        ->join('users as usuario', 'compra.usuario', '=', 'usuario.id')
+        ->join('PROVEEDOR', 'COMPRA.PROVEEDOR', '=', 'PROVEEDOR.ID')
+        ->join('users as usuario', 'COMPRA.USUARIO', '=', 'usuario.id')
         ->select(
-            'compra.*',
+            'COMPRA.*',
             DB::raw("usuario.nombre as cliente_nombre"),
             DB::raw("usuario.paterno as cliente_paterno"),
             DB::raw("usuario.materno as cliente_materno")
         )
         ->where(function ($query) {
             $query->when($this->idcompra, function ($q) {
-                $q->where('compra.id', 'like', '%' . $this->idcompra . '%');
+                $q->where('COMPRA.ID', 'like', '%' . $this->idcompra . '%');
             });
 
             $query->when($this->proveedor, function ($q) {
-                $q->where('compra.proveedor', 'like', '%' . $this->proveedor . '%');
+                $q->where('COMPRA.PROVEEDOR', 'like', '%' . $this->proveedor . '%');
             });
 
             $query->when($this->usuario, function ($q) {
@@ -49,23 +49,23 @@ class ListaDetalleCompra extends Component
             });
 
             $query->when($this->metodo_pago, function ($q) {
-                $q->where('compra.metodo_pago', 'like', '%' . $this->metodo_pago . '%');
+                $q->where('COMPRA.METODO_PAGO', 'like', '%' . $this->metodo_pago . '%');
             });
 
             $query->when($this->fecha_inicio, function ($q) {
-                $q->whereDate('compra.created_at', '>=', $this->fecha_inicio);
+                $q->whereDate('COMPRA.created_at', '>=', $this->fecha_inicio);
             });
 
             $query->when($this->fecha_fin, function ($q) {
-                $q->whereDate('compra.created_at', '<=', $this->fecha_fin);
+                $q->whereDate('COMPRA.created_at', '<=', $this->fecha_fin);
             });
 
             $query->when($this->estado !== null && $this->estado !== '', function ($q) {
                 $estadoBool = $this->estado == '1' ? true : false;
-                $q->where('compra.estado', '=', $estadoBool);
+                $q->where('COMPRA.ESTADO', '=', $estadoBool);
             });
         })
-        ->orderBy('compra.id', 'desc')
+        ->orderBy('COMPRA.ID', 'desc')
         ->paginate($this->perPage);
 
     }
@@ -119,9 +119,5 @@ class ListaDetalleCompra extends Component
         $compra = $this->obtenerVentas();
         $proveedores = Proveedor::all();
         return view('livewire.detalle-compra.lista-detalle-compra', compact('compra', 'proveedores'));
-    }
-    public function resetPage ()
-    {
-        $this->page = 1;
     }
 }

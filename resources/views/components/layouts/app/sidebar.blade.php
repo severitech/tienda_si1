@@ -109,8 +109,8 @@
 
 
                 <flux:navlist.group heading="Reporte y Análisis">
-                    <flux:navlist.item icon="document-chart-bar" :href="route('detalle.compra')"
-                        :current="request() -> routeIs('detalle.compra')" wire:navigate>
+                    <flux:navlist.item icon="document-chart-bar" :href="route('reporte.compras')"
+                        :current="request() -> routeIs('reporte.compras')" wire:navigate>
                         {{ __('Reporte de Compras') }}
                     </flux:navlist.item>
                     <flux:navlist.item icon="chart-bar" :href="route('dashboard')"

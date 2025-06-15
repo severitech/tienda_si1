@@ -3,7 +3,7 @@
         <div class="p-6 bg-white shadow-xl rounded-xl dark:bg-zinc-900">
             <h2 class="mb-4 text-xl font-semibold ">📦 Reporte de Carrito</h2>
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2">
-                <!-- Nro de Venta -->
+                <!-- Nro de Compra -->
                 <div>
                     <label for="nro_venta" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Nro de
                         Carrito</label>

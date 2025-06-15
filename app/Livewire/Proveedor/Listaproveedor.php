@@ -27,7 +27,7 @@ class Listaproveedor extends Component
     }
     public function getProveedor(){
         return Proveedor::where(function ($query) {
-            $query->where('nombre', 'like', '%' . $this->search . '%');})->orderBy('nombre')->paginate($this->perPage);
+            $query->where('NOMBRE', 'like', '%' . $this->search . '%');})->orderBy('NOMBRE')->paginate($this->perPage);
     }
 
     public function editar($id)

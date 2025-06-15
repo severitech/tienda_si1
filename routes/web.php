@@ -112,5 +112,11 @@ Route::view('/control/bitacora', 'trabajador.control.bitacora')->middleware(['au
 Route::get('historial',[VentaController::class, 'index'])->name('historial'); 
 Route::get('/ventas/exportar-pdf', [VentaController::class, 'exportarPdfVenta'])->name('ventaPdf');
 
+Route::get('/reporte-compras', [CompraController::class, 'reporteCompras'])->name('reporte.compras');
+Route::get('/reporte-compras/exportar-pdf', [CompraController::class, 'exportarPdf'])->name('reporte.compras.pdf');
+
+Route::delete('/compras/{id}', [CompraController::class, 'eliminar'])->name('compra.eliminar');
+
+Route::get('/compras/{id}/detalle', [CompraController::class, 'detalle'])->name('compras.detalle');
 
 require __DIR__ . '/auth.php';

@@ -22,10 +22,10 @@ class BuscarCompra extends Component
     public function getProveedores()
     {
         return Proveedor::where(function ($query) {
-            $query->where('nombre', 'like', '%' . $this->search . '%')
-                ->orWhere('telefono', 'like', '%' . $this->search . '%');
+            $query->where('NOMBRE', 'like', '%' . $this->search . '%')
+                ->orWhere('TELEFONO', 'like', '%' . $this->search . '%');
         })
-            ->orderBy('nombre');
+            ->orderBy('NOMBRE');
             
     }
     public function limpiar()

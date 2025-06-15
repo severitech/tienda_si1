@@ -108,7 +108,7 @@ class CompraProductos extends Component
 
         foreach ($this->productosSeleccionados as $producto) {
             DB::table('DETALLE_COMPRA')->insert([
-                'COMPRA' => $compra->id,
+                'COMPRA' => $compra->ID,
                 'PRODUCTO' => $producto['id'],
                 'PRECIO' => $producto['precio'],
                 'CANTIDAD' => $producto['cantidad'],
