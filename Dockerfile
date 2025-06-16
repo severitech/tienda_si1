@@ -60,41 +60,34 @@
 # # Iniciar Apache
 # CMD ["apache2-foreground"]
 
-#segunda configuracion prueba
-# Etapa 1: Build de Vite
-FROM node:18 AS node_builder
-WORKDIR /var/www
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-
-# Etapa 2: PHP + Laravel
+# Etapa 1: PHP + Composer (sin node ni npm)
 FROM php:8.2-fpm
 
-# Instala extensiones necesarias
+# Instalar extensiones PHP necesarias
 RUN apt-get update && apt-get install -y \
-    git curl libpng-dev libonig-dev libxml2-dev zip unzip \
-    libzip-dev zip libpq-dev mariadb-client \
+    git curl libpng-dev libonig-dev libxml2-dev zip unzip libzip-dev libpq-dev mariadb-client \
     && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl
 
-# Instala Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Instalar composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www
+WORKDIR /var/www/html
 
-# Copia el proyecto y assets Vite ya compilados
-COPY . .
-COPY --from=node_builder /var/www/public/build ./public/build
+# Copiar composer.json y composer.lock
+COPY composer.json composer.lock ./
 
-# Instala dependencias PHP
+# Instalar dependencias PHP
 RUN composer install --no-dev --optimize-autoloader
 
-# Establece permisos
-RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www/storage
+# Copiar todo el proyecto, excepto node_modules y public/build
+COPY . .
 
-# Expone puerto 8080 (usado por Railway)
+# Copiar los assets compilados localmente (Vite build)
+COPY public/build public/build
+
+# Establecer permisos
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
 EXPOSE 8080
+CMD ["php-fpm"]
 
-# Comando de inicio
-CMD php artisan config:cache && php artisan route:cache && php artisan serve --host=0.0.0.0 --port=8080
