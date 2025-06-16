@@ -16,6 +16,7 @@ use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\DetalleCompraController;
 
+use App\Http\Controllers\ReporteVentaController;
 
 use App\Http\Controllers\GastoController;
 
@@ -72,9 +73,11 @@ Route::get('/perfil-usuario', [User::class, 'perfil_trabajador'])->name('perfil-
 //Rutas Ventas
 
 Route::get('ventas/exportar-pdf', [VentaController::class, 'exportarPdf'])->name('ventas.exportar-pdf');
-
 Route::get('/ventas', [VentaController::class, 'mostrar'])->name('venta.mostrar');
 Route::get('/lista-de-ventas', [VentaController::class, 'listaventas'])->name('venta.listaventas');
+Route::get('/reporte-ventas', [ReporteVentaController::class, 'reporte'])
+    ->name('reporte.ventas');
+
 /*Rutas de la tienda */
 
 // Route::get('/', [ProductoController::class, 'index'])->name('home');
