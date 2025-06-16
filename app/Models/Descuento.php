@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Descuento extends Model
 {
+    protected $table = 'descuento';
     protected $fillable = ['nombre', 'descripcion', 'tipo', 'valor', 'inicia_en', 'termina_en', 'esta_activo'];
 
     protected $casts = [

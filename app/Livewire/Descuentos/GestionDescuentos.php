@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Descuento;
+namespace App\Livewire\Descuentos;
 
 use Livewire\Component;
 use App\Models\Descuento;
@@ -18,22 +18,25 @@ class GestionDescuentos extends Component
 
     public function render()
     {
-        return view('livewire.descuento.gestion-descuentos', [
+        return view('livewire.descuentos.gestion-descuentos', [
             'descuentos' => Descuento::latest()->paginate(10),
             'productos' => Producto::orderBy('NOMBRE')->get()
-        ]);
+        ])->layout('components.layouts.app'); // Añade esta línea para usar tu layout principal
     }
 
-    public function abrirModal() {
+    public function abrirModal()
+    {
         $this->limpiarEntradas();
         $this->esModalAbierto = true;
     }
 
-    public function cerrarModal() {
+    public function cerrarModal()
+    {
         $this->esModalAbierto = false;
     }
 
-    private function limpiarEntradas() {
+    private function limpiarEntradas()
+    {
         $this->descuentoId = null;
         $this->nombre = '';
         $this->descripcion = '';
@@ -45,7 +48,8 @@ class GestionDescuentos extends Component
         $this->productosSeleccionados = [];
     }
 
-    public function guardar() {
+    public function guardar()
+    {
         $this->validate([
             'nombre' => 'required|string|max:255',
             'tipo' => 'required|in:porcentaje,fijo',
@@ -71,7 +75,8 @@ class GestionDescuentos extends Component
         $this->cerrarModal();
     }
 
-    public function editar($id) {
+    public function editar($id)
+    {
         $descuento = Descuento::findOrFail($id);
         $this->descuentoId = $id;
         $this->nombre = $descuento->nombre;
@@ -85,9 +90,9 @@ class GestionDescuentos extends Component
         $this->abrirModal();
     }
 
-    public function eliminar($id) {
+    public function eliminar($id)
+    {
         Descuento::find($id)->delete();
         session()->flash('mensaje', 'Descuento eliminado con éxito.');
     }
-
 }
