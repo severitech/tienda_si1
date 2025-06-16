@@ -60,47 +60,74 @@
 
 # # Iniciar Apache
 # CMD ["apache2-foreground"]
+# Etapa 1: Build frontend local (fuera del Dockerfile)
+# ---------------------------------------------------
+# Ejecuta en tu máquina local:
+# npm install
+# NODE_OPTIONS="--max-old-space-size=2048" npm run build
+#
+# Esto genera el directorio `public/build` listo para producción.
 
-# Base PHP + Apache
+# Etapa 2: Docker PHP + Apache para Laravel optimizado
 FROM php:8.2-apache
 
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf \
-    && a2enmod rewrite
+# Suprimir warning Apache
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# Dependencias del sistema
+# Habilitar mod_rewrite para Laravel
+RUN a2enmod rewrite
+
+# Instalar dependencias PHP necesarias y limpiar cache apt
 RUN apt-get update && apt-get install -y \
-    git unzip zip curl \
-    libzip-dev libcurl4-openssl-dev libonig-dev libxml2-dev \
-    default-mysql-client nodejs npm \
+    git unzip zip libzip-dev libcurl4-openssl-dev libonig-dev libxml2-dev default-mysql-client \
+    && docker-php-ext-configure zip \
     && docker-php-ext-install pdo pdo_mysql mbstring zip curl xml \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
 
+# Copiar composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-COPY . .
+# Copiar solo archivos PHP y configuración
+COPY composer.json composer.lock ./
+COPY app app
+COPY bootstrap bootstrap
+COPY config config
+COPY database database
+COPY resources/views resources/views
+COPY routes routes
+COPY storage storage
+COPY artisan ./
+COPY webpack.mix.js vite.config.js .env.example .env ./
 
-# Dependencias PHP
-RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-dev --optimize-autoloader --no-interaction
+# Instalar dependencias PHP sin dev y con optimización
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Dependencias frontend y build optimizado
-RUN npm ci --omit=dev
-RUN NODE_OPTIONS="--max-old-space-size=2048" npm run build
+# Copiar el build frontend generado localmente
+COPY public/build public/build
+COPY public/index.php public/index.php
+COPY public/css public/css
+COPY public/js public/js
+COPY public/mix-manifest.json public/mix-manifest.json
 
-# Laravel + Apache config
-RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf \
-    && echo "<Directory /var/www/html/public>\n\
+# Cambiar DocumentRoot a /var/www/html/public
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
+
+# Permitir acceso al directorio public con overrides (para .htaccess)
+RUN echo "<Directory /var/www/html/public>\n\
+    Options Indexes FollowSymLinks\n\
     AllowOverride All\n\
     Require all granted\n\
 </Directory>" >> /etc/apache2/apache2.conf
 
-RUN php artisan key:generate \
-    && php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache
+# Limpiar caches Laravel (opcional pero recomendado)
+RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
 
+# Ajustar permisos para storage y cache
 RUN chown -R www-data:www-data storage bootstrap/cache
 
 EXPOSE 80
+
 CMD ["apache2-foreground"]
+
