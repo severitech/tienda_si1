@@ -1,13 +1,21 @@
 <?php
-
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
 
 class Descuento extends Model
 {
-    protected $table = 'descuento';
-    protected $fillable = ['nombre', 'descripcion', 'tipo', 'valor', 'inicia_en', 'termina_en', 'esta_activo'];
+    protected $table = 'descuentos';
+
+    // Lista de columnas que se pueden llenar desde el formulario
+    protected $fillable = [
+        'nombre',
+        'descripcion',
+        'tipo',
+        'valor',
+        'inicia_en',
+        'termina_en',
+        'esta_activo'
+    ];
 
     protected $casts = [
         'inicia_en' => 'datetime',
@@ -19,5 +27,4 @@ class Descuento extends Model
     {
         return $this->belongsToMany(Producto::class, 'descuento_producto');
     }
-
 }
