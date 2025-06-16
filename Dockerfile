@@ -58,7 +58,14 @@ RUN chmod 775 /var/www/html/database && \
 RUN chown -R www-data:www-data storage bootstrap/cache
 
 # Exponer puerto 80
-EXPOSE 80
+ARG PORT=80
+ENV PORT=${PORT}
+
+# Cambia configuración de Apache para usar ese puerto
+RUN sed -i "s/Listen 80/Listen ${PORT}/g" /etc/apache2/ports.conf \
+ && sed -i "s/:80>/:${PORT}>/g" /etc/apache2/sites-available/000-default.conf
+
+EXPOSE ${PORT}
 
 # Iniciar Apache
 CMD ["apache2-foreground"]
