@@ -52,22 +52,13 @@ RUN echo "<Directory /var/www/html/public>\n\
 RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
 
 # Asignar permisos necesarios
-RUN chmod 775 /var/www/html/database && \
-    chown www-data:www-data /var/www/html/database
-
-RUN chown -R www-data:www-data storage bootstrap/cache
+# Asignar permisos necesarios
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database && \
+    chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 
 # Exponer puerto 80
-# ARG PORT=80
-# ENV PORT=${PORT}
 
-# # Cambia configuración de Apache para usar ese puerto
-# RUN sed -i "s/Listen 80/Listen ${PORT}/g" /etc/apache2/ports.conf \
-#  && sed -i "s/:80>/:${PORT}>/g" /etc/apache2/sites-available/000-default.conf
-
-# EXPOSE ${PORT}
-
- EXPOSE 80
+EXPOSE 80
 
 # Iniciar Apache
 CMD ["apache2-foreground"]
