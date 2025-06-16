@@ -59,35 +59,62 @@
 
 # # Iniciar Apache
 # CMD ["apache2-foreground"]
+# Etapa 0: Build front-end con Node y Vite
+FROM node:18-alpine AS node_builder
 
-# Etapa 1: PHP + Composer (sin node ni npm)
-FROM php:8.2-fpm
+WORKDIR /app
 
-# Instalar extensiones PHP necesarias
-RUN apt-get update && apt-get install -y \
-    git curl libpng-dev libonig-dev libxml2-dev zip unzip libzip-dev libpq-dev mariadb-client \
-    && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl
+# Copiar package.json y package-lock.json para cachear instalación npm
+COPY package*.json ./
+
+RUN npm install
+
+# Copiar todo el proyecto para el build (incluyendo recursos Vite)
+COPY . .
+
+# Ejecutar build de Vite (genera public/build)
+RUN npm run build
+
+
+# Etapa 1: Imagen base PHP + Laravel
+FROM php:8.2-fpm-alpine
+
+# Instalar dependencias del sistema necesarias y extensiones PHP
+RUN apk add --no-cache \
+        git \
+        curl \
+        libpng-dev \
+        libzip-dev \
+        oniguruma-dev \
+        libxml2-dev \
+        mariadb-client \
+        bash \
+    && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl \
+    && apk del libpng-dev libzip-dev libxml2-dev oniguruma-dev
 
 # Instalar composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# Copiar composer.json y composer.lock
+# Copiar composer.json y composer.lock para cachear dependencias
 COPY composer.json composer.lock ./
 
-# Instalar dependencias PHP
 RUN composer install --no-dev --optimize-autoloader
 
-# Copiar todo el proyecto, excepto node_modules y public/build
+# Copiar código fuente (excluyendo node_modules y public/build)
 COPY . .
 
-# Copiar los assets compilados localmente (Vite build)
-COPY public/build public/build
+# Copiar carpeta public/build generada en etapa node_builder
+COPY --from=node_builder /app/public/build ./public/build
 
-# Establecer permisos
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Establecer permisos para storage y bootstrap/cache
+RUN chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
 
-EXPOSE 8080
+USER www-data
+
+EXPOSE 9000
+
 CMD ["php-fpm"]
 
