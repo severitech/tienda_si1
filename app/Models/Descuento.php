@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Descuento extends Model
 {
-    protected $table = 'descuentos';
+    protected $table = 'descuento';
 
     // Lista de columnas que se pueden llenar desde el formulario
     protected $fillable = [
