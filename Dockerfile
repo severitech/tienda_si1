@@ -49,8 +49,7 @@ RUN echo "<Directory /var/www/html/public>\n\
 </Directory>" >> /etc/apache2/apache2.conf
 
 # Cache de configuración de Laravel (opcional durante testing)
-RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
-
+RUN php artisan config:clear && php artisan route:clear && php artisan view:clear
 
 # Asignar permisos necesarios
 RUN chown -R www-data:www-data storage bootstrap/cache
