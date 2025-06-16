@@ -19,6 +19,8 @@ use App\Http\Controllers\DetalleCompraController;
 
 use App\Http\Controllers\GastoController;
 
+use App\Livewire\Descuentos\GestionDescuentos;
+
 Route::get('/', [ProductoController::class, 'index'])->name('home');
 Route::post('/cart/checkout', [PasarelaPagos::class, 'checkout'])->name('cart.checkout');
 Route::get('/stripe/success', [PasarelaPagos::class, 'success'])->name('stripe.success');
@@ -118,5 +120,7 @@ Route::get('/reporte-compras/exportar-pdf', [CompraController::class, 'exportarP
 Route::delete('/compras/{id}', [CompraController::class, 'eliminar'])->name('compra.eliminar');
 
 Route::get('/compras/{id}/detalle', [CompraController::class, 'detalle'])->name('compras.detalle');
+
+Route::get('/gestion-descuentos', GestionDescuentos::class)->name('descuentos.index')->middleware(['auth']);
 
 require __DIR__ . '/auth.php';
