@@ -55,7 +55,7 @@ RUN php artisan config:clear && php artisan route:clear && php artisan view:clea
 RUN chown -R www-data:www-data storage bootstrap/cache
 
 # Exponer puerto 80
-EXPOSE 8080
+EXPOSE 80
 
 # Iniciar Apache
 CMD ["apache2-foreground"]
