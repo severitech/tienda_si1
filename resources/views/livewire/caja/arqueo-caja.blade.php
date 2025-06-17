@@ -1,13 +1,13 @@
 <div class="p-4">
-    {{-- <h2 class="text-xl font-bold mb-4">Arqueo de Caja</h2>
+    {{-- <h2 class="mb-4 text-xl font-bold">Arqueo de Caja</h2>
 
     <div class="grid grid-cols-2 gap-4">
-        <div class="p-4  rounded">
+        <div class="p-4 rounded">
             <h3 class="font-semibold">Ingresos</h3>
             <p>Ventas: ${{ number_format($totalVentas, 2) }}</p>
         </div>
 
-        <div class="p-4  rounded">
+        <div class="p-4 rounded">
             <h3 class="font-semibold">Egresos</h3>
             <p>Gastos: ${{ number_format($totalGastos, 2) }}</p>
             <p>Compras: ${{ number_format($totalCompras, 2) }}</p>
@@ -15,14 +15,14 @@
         </div>
     </div>
 
-    <div class="mt-4 p-4  rounded">
+    <div class="p-4 mt-4 rounded">
         <h3 class="font-semibold">Saldo final</h3>
         <p><strong>${{ number_format($saldo, 2) }}</strong></p>
     </div>
 
     <div class="mt-6">
-        <h3 class="font-semibold mb-2">Detalle por método de pago:</h3>
-        <ul class="list-disc pl-6">
+        <h3 class="mb-2 font-semibold">Detalle por método de pago:</h3>
+        <ul class="pl-6 list-disc">
             @foreach ($detalleMetodosPago as $detalle)
                 <li>{{ $detalle->METODO_PAGO }}: ${{ number_format($detalle->total, 2) }}</li>
             @endforeach
@@ -120,7 +120,7 @@
         <!-- Modal -->
         <flux:modal name="editar-crear" class="w-full max-w-[1000px] px-4">
             @if ($id_caja)
-                @livewire('caja.ver-cierre-caja', ['id_caja' => $id_caja])
+                @livewire('caja.ver-cierre-caja', ['id_caja' => $id_caja], key(('caja-' . $id_caja)))
             @else
                 <p class="p-4 text-center text-gray-500">Selecciona una caja para ver detalles</p>
             @endif

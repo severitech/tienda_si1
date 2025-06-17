@@ -40,7 +40,7 @@ class ReporteCompras extends Component
     {
         $compra = Compra::find($id);
         if ($compra) {
-            $compra->delete();
+            $compra->estado = false;
             session()->flash('message', 'Compra eliminada correctamente');
         }
     }

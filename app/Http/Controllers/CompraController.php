@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Compra;
-use App\Models\User;
+use App\Models\DetalleCompra;
 use PDF;
 
 class CompraController extends Controller
 {
-     public function mostrar()
+    public function mostrar()
     {
         return view('trabajador.compra.mostrar');
     }
@@ -22,7 +22,7 @@ class CompraController extends Controller
             $query->where('id', $request->nro);
         }
         if ($request->filled('cliente')) {
-            $query->whereHas('usuario', function($q) use ($request) {
+            $query->whereHas('usuario', function ($q) use ($request) {
                 $q->where('nombre', 'like', '%' . $request->cliente . '%');
             });
         }
@@ -52,7 +52,7 @@ class CompraController extends Controller
             $query->where('id', $request->nro);
         }
         if ($request->filled('cliente')) {
-            $query->whereHas('usuario', function($q) use ($request) {
+            $query->whereHas('usuario', function ($q) use ($request) {
                 $q->where('nombre', 'like', '%' . $request->cliente . '%');
             });
         }
@@ -77,15 +77,17 @@ class CompraController extends Controller
 
     public function eliminar($id)
     {
-        $compra = \App\Models\Compra::findOrFail($id);
-        $compra->delete();
+        $compra = Compra::findOrFail($id);
+        $compra->ESTADO = false;
+        $compra->save(); 
         return redirect()->route('reporte.compras')->with('success', 'Compra eliminada correctamente.');
     }
 
+
     public function detalle($id)
     {
-        $compra = \App\Models\Compra::with(['usuario', 'proveedor'])->findOrFail($id);
-        $detalles = \App\Models\DetalleCompra::where('COMPRA', $id)->with('producto')->get();
+        $compra = Compra::with(['usuario', 'proveedor'])->findOrFail($id);
+        $detalles = DetalleCompra::where('COMPRA', $id)->with('producto')->get();
         return view('reporte.compras.detalle', compact('compra', 'detalles'));
     }
 }

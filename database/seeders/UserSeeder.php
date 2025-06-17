@@ -295,7 +295,7 @@ class UserSeeder extends Seeder
                 'ID' => 6,
                 'DESCRIPCION' => 'Caja para pagos de clientes en efectivo.',
                 'USUARIO' => 6,
-                'created_at' => now()->subDay(1), // 1 día atrás
+                'created_at' => now()->subDays(1), // 1 día atrás
             ],
             // Caja 7
             [
@@ -309,7 +309,7 @@ class UserSeeder extends Seeder
                 'ID' => 8,
                 'DESCRIPCION' => 'Caja de pagos en línea (Stripe, PayPal).',
                 'USUARIO' => 8,
-                'created_at' => now()->addDay(1), // 1 día futuro
+                'created_at' => now()->addDays(1), // 1 día futuro
             ],
             // Caja 9
             [
@@ -392,11 +392,11 @@ class UserSeeder extends Seeder
             // Usuario 2 (No tiene Efectivo)
             ['DESCRIPCION' => 'Pago de proveedores', 'MONTO' => 200.00, 'CANTIDAD' => 5, 'USUARIO' => 2, 'METODO_PAGO' => 'QR', 'created_at' => now()->subDays(3), 'CAJA' => 1], // 3 días atrás
             ['DESCRIPCION' => 'Compra de licencias', 'MONTO' => 220.00, 'CANTIDAD' => 2, 'USUARIO' => 2, 'METODO_PAGO' => 'Tarjeta', 'created_at' => now()->subDays(2), 'CAJA' => 5], // 2 días atrás
-            ['DESCRIPCION' => 'Pago de servicios bancarios', 'MONTO' => 180.00, 'CANTIDAD' => 1, 'USUARIO' => 2, 'METODO_PAGO' => 'Transferencia Bancaria', 'created_at' => now()->subDay(1), 'CAJA' => 1], // 1 día atrás
+            ['DESCRIPCION' => 'Pago de servicios bancarios', 'MONTO' => 180.00, 'CANTIDAD' => 1, 'USUARIO' => 2, 'METODO_PAGO' => 'Transferencia Bancaria', 'created_at' => now()->subDays(1), 'CAJA' => 1], // 1 día atrás
             ['DESCRIPCION' => 'Pago online', 'MONTO' => 210.00, 'CANTIDAD' => 4, 'USUARIO' => 2, 'METODO_PAGO' => 'Stripe', 'created_at' => now(), 'CAJA' => 4], // Hoy
 
             // Usuario 3 (Tiene todos los métodos de pago)
-            ['DESCRIPCION' => 'Compra de material de oficina', 'MONTO' => 100.00, 'CANTIDAD' => 10, 'USUARIO' => 3, 'METODO_PAGO' => 'QR', 'created_at' => now()->addDay(1), 'CAJA' => 5],
+            ['DESCRIPCION' => 'Compra de material de oficina', 'MONTO' => 100.00, 'CANTIDAD' => 10, 'USUARIO' => 3, 'METODO_PAGO' => 'QR', 'created_at' => now()->addDays(1), 'CAJA' => 5],
             // 1 día futuro
             ['DESCRIPCION' => 'Pago de factura eléctrica', 'MONTO' => 120.00, 'CANTIDAD' => 1, 'USUARIO' => 3, 'METODO_PAGO' => 'Tarjeta', 'created_at' => now()->addDays(2), 'CAJA' => 2], // 2 días futuros
             ['DESCRIPCION' => 'Compra de equipos de computo', 'MONTO' => 130.00, 'CANTIDAD' => 2, 'USUARIO' => 3, 'METODO_PAGO' => 'Efectivo', 'created_at' => now()->addDays(3), 'CAJA' => 1], // 3 días futuros

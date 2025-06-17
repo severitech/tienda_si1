@@ -115,7 +115,7 @@
                                         </svg>
                                     </button>
                                 </flux:modal.trigger>
-                                @if (auth()->user()->rol === 'administrador')
+                                @if (auth()->user()->rol === 'administrador' && $venta->ESTADO)
                                     <button wire:click="editarEstado({{ $venta->id }})" type="button"
                                         class="p-2 text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-800"
                                         aria-label="Eliminar">
@@ -141,7 +141,7 @@
 {{ $venta->ESTADO ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' }}">
                                     <span
                                         class="h-2 w-2 rounded-full {{ $venta->ESTADO ? 'bg-green-500' : 'bg-red-500' }}"></span>
-                                    {{ $venta->ESTADO ? 'Activo' : 'Inactivo' }}
+                                    {{ $venta->ESTADO ? 'Activo' : 'Anulado' }}
                                 </span></td>
                             <td class="px-6 py-4 text-center"> {{ $venta->usuario->nombre }}</td>
 

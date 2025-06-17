@@ -112,7 +112,7 @@
                                         </svg>
                                     </button>
                                 </flux:modal.trigger>
-                                @if (auth()->user()->rol === 'administrador')
+                                @if (auth()->user()->rol === 'administrador' && $carrito_detalle->ESTADO)
                                     <button wire:click="editarEstado({{ $carrito_detalle->ID }})" type="button"
                                         class="p-2 text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-800"
                                         aria-label="Eliminar">

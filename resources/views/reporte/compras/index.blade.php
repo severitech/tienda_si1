@@ -118,6 +118,7 @@
                                                 d="M2.458 12C3.732 7.943 7.523 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.065 7-9.542 7s-8.268-2.943-9.542-7z" />
                                         </svg>
                                     </a>
+                                    @if (auth()->user()->rol === 'administrador' && $compra->ESTADO)
                                     <form action="{{ route('compra.eliminar', ['id' => $compra->ID ?? $compra->id]) }}"
                                         method="POST"
                                         onsubmit="return confirm('¿Seguro que deseas eliminar esta compra?')">
@@ -132,6 +133,7 @@
                                                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M10 3h4a1 1 0 011 1v1H9V4a1 1 0 011-1z" />
                                             </svg></button>
                                     </form>
+                                    @endif
                                 </td>
                                 <td class="px-4 py-2">
                                     {{ $compra->created_at ? $compra->created_at->format('d/m/Y H:i') : '-' }}</td>

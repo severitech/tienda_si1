@@ -49,5 +49,6 @@ class ArqueoCaja extends Component
     public function actualizarCierre($id)
     {
         $this->id_caja = $id;
+        // dd($this->id_caja);
     }
 }

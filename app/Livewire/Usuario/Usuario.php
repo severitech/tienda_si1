@@ -95,7 +95,6 @@ class Usuario extends Component
         $this->email = $usuario->email;
         $this->telefono = $usuario->telefono;
         $this->rol = $usuario->rol;
-
         // Si deseas también puedes emitir un evento para abrir el modal desde JS si es necesario
         $this->dispatch('abrirModal'); // ← Solo si lo necesitas con JS
     }

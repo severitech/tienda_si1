@@ -1,9 +1,9 @@
 <div class="space-y-6">
     <h2 class="text-lg font-semibold text-gray-900 dark:text-white">🧾 Registrar Cierre de Caja</h2>
 
-    <!-- Descripción + Métodos de pago -->
+   
     <div class="grid grid-cols-1 gap-4 p-4 bg-white rounded-lg shadow-lg sm:grid-cols-2 md:grid-cols-3 dark:bg-zinc-800">
-        <!-- Descripción -->
+        
         <div class="sm:col-span-2 md:col-span-3">
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripción (opcional)</label>
             <textarea wire:model="descripcion" rows="3"
@@ -11,7 +11,7 @@
                 placeholder="Notas del cierre, observaciones, etc."></textarea>
         </div>
 
-        <!-- Métodos de pago -->
+       
         @foreach ($metodo_pago as $metodo)
             <div>
                 <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
@@ -24,7 +24,7 @@
         @endforeach
     </div>
 
-    <!-- Totales -->
+ 
     <div class="grid grid-cols-1 gap-4 p-4 text-center bg-white rounded-lg shadow-lg md:grid-cols-3 dark:bg-zinc-800">
         <div>
             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Monto total de Ventas</label>
@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <!-- Monto final -->
+    
     <div class="p-4 text-center bg-white rounded-lg shadow-lg dark:bg-zinc-800">
         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">💰 Monto total del cierre</label>
         <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">

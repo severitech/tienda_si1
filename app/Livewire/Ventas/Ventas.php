@@ -129,11 +129,11 @@ class Ventas extends Component
             ]);
 
             // Descontar stock
-            $productoModel = Producto::find($producto['id']);
-            if ($productoModel) {
-                $productoModel->CANTIDAD -= $producto['cantidad'];
-                $productoModel->save();
-            }
+            // $productoModel = Producto::find($producto['id']);
+            // if ($productoModel) {
+            //     $productoModel->CANTIDAD -= $producto['cantidad'];
+            //     $productoModel->save();
+            // }
         }
 
         $this->reset([
