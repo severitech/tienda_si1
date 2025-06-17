@@ -1,100 +1,74 @@
-# FROM php:8.2-apache
+FROM php:8.2-apache
 
-# # Suprimir advertencia de Apache: AH00558
-# RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+# Suprimir advertencia de Apache: AH00558
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# # Habilitar mod_rewrite (necesario para Laravel)
-# RUN a2enmod rewrite
+# Habilitar mod_rewrite (necesario para Laravel)
+RUN a2enmod rewrite
 
-# # Instalar dependencias del sistema y extensiones PHP necesarias
-# RUN apt-get update && apt-get install -y \
-#     git \
-#     unzip \
-#     zip \
-#     libzip-dev \
-#     libcurl4-openssl-dev \
-#     libonig-dev \
-#     libxml2-dev \
-#     default-mysql-client \
-#     && docker-php-ext-configure zip \
-#     && docker-php-ext-install \
-#         pdo \
-#         pdo_mysql \
-#         mbstring \
-#         zip \
-#         curl \
-#         xml \
-#     && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# # Establecer directorio de trabajo
-# WORKDIR /var/www/html
-
-# # Copiar Composer desde imagen oficial
-# COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
-# # Copiar los archivos de la aplicación
-# COPY . .
-
-# # Instalar dependencias de PHP
-# RUN composer install --no-dev --optimize-autoloader --no-interaction
-
-# # Cambiar el DocumentRoot de Apache a /var/www/html/public
-# RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
-
-# # Asegurar que Apache permita acceso al directorio public
-# RUN echo "<Directory /var/www/html/public>\n\
-#     Options Indexes FollowSymLinks\n\
-#     AllowOverride All\n\
-#     Require all granted\n\
-# </Directory>" >> /etc/apache2/apache2.conf
-
-# # Cache de configuración de Laravel (opcional durante testing)
-# RUN php artisan config:clear && php artisan route:clear && php artisan view:clear
-
-# # Asignar permisos necesarios
-# RUN chown -R www-data:www-data storage bootstrap/cache
-
-# # Exponer puerto 80
-# EXPOSE 80
-
-# # Iniciar Apache
-# CMD ["apache2-foreground"]
-
-#segunda configuracion prueba
-# Etapa 1: Build de Vite
-FROM node:18 AS node_builder
-WORKDIR /var/www
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-
-# Etapa 2: PHP + Laravel
-FROM php:8.2-fpm
-
-# Instala extensiones necesarias
+# Instalar dependencias del sistema y extensiones PHP necesarias
 RUN apt-get update && apt-get install -y \
-    git curl libpng-dev libonig-dev libxml2-dev zip unzip \
-    libzip-dev zip libpq-dev mariadb-client \
-    && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl
+    git \
+    unzip \
+    zip \
+    libzip-dev \
+    libcurl4-openssl-dev \
+    libonig-dev \
+    libxml2-dev \
+    default-mysql-client \
+    && docker-php-ext-configure zip \
+    && docker-php-ext-install \
+        pdo \
+        pdo_mysql \
+        mbstring \
+        zip \
+        curl \
+        xml \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Instala Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Establecer directorio de trabajo
+WORKDIR /var/www/html
 
-WORKDIR /var/www
+# Copiar Composer desde imagen oficial
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copia el proyecto y assets Vite ya compilados
+# Copiar los archivos de la aplicación
 COPY . .
-COPY --from=node_builder /var/www/public/build ./public/build
 
-# Instala dependencias PHP
-RUN composer install --no-dev --optimize-autoloader
+# Instalar dependencias de PHP
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Establece permisos
-RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www/storage
+# Cambiar el DocumentRoot de Apache a /var/www/html/public
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
 
-# Expone puerto 8080 (usado por Railway)
-EXPOSE 8080
+# Asegurar que Apache permita acceso al directorio public
+RUN echo "<Directory /var/www/html/public>\n\
+    Options Indexes FollowSymLinks\n\
+    AllowOverride All\n\
+    Require all granted\n\
+</Directory>" >> /etc/apache2/apache2.conf
 
-# Comando de inicio
-CMD php artisan config:cache && php artisan route:cache && php artisan serve --host=0.0.0.0 --port=8080
+# Asignar permisos necesarios
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database && \
+    chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
+
+# Crear script de inicio
+RUN echo '#!/bin/bash\n\
+PORT=${PORT:-80}\n\
+echo "Configurando Apache en puerto: $PORT"\n\
+sed -i "s/Listen 80/Listen $PORT/g" /etc/apache2/ports.conf\n\
+sed -i "s|<VirtualHost \\*:80>|<VirtualHost \\*:$PORT>|" /etc/apache2/sites-available/000-default.conf\n\
+php artisan config:clear\n\
+php artisan cache:clear\n\
+php artisan config:cache\n\
+php artisan route:cache\n\
+php artisan view:cache\n\
+exec apache2-foreground' > /usr/local/bin/start-apache.sh
+
+RUN chmod +x /usr/local/bin/start-apache.sh
+
+# Exponer puerto 80 (Railway manejará el dinámico)
+EXPOSE 80
+
+# Usar script de inicio
+CMD ["/usr/local/bin/start-apache.sh"]
