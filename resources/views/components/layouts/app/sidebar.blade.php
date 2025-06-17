@@ -106,8 +106,8 @@
                         :current="request()->routeIs('reporte.compras')" wire:navigate>
                         {{ __('Reporte de Compras') }}
                     </flux:navlist.item>
-                    <flux:navlist.item icon="chart-bar" :href="route('dashboard')"
-                        :current="request()->routeIs('Cierre de Caja')" wire:navigate>
+                    <flux:navlist.item icon="chart-bar" :href="route('reporte.ventas')"
+                        :current="request()->routeIs('reporte.ventas')" wire:navigate>
                         {{ __('Reporte de Ventas') }}
                     </flux:navlist.item>
                     <flux:navlist.item icon="document-magnifying-glass" :href="route('dashboard')"
@@ -181,8 +181,7 @@
 
     @fluxScripts
     
-    {{-- Directiva de WireUI, en el lugar correcto --}}
-    @wireUiScripts
+  
 </body>
 
 </html>

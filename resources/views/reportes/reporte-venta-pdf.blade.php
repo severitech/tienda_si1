@@ -35,9 +35,9 @@
                     <td>{{ \Carbon\Carbon::parse($venta->fecha_venta)->format('Y-m-d H:i') }}</td>
                     <td>{{ $venta->venta_id }}</td>
                     <td>{{ $venta->codigo_producto }} - {{ $venta->nombre_producto }}</td>
-                    <td>${{ number_format($venta->precio_unitario, 2) }}</td>
+                    <td>Bs.{{ number_format($venta->precio_unitario, 2) }}</td>
                     <td>{{ $venta->cantidad }}</td>
-                    <td>${{ number_format($venta->subtotal, 2) }}</td>
+                    <td>Bs.{{ number_format($venta->subtotal, 2) }}</td>
                     <td>{{ $venta->nombre_usuario ?? '—' }}</td>
                     <td>{{ $venta->nombre_cliente ?? '—' }}</td>
                 </tr>
@@ -48,6 +48,6 @@
     <hr style="margin: 20px 0;">
 
     <p><strong>Total Cantidad:</strong> {{ $total_cantidad }}</p>
-    <p><strong>Total Ventas:</strong> ${{ number_format($total_ventas, 2) }}</p>
+    <p><strong>Total Ventas:</strong> Bs.{{ number_format($total_ventas, 2) }}</p>
 </body>
 </html>

@@ -5,12 +5,13 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Producto;
 use App\Models\Categoria;
+use Illuminate\Support\Facades\DB;
 
 class ProductoTabla extends Component
 {
     use WithPagination;
 
-    public $producto, $categorias, $precio, $cantidad, $estado = true;
+    public $producto = '', $categorias, $precio, $cantidad, $estado = null;
 
     public function exportarPdf()
     {
@@ -57,27 +58,53 @@ class ProductoTabla extends Component
         $categoria = Categoria::all();
         return view('livewire.productos.producto-tabla', compact('productos', 'categoria'));
     }
+    public function cambiarEstado($id)
+    {
+        //dd($id);
+        $dato = Producto::find($id);
+        $dato->ESTADO = $dato->ESTADO == 1 ? 0 : 1;
+        $dato->save();
+
+    }
+
+    public function updatedEstado($value)
+    {
+        $this->estado = is_numeric($value) ? (int) $value : null;
+    }
+
     public function buscarProductos()
     {
-        $query = Producto::query();
-
-        if ($this->categorias) {
-            $query->where('CATEGORIA', 'like', '%' . $this->categorias . '%');
-        }
-        if ($this->producto) {
-            $query->where('NOMBRE', 'like', '%' . $this->producto . '%');
-        }
-        if ($this->precio) {
-            $query->where('PRECIO', $this->precio);
-        }
-        if ($this->cantidad) {
-            $query->where('CANTIDAD', $this->cantidad);
-        }
-        if ($this->estado !== null && $this->estado !== '') {
-            $query->where('ESTADO', $this->estado);
-        }
-
-        return $query->orderBy('NOMBRE')->paginate($this->perPage);
+        return Producto::query()
+            ->join('CATEGORIA', 'PRODUCTO.CATEGORIA', '=', 'CATEGORIA.CATEGORIA')
+            ->select('PRODUCTO.*', DB::raw("CATEGORIA.CATEGORIA"))
+            ->where(function ($query) {
+                $query
+                    ->when(
+                        $this->producto,
+                        fn($q) =>
+                        $q->where('PRODUCTO.NOMBRE', 'like', '%' . $this->producto . '%')
+                    )
+                    ->when(
+                        $this->categorias,
+                        fn($q) =>
+                        $q->where('CATEGORIA.CATEGORIA', 'like', '%' . $this->categorias . '%')
+                    )
+                    ->when($this->precio !== null && $this->precio !== '', function ($q) {
+                        // Aquí filtro por precio mayor o igual
+                        $q->where('PRODUCTO.PRECIO', '>=', $this->precio);
+                    })
+                    ->when(
+                        $this->cantidad,
+                        fn($q) =>
+                        $q->where('PRODUCTO.CANTIDAD', $this->cantidad)
+                    )
+                    ->when($this->estado !== null && $this->estado !== '', function ($q) {
+                        $estadoBool = $this->estado == '1' ? 1 : 0;
+                        $q->where('PRODUCTO.ESTADO', '=', $estadoBool);
+                    });
+            })
+            ->orderBy('PRODUCTO.NOMBRE', 'asc')
+            ->paginate($this->perPage);
     }
-    
+
 }

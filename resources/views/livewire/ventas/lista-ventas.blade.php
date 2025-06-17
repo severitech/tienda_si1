@@ -45,7 +45,8 @@
             <div>
                 <label for="transferencia"
                     class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Estado de
-                    venta</label><select id="small" wire:model="estado"
+                    venta</label>
+                <select id="small" wire:model="estado"
                     class="block w-full p-2 mb-6 text-sm border rounded-lg text-zinc-900 border-zinc-300 bg-zinc-50 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500">
 
                     <option value="" selected>- estado -</option>
@@ -67,7 +68,6 @@
                     Buscar
                 </button>
 
-                <!-- Botón Exportar PDF (solo ícono) -->
                 <button type="button"wire:click="exportarPdf"
                     class="p-2 text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -85,7 +85,6 @@
     <x-sucess-message />
     <div>
         <div class="relative mt-3 mb-6 overflow-x-auto shadow-md sm:rounded-lg">
-
             <table class="w-full text-sm text-left text-zinc-700 dark:text-zinc-300">
                 <thead class="text-xs uppercase text-zinc-700 bg-zinc-300 dark:bg-zinc-600 dark:text-zinc-200">
                     <tr>

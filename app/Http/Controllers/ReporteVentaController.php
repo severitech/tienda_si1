@@ -11,7 +11,7 @@ class ReporteVentaController extends Controller
 {
 
     public function reporte(){
-        return view('reportes.reporte-venta-producto');
+        return view('trabajador.venta.reporteventaproductos');
     }
 
     public function exportarPDF(Request $request)

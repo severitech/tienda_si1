@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\Producto;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 class ProductoController extends Controller
 {
 
@@ -98,30 +99,50 @@ class ProductoController extends Controller
 
     public function exportarPdf(Request $request)
     {
-        $query = Producto::query();
+        // Obtén los filtros desde el request
+        $producto = $request->input('nombre');
+        $categorias = $request->input('categoria');
+        $precio = $request->input('precio');
+        $cantidad = $request->input('cantidad');
+        $estado = $request->input('estado');
 
-        if ($request->categoria) {
-            $query->where('CATEGORIA', 'like', '%' . $request->categoria . '%');
-        }
-        if ($request->producto) {
-            $query->where('NOMBRE', 'like', '%' . $request->producto . '%');
-        }
-        if ($request->precio) {
-            $query->where('PRECIO', $request->precio);
-        }
-        if ($request->cantidad) {
-            $query->where('CANTIDAD', $request->cantidad);
-        }
-        if ($request->estado !== null && $request->estado !== '') {
-            $query->where('ESTADO', $request->estado);
-        }
+        $query = Producto::query()
+            ->join('CATEGORIA', 'PRODUCTO.CATEGORIA', '=', 'CATEGORIA.CATEGORIA')
+            ->select('PRODUCTO.*', DB::raw("CATEGORIA.CATEGORIA"))
+            ->where(function ($query) use ($producto, $categorias, $precio, $cantidad, $estado) {
+                $query
+                    ->when(
+                        $producto,
+                        fn($q) =>
+                        $q->where('PRODUCTO.NOMBRE', 'like', '%' . $producto . '%')
+                    )
+                    ->when(
+                        $categorias,
+                        fn($q) =>
+                        $q->where('CATEGORIA.CATEGORIA', 'like', '%' . $categorias . '%')
+                    )
+                    ->when($precio !== null && $precio !== '', function ($q) use ($precio) {
+                        $q->where('PRODUCTO.PRECIO', '>=', $precio);
+                    })
+                    ->when(
+                        $cantidad,
+                        fn($q) =>
+                        $q->where('PRODUCTO.CANTIDAD', $cantidad)
+                    )
+                    ->when($estado !== null && $estado !== '', function ($q) use ($estado) {
+                        $estadoBool = $estado == '1' ? 1 : 0;
+                        $q->where('PRODUCTO.ESTADO', '=', $estadoBool);
+                    });
+            })
+            ->orderBy('PRODUCTO.NOMBRE', 'asc');
 
-        $productos = $query->orderBy('NOMBRE')->get();
+        $productos = $query->get();
 
         $pdf = Pdf::loadView('reportes.productos-disponibles', compact('productos'));
 
         return $pdf->download('productos-disponibles.pdf');
     }
+
 
 }
 

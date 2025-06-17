@@ -1,250 +1,147 @@
-<div class="container mx-auto p-6">
-    <div class="bg-white rounded-lg shadow-lg p-6">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold text-gray-800">Reporte de Ventas</h1>
+<div>
+    <div class="w-auto p-6 bg-white shadow-xl rounded-xl dark:bg-zinc-900">
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Reporte de Ventas</h1>
             <div class="flex space-x-2">
-                <button wire:click="limpiarFiltros" 
-                        class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                <button wire:click="limpiarFiltros"
+                    class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     Limpiar Filtros
                 </button>
-                <button wire:click="exportarPDF" 
-                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                    Exportar PDF
+                <button wire:click="exportarPDF"
+                    class="flex p-2 text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                    Exportar <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                            d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6H6zm7 1.5L18.5 9H13a.5.5 0 0 1-.5-.5V3.5zM8 13h1.5v4H8v-4zm3 0h1.25c.966 0 1.75.784 1.75 1.75v.5A1.75 1.75 0 0 1 12.25 17H11v-4zm1.25 1H12v2h.25a.75.75 0 0 0 .75-.75v-.5a.75.75 0 0 0-.75-.75z" />
+                    </svg>
                 </button>
             </div>
         </div>
 
-        <!-- Filtros -->
-        <div class="bg-gray-50 rounded-lg p-4 mb-6">
-            <h2 class="text-lg font-semibold text-gray-700 mb-4">Filtros</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-                <!-- Fecha Inicio -->
+        <div class="p-4 mb-6 rounded-lg bg-gray-50 dark:bg-zinc-800">
+            <h2 class="mb-4 text-lg font-semibold text-gray-700 dark:text-gray-200">Filtros</h2>
+
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Fecha Inicio</label>
-                    <input type="date" wire:model.live="fecha_inicio" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Fecha Inicio</label>
+                    <input type="date" wire:model.live="fecha_inicio"
+                        class="block w-full px-2.5 py-2 text-sm text-zinc-900 bg-white border border-zinc-300 rounded-lg dark:bg-zinc-700 dark:text-white dark:border-zinc-600 focus:outline-none focus:ring-0 focus:border-blue-600">
                 </div>
 
-                <!-- Fecha Fin -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Fecha Fin</label>
-                    <input type="date" wire:model.live="fecha_fin" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Fecha Fin</label>
+                    <input type="date" wire:model.live="fecha_fin"
+                        class="block w-full px-2.5 py-2 text-sm text-zinc-900 bg-white border border-zinc-300 rounded-lg dark:bg-zinc-700 dark:text-white dark:border-zinc-600 focus:outline-none focus:ring-0 focus:border-blue-600">
                 </div>
 
-                <!-- Producto -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Producto</label>
-                    <select wire:model.live="producto_id" 
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Producto</label>
+                    <select wire:model.live="producto_id"
+                        class="block w-full p-2 mb-6 text-sm border rounded-lg text-zinc-900 border-zinc-300 bg-zinc-50 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500">
+
                         <option value="">Todos los productos</option>
-                        @foreach($productos as $producto)
-                            <option value="{{ $producto->ID }}">{{ $producto->CODIGO }} - {{ $producto->NOMBRE }}</option>
+                        @foreach ($productos as $producto)
+                            <option value="{{ $producto->ID }}">{{ $producto->CODIGO }} - {{ $producto->NOMBRE }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
-
                 <!-- Cantidad Mínima -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Cantidad Mínima</label>
-                    <input type="number" wire:model.live="cantidad_minima" min="0" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                           placeholder="Ej: 1">
+                    <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Cantidad
+                        Mínima</label>
+                    <input type="number" wire:model.live="cantidad_minima" min="0"
+                        class="block w-full px-2.5 py-2 text-sm text-zinc-900 bg-transparent border border-zinc-300 rounded-lg appearance-none dark:text-white dark:border-zinc-600 focus:outline-none focus:ring-0 focus:border-blue-600"
+                        placeholder="Ej: 1">
                 </div>
 
-                <!-- Cantidad Máxima -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Cantidad Máxima</label>
-                    <input type="number" wire:model.live="cantidad_maxima" min="0" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                           placeholder="Ej: 100">
+                    <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Cantidad
+                        Máxima</label>
+                    <input type="number" wire:model.live="cantidad_maxima" min="0"
+                        class="block w-full px-2.5 py-2 text-sm text-zinc-900 bg-transparent border border-zinc-300 rounded-lg appearance-none dark:text-white dark:border-zinc-600 focus:outline-none focus:ring-0 focus:border-blue-600"
+                        placeholder="Ej: 100">
                 </div>
             </div>
         </div>
 
-        <!-- Resumen -->
-        {{-- <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div class="bg-blue-100 p-4 rounded-lg">
-                <h3 class="text-lg font-semibold text-blue-800">Total Registros</h3>
-                <p class="text-2xl font-bold text-blue-900">{{ count($ventas) }}</p>
-            </div>
-            <div class="bg-green-100 p-4 rounded-lg">
-                <h3 class="text-lg font-semibold text-green-800">Total Ventas</h3>
-                <p class="text-2xl font-bold text-green-900">${{ number_format($total_ventas, 2) }}</p>
-            </div>
-            <div class="bg-yellow-100 p-4 rounded-lg">
-                <h3 class="text-lg font-semibold text-yellow-800">Total Cantidad</h3>
-                <p class="text-2xl font-bold text-yellow-900">{{ number_format($total_cantidad) }}</p>
-            </div>
-        </div> --}}
-
-        <!-- Tabla de Resultados -->
         <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            <button wire:click="ordenarPor('fecha_venta')" class="flex items-center space-x-1 hover:text-gray-700">
-                                <span>Fecha</span>
-                                @if($orden_campo === 'fecha_venta')
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                        @if($orden_direccion === 'asc')
-                                            <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"/>
-                                        @else
-                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                                        @endif
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            <button wire:click="ordenarPor('venta_id')" class="flex items-center space-x-1 hover:text-gray-700">
-                                <span>ID Venta</span>
-                                @if($orden_campo === 'venta_id')
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                        @if($orden_direccion === 'asc')
-                                            <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"/>
-                                        @else
-                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                                        @endif
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            <button wire:click="ordenarPor('codigo_producto')" class="flex items-center space-x-1 hover:text-gray-700">
-                                <span>Producto</span>
-                                @if($orden_campo === 'codigo_producto')
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                        @if($orden_direccion === 'asc')
-                                            <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"/>
-                                        @else
-                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                                        @endif
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            <button wire:click="ordenarPor('precio_unitario')" class="flex items-center space-x-1 hover:text-gray-700">
-                                <span>Precio Unit.</span>
-                                @if($orden_campo === 'precio_unitario')
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                        @if($orden_direccion === 'asc')
-                                            <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"/>
-                                        @else
-                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                                        @endif
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            <button wire:click="ordenarPor('cantidad')" class="flex items-center space-x-1 hover:text-gray-700">
-                                <span>Cantidad</span>
-                                @if($orden_campo === 'cantidad')
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                        @if($orden_direccion === 'asc')
-                                            <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"/>
-                                        @else
-                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                                        @endif
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            <button wire:click="ordenarPor('subtotal')" class="flex items-center space-x-1 hover:text-gray-700">
-                                <span>Subtotal</span>
-                                @if($orden_campo === 'subtotal')
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                        @if($orden_direccion === 'asc')
-                                            <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"/>
-                                        @else
-                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                                        @endif
-                                    </svg>
-                                @endif
-                            </button>
-                        </th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usuario</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @forelse($ventas as $venta)
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                                {{ \Carbon\Carbon::parse($venta->fecha_venta)->format('d/m/Y H:i') }}
-                            </td>
-                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                                #{{ $venta->venta_id }}
-                            </td>
-                            <td class="px-4 py-4 whitespace-nowrap">
-                                <div>
-                                    <div class="text-sm font-medium text-gray-900">{{ $venta->codigo_producto }}</div>
-                                    <div class="text-sm text-gray-500">{{ $venta->nombre_producto }}</div>
-                                </div>
-                            </td>
-                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                                ${{ number_format($venta->precio_unitario, 2) }}
-                            </td>
-                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                                <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                                    {{ $venta->cantidad }}
-                                </span>
-                            </td>
-                            <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                ${{ number_format($venta->subtotal, 2) }}
-                            </td>
-                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                                {{ $venta->nombre_usuario ?? 'N/A' }}
-                            </td>
-                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                                {{ $venta->nombre_cliente ?? 'N/A' }}
-                            </td>
-                        </tr>
-                    @empty
+            <div class="max-h-[480px] overflow-y-auto">
+                <table class="w-full text-sm text-left text-zinc-700 dark:text-zinc-300">
+                    <thead class="text-xs uppercase text-zinc-700 bg-zinc-300 dark:bg-zinc-600 dark:text-zinc-200">
                         <tr>
-                            <td colspan="8" class="px-4 py-8 text-center text-gray-500">
-                                <div class="flex flex-col items-center">
-                                    <svg class="w-12 h-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                                    </svg>
-                                    <p class="text-lg font-medium">No se encontraron ventas</p>
-                                    <p class="text-sm">Ajusta los filtros para obtener resultados</p>
-                                </div>
-                            </td>
+                            @foreach (['Fecha', 'ID Venta', 'Producto', 'Precio Unit.', 'Cantidad', 'Subtotal', 'Usuario', 'Cliente'] as $header)
+                                <th
+                                    class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">
+                                    {{ $header }}
+                                </th>
+                            @endforeach
                         </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200 dark:bg-zinc-900 dark:divide-zinc-700">
+                        @forelse($ventas as $venta)
+                            <tr class="hover:bg-gray-50 dark:hover:bg-zinc-800">
+                                <td class="px-4 py-4 text-sm text-gray-900 dark:text-gray-100 whitespace-nowrap">
+                                    {{ \Carbon\Carbon::parse($venta->fecha_venta)->format('d/m/Y H:i') }}
+                                </td>
+                                <td class="px-4 py-4 text-sm text-gray-900 dark:text-gray-100 whitespace-nowrap">
+                                    #{{ $venta->venta_id }}
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900 dark:text-gray-100">
+                                            {{ $venta->codigo_producto }}</div>
+                                        <div class="text-sm text-gray-500 dark:text-gray-400">
+                                            {{ $venta->nombre_producto }}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4 text-sm text-gray-900 dark:text-gray-100 whitespace-nowrap">
+                                    Bs.{{ number_format($venta->precio_unitario, 2) }}
+                                </td>
+                                <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                    <span
+                                        class="inline-flex px-2 py-1 text-xs font-semibold leading-5 text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                                        {{ $venta->cantidad }}
+                                    </span>
+                                </td>
+                                <td
+                                    class="px-4 py-4 text-sm font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap">
+                                    Bs.{{ number_format($venta->subtotal, 2) }}
+                                </td>
+                                <td class="px-4 py-4 text-sm text-gray-900 dark:text-gray-100 whitespace-nowrap">
+                                    {{ $venta->nombre_usuario ?? 'N/A' }}
+                                </td>
+                                <td class="px-4 py-4 text-sm text-gray-900 dark:text-gray-100 whitespace-nowrap">
+                                    {{ $venta->nombre_cliente ?? 'N/A' }}
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="8" class="px-4 py-8 text-center text-gray-500 dark:text-gray-300">
+                                    <div class="flex flex-col items-center">
+                                        <svg class="w-12 h-12 mb-4 text-gray-400 dark:text-gray-500" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                        </svg>
+                                        <p class="text-lg font-medium">No se encontraron ventas</p>
+                                        <p class="text-sm">Ajusta los filtros para obtener resultados</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        @if(count($ventas) > 0)
-            <div class="mt-4 text-sm text-gray-600 flex justify-between items-center">
-                <span>Mostrando {{ count($ventas) }} resultados</span>
-                <span>Total: ${{ number_format($total_ventas, 2) }}</span>
+        {{ $ventas->links() }}
+        @if (count($ventas) > 0)
+            <div class="flex items-center justify-between mt-4 text-sm text-gray-600 dark:text-gray-300">
+                <span>Total: Bs.{{ number_format($total_ventas, 2) }}</span>
             </div>
         @endif
-    </div>
-
-    <!-- Loading spinner -->
-    <div wire:loading class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-            <div class="mt-3 text-center">
-                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100">
-                    <svg class="animate-spin h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                </div>
-                <h3 class="text-lg leading-6 font-medium text-gray-900 mt-2">Cargando...</h3>
-                <div class="mt-2 px-7 py-3">
-                    <p class="text-sm text-gray-500">Generando reporte de ventas</p>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
