@@ -53,30 +53,21 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
     chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 
 # Crear script de inicio
-RUN cat > /usr/local/bin/start-apache.sh << 'EOF'
-#!/bin/bash
-# Configurar puerto dinámicamente
-PORT=${PORT:-80}
-echo "Configurando Apache en puerto: $PORT"
-
-# Actualizar configuración de Apache
-sed -i "s/Listen 80/Listen $PORT/g" /etc/apache2/ports.conf
-sed -i "s|<VirtualHost \*:80>|<VirtualHost \*:$PORT>|" /etc/apache2/sites-available/000-default.conf
-
-# Limpiar y generar cache
-php artisan config:clear
-php artisan cache:clear
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-
-# Iniciar Apache
-exec apache2-foreground
-EOF
+RUN echo '#!/bin/bash\n\
+PORT=${PORT:-80}\n\
+echo "Configurando Apache en puerto: $PORT"\n\
+sed -i "s/Listen 80/Listen $PORT/g" /etc/apache2/ports.conf\n\
+sed -i "s|<VirtualHost \\*:80>|<VirtualHost \\*:$PORT>|" /etc/apache2/sites-available/000-default.conf\n\
+php artisan config:clear\n\
+php artisan cache:clear\n\
+php artisan config:cache\n\
+php artisan route:cache\n\
+php artisan view:cache\n\
+exec apache2-foreground' > /usr/local/bin/start-apache.sh
 
 RUN chmod +x /usr/local/bin/start-apache.sh
 
-# Exponer puerto estático (Railway lo manejará dinámicamente)
+# Exponer puerto 80 (Railway manejará el dinámico)
 EXPOSE 80
 
 # Usar script de inicio
