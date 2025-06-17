@@ -48,25 +48,33 @@ RUN echo "<Directory /var/www/html/public>\n\
     Require all granted\n\
 </Directory>" >> /etc/apache2/apache2.conf
 
-# Cache de configuración de Laravel (opcional durante testing)
-RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
-
-# Asignar permisos necesarios
 # Asignar permisos necesarios
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database && \
     chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 
-# Cambiar Apache para usar el puerto proporcionado por Railway
-ARG PORT
-ENV PORT=${PORT:-80}
+# Crear script de inicio
+COPY <<EOF /usr/local/bin/start-apache.sh
+#!/bin/bash
+# Configurar puerto dinámicamente
+PORT=\${PORT:-80}
+sed -i "s/Listen 80/Listen \$PORT/g" /etc/apache2/ports.conf
+sed -i "s|<VirtualHost \*:80>|<VirtualHost \*:\$PORT>|" /etc/apache2/sites-available/000-default.conf
 
-RUN sed -i "s/Listen 80/Listen ${PORT}/g" /etc/apache2/ports.conf \
- && sed -i "s|<VirtualHost *:80>|<VirtualHost *:${PORT}>|" /etc/apache2/sites-available/000-default.conf
-
-
-# Exponer puerto 80
-
-EXPOSE ${PORT}
+# Limpiar cache si es necesario
+php artisan config:clear
+php artisan cache:clear
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
 
 # Iniciar Apache
-CMD ["apache2-foreground"]
+apache2-foreground
+EOF
+
+RUN chmod +x /usr/local/bin/start-apache.sh
+
+# Exponer puerto variable
+EXPOSE \$PORT
+
+# Usar script de inicio
+CMD ["/usr/local/bin/start-apache.sh"]
