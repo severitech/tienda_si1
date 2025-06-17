@@ -73,7 +73,7 @@ Route::get('/perfil-usuario', [User::class, 'perfil_trabajador'])->name('perfil-
 
 //Rutas Ventas
 
-Route::get('ventas/exportar-pdf', [VentaController::class, 'exportarPdf'])->name('ventas.exportar-pdf');
+Route::get('/ventas/exportar-pdf', [VentaController::class, 'exportarPdf'])->name('ventas.exportar-pdf');
 
 Route::get('/ventas', [VentaController::class, 'mostrar'])->name('venta.mostrar');
 Route::get('/lista-de-ventas', [VentaController::class, 'listaventas'])->name('venta.listaventas');
@@ -112,7 +112,7 @@ Route::view('/control/bitacora', 'trabajador.control.bitacora')->middleware(['au
 
 // ruta historial ventas
 Route::get('historial',[VentaController::class, 'index'])->name('historial'); 
-Route::get('/ventas/exportar-pdf', [VentaController::class, 'exportarPdfVenta'])->name('ventaPdf');
+//Route::get('/ventas/exportar-pdf', [VentaController::class, 'exportarPdfVenta'])->name('ventaPdf');
 
 Route::get('/reporte-compras', [CompraController::class, 'reporteCompras'])->name('reporte.compras');
 Route::get('/reporte-compras/exportar-pdf', [CompraController::class, 'exportarPdf'])->name('reporte.compras.pdf');

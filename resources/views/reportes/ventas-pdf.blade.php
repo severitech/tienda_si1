@@ -66,7 +66,7 @@
     </style>
 </head>
 <body>
-    <h2>Reporte de Ventas Filtradas</h2>
+    <h2>Reporte de Ventas</h2>
     <table>
         <thead>
             <tr>
