@@ -4,6 +4,7 @@ namespace App\Livewire\Usuario;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Hash; // Importa la clase Hash
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -47,7 +48,7 @@ class Usuario extends Component
                 "materno" => $this->materno,
                 "telefono" => $this->telefono,
                 "email" => $this->email,
-                "password" => bcrypt($this->password),
+                "password" => Hash::make($this->password),
                 "ROL" => $this->rol,
                 "estado" => $this->estado,
             ]);
@@ -58,7 +59,7 @@ class Usuario extends Component
                 "materno" => $this->materno,
                 "telefono" => $this->telefono,
                 "email" => $this->email,
-                "password" => bcrypt($this->password),
+                "password" => Hash::make($this->password),
                 "ROL" => $this->rol,
                 "estado" => true,
             ]);

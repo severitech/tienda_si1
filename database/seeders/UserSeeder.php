@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
                 'materno' => $admin['materno'],
                 'telefono' => '70000000',
                 'email' => $admin['email'],
-                'password' => Hash::make('12346578'), // Asegúrate de cambiar la contraseña por algo más seguro
+                'password' => Hash::make('12346578'), 
                 'ROL' => 'administrador',
             ]);
         }

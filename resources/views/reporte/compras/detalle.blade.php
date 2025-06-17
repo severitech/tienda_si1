@@ -18,7 +18,9 @@
             <!-- Trabajador -->
             <div class="p-5 shadow-lg rounded-xl bg-zinc-100 dark:bg-zinc-800">
                 <h4 class="mb-1 text-sm font-semibold uppercase text-zinc-500 dark:text-zinc-400">Trabajador</h4>
-                <p class="text-lg font-bold">{{ $compra->usuario->nombre.' ' .$compra->usuario->paterno. ' ' . $compra->usuario->materno  ?? '-' }}</p>
+                <p class="text-lg font-bold">
+                    {{ $compra->usuario->nombre . ' ' . $compra->usuario->paterno . ' ' . $compra->usuario->materno ?? '-' }}
+                </p>
             </div>
 
             <!-- Proveedor -->
@@ -55,9 +57,9 @@
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             @forelse ($detalles as $detalle)
                 <div
-                    class="flex flex-col h-full p-4 transition-shadow duration-200 shadow-md bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-800 dark:to-zinc-900 rounded-2xl hover:shadow-xl">
+                    class="flex flex-col h-full p-5 transition-shadow duration-300 bg-white border border-transparent shadow-lg dark:bg-zinc-900 rounded-2xl hover:shadow-2xl hover:border-green-500">
 
-                    <h5 class="mb-2 text-lg font-semibold truncate text-zinc-800 dark:text-white">
+                    <h5 class="mb-3 text-lg font-semibold truncate text-zinc-900 dark:text-white">
                         {{ $detalle->producto->NOMBRE }}
                     </h5>
 
@@ -66,18 +68,22 @@
                         {{ number_format($detalle->producto->PRECIO, 2) }}
                     </p>
 
-                    <p class="mb-4 text-sm text-zinc-700 dark:text-zinc-300">
+                    <p class="mb-6 text-sm text-zinc-700 dark:text-zinc-300">
                         <span class="font-semibold">Cantidad Comprada:</span> {{ $detalle->CANTIDAD }}
                     </p>
 
                     @if ($detalle->producto->IMAGEN)
-                        <div class="flex items-center justify-center flex-1 mb-2">
+                        <div
+                            class="flex items-center justify-center flex-1 mb-3 overflow-hidden rounded-lg border-zinc-200 dark:border-zinc-700">
                             <img src="{{ $detalle->producto->IMAGEN }}"
                                 alt="Imagen de {{ $detalle->producto->NOMBRE }}"
-                                class="object-contain w-full h-40 rounded-md dark:border-zinc-700">
+                                class="object-contain w-full max-h-36 dark:bg-zinc-800" />
                         </div>
                     @else
-                        <div class="flex items-center justify-center h-40 italic text-zinc-400">Sin imagen</div>
+                        <div
+                            class="flex items-center justify-center italic border border-dashed rounded-lg h-36 text-zinc-400 border-zinc-300 dark:border-zinc-700">
+                            Sin imagen
+                        </div>
                     @endif
                 </div>
             @empty
@@ -86,5 +92,6 @@
                 </div>
             @endforelse
         </div>
+
     </div>
 </x-layouts.app>

@@ -1,18 +1,18 @@
 <div>
     <div class="w-auto p-6 bg-white shadow-xl rounded-xl dark:bg-zinc-900">
+        <div  class="w-auto p-6 bg-white shadow-xl rounded-xl dark:bg-zinc-900">
+            {{-- Cliente --}}
+            @livewire('usuario.usuariocliente')
 
-        {{-- Cliente --}}
-        @livewire('usuario.usuariocliente')
+            {{-- Agregar producto --}}
+            <div class="mb-6">
+                @livewire('productos.producto-venta')
 
-        {{-- Agregar producto --}}
-        <div class="mb-6">
-            @livewire('productos.producto-venta')
+            </div>
 
         </div>
-
-
         {{-- Tabla de productos --}}
-        <div class="relative mb-6 overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="relative pt-4 mb-6 overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-zinc-700 dark:text-zinc-300">
                 <thead class="text-xs uppercase text-zinc-700 bg-zinc-300 dark:bg-zinc-600 dark:text-zinc-200">
                     <tr>
@@ -55,7 +55,7 @@
             @livewire('metodo-pago.metodo-pago')
 
             <div class="mt-4 text-right">
-                
+
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Total</label>
                 <p class="text-2xl font-bold text-green-600 dark:text-green-400">
                     Bs {{ number_format($totalVenta, 2, '.', ',') }}

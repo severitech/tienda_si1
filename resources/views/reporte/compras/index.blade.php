@@ -2,43 +2,44 @@
     <div class="w-auto p-6 bg-white shadow-xl rounded-xl dark:bg-zinc-900">
         <h2 class="mb-4 text-2xl font-bold">Reporte de Compras</h2>
         <form method="GET" action="{{ route('reporte.compras') }}" class="mb-6">
-            <div class="flex flex-wrap items-end justify-between gap-4">
-                <!-- Filtros -->
-                <div class="flex flex-wrap gap-4">
-                    <div class="col">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+
+                <!-- Campos de filtros -->
+                <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div>
                         <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Nro de
                             Compra</label>
-                        <input type="text" name="nro" placeholder="Ej. 1" value="{{ request('nro') }}"
-                            class="block w-full p-2 mb-6 text-sm border rounded-lg text-zinc-900 border-zinc-300 bg-zinc-50 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500">
+                        <input type="text" name="nro" value="{{ request('nro') }}" placeholder="Ej. 1"
+                            class="w-full p-2 text-sm border rounded-lg text-zinc-900 border-zinc-300 bg-zinc-50 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white">
                     </div>
 
-                    <div class="col">
+                    <div>
                         <label
                             class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Trabajador</label>
-                        <input type="text" name="trabajador" placeholder="Ej. Daniel"
-                            value="{{ request('cliente') }}"
-                            class="block w-full p-2 mb-6 text-sm border rounded-lg text-zinc-900 border-zinc-300 bg-zinc-50 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500">
+                        <input type="text" name="trabajador" value="{{ request('trabajador') }}"
+                            placeholder="Ej. Daniel"
+                            class="w-full p-2 text-sm border rounded-lg text-zinc-900 border-zinc-300 bg-zinc-50 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white">
                     </div>
 
-                    <div class="col">
+                    <div>
                         <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Fecha
                             Inicio</label>
                         <input type="date" name="fecha_desde" value="{{ request('fecha_desde') }}"
-                            class="block w-full px-2.5 py-2 text-sm text-zinc-900 bg-white border border-zinc-300 rounded-lg dark:bg-zinc-700 dark:text-white dark:border-zinc-600 focus:outline-none focus:ring-0 focus:border-blue-600">
+                            class="w-full p-2 text-sm bg-white border rounded-lg text-zinc-900 border-zinc-300 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white focus:ring-zinc-500 focus:border-zinc-500">
                     </div>
 
-                    <div class="col">
+                    <div>
                         <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Fecha Fin</label>
                         <input type="date" name="fecha_hasta" value="{{ request('fecha_hasta') }}"
-                            class="block w-full px-2.5 py-2 text-sm text-zinc-900 bg-white border border-zinc-300 rounded-lg dark:bg-zinc-700 dark:text-white dark:border-zinc-600 focus:outline-none focus:ring-0 focus:border-blue-600">
+                            class="w-full p-2 text-sm bg-white border rounded-lg text-zinc-900 border-zinc-300 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white focus:ring-zinc-500 focus:border-zinc-500">
                     </div>
 
-                    <div class="col">
+                    <div>
                         <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Método de
                             Pago</label>
                         <select name="metodo_pago"
-                            class="block w-full p-2 mb-6 text-sm border rounded-lg text-zinc-900 border-zinc-300 bg-zinc-50 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500">
-                            <option value="">--Metodo--</option>
+                            class="w-full p-2 text-sm border rounded-lg text-zinc-900 border-zinc-300 bg-zinc-50 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white focus:ring-zinc-500 focus:border-zinc-500">
+                            <option value="">--Método--</option>
                             <option value="Efectivo" {{ request('metodo_pago') == 'Efectivo' ? 'selected' : '' }}>
                                 Efectivo</option>
                             <option value="Transferencia Bancaria"
@@ -49,11 +50,10 @@
                         </select>
                     </div>
 
-                    <div class="col">
-                        <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Estado de
-                            Compra</label>
+                    <div>
+                        <label class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200">Estado</label>
                         <select name="estado"
-                            class="block w-full p-2 mb-6 text-sm border rounded-lg text-zinc-900 border-zinc-300 bg-zinc-50 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500">
+                            class="w-full p-2 text-sm border rounded-lg text-zinc-900 border-zinc-300 bg-zinc-50 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white focus:ring-zinc-500 focus:border-zinc-500">
                             <option value="">--Estado--</option>
                             <option value="Activo" {{ request('estado') == 'Activo' ? 'selected' : '' }}>Activo</option>
                             <option value="Inactivo" {{ request('estado') == 'Inactivo' ? 'selected' : '' }}>Inactivo
@@ -63,15 +63,20 @@
                 </div>
 
                 <!-- Botones -->
-                <div class="flex items-end space-x-3">
+                <div class="flex flex-col gap-2 sm:flex-row">
                     <button type="submit"
-                        class="flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        class="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                         Buscar
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+                        </svg>
                     </button>
 
                     <a href="{{ route('reporte.compras.pdf', request()->all()) }}"
-                        class="flex items-center px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
-                        <span class="mr-2">Exportar</span>
+                        class="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:outline-none">
+                        Exportar PDF
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                             <path
                                 d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6H6zm7 1.5L18.5 9H13a.5.5 0 0 1-.5-.5V3.5zM8 13h1.5v4H8v-4zm3 0h1.25c.966 0 1.75.784 1.75 1.75v.5A1.75 1.75 0 0 1 12.25 17H11v-4zm1.25 1H12v2h.25a.75.75 0 0 0 .75-.75v-.5a.75.75 0 0 0-.75-.75z" />
@@ -80,6 +85,7 @@
                 </div>
             </div>
         </form>
+
 
 
         <div class="overflow-x-auto">
@@ -99,7 +105,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 dark:bg-zinc-900 dark:divide-zinc-700">
                         @forelse($compras as $compra)
-                            <tr class="bg-white border-b hover:bg-zinc-600 dark:bg-zinc-900 dark:border-zinc-700">
+                            <tr class="bg-white border-b dark:bg-zinc-900 dark:border-zinc-700">
                                 <td class="flex justify-center gap-2 px-4 py-2 rounded-r-xl">
                                     <a href="{{ route('compras.detalle', $compra->ID ?? $compra->id) }}"
                                         class="p-2 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-700"
@@ -130,7 +136,8 @@
                                 <td class="px-4 py-2">
                                     {{ $compra->created_at ? $compra->created_at->format('d/m/Y H:i') : '-' }}</td>
                                 <td class="px-1 py-4">{{ $compra->ID ?? $compra->id }}</td>
-                                <td class="px-4 py-2">{{ $compra->usuario->nombre . ' ' .$compra->usuario->paterno  ?? '-' }}</td>
+                                <td class="px-4 py-2">
+                                    {{ $compra->usuario->nombre . ' ' . $compra->usuario->paterno ?? '-' }}</td>
                                 <td class="px-4 py-2">{{ $compra->METODO_PAGO }}</td>
                                 <td class="px-6 py-4 text-center"> <span
                                         class="inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-sm
