@@ -115,26 +115,26 @@ class CompraProductos extends Component
 
             ]);
 
-            // Descontar stock
-            // $productoModel = Producto::find($producto['id']);
-            // if ($productoModel) {
-            //     $productoModel->CANTIDAD += $producto['cantidad'];
-            //     $productoModel->COSTO_UNITARIO = $producto['precio'];
+           
+            $productoModel = Producto::find($producto['id']);
+            if ($productoModel) {
+              //  $productoModel->CANTIDAD += $producto['cantidad'];
+                $productoModel->COSTO_UNITARIO = $producto['precio'];
 
-            //     // Obtener todas las compras anteriores del producto
-            //     $datos = DB::table('DETALLE_COMPRA')
-            //         ->where('PRODUCTO', $producto['id'])
-            //         ->selectRaw('SUM(PRECIO * CANTIDAD) as total, SUM(CANTIDAD) as cantidad_total')
-            //         ->first();
+                // Obtener todas las compras anteriores del producto
+                $datos = DB::table('DETALLE_COMPRA')
+                    ->where('PRODUCTO', $producto['id'])
+                    ->selectRaw('SUM(PRECIO * CANTIDAD) as total, SUM(CANTIDAD) as cantidad_total')
+                    ->first();
 
-            //     if ($datos && $datos->cantidad_total > 0) {
-            //         $productoModel->COSTO_PROMEDIO = $datos->total / $datos->cantidad_total;
-            //     } else {
-            //         $productoModel->COSTO_PROMEDIO = $producto['precio']; // Primera compra
-            //     }
+                if ($datos && $datos->cantidad_total > 0) {
+                    $productoModel->COSTO_PROMEDIO = $datos->total / $datos->cantidad_total;
+                } else {
+                    $productoModel->COSTO_PROMEDIO = $producto['precio']; 
+                }
 
-            //     $productoModel->save();
-            // }
+                $productoModel->save();
+            }
 
         }
 

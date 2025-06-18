@@ -30,9 +30,9 @@ class CarritoMostrar extends Component
             ->join('users as cliente', 'cliente.id', '=', 'CARRITO.CLIENTE')
             ->select(
                 'CARRITO.*',
-                DB::raw("cliente.nombre as cliente_nombre"),
-                DB::raw("cliente.paterno as cliente_paterno"),
-                DB::raw("cliente.materno as cliente_materno")
+                DB::raw("cliente.NOMBRE as cliente_nombre"),
+                DB::raw("cliente.PATERNO as cliente_paterno"),
+                DB::raw("cliente.MATERNO as cliente_materno")
             )
             ->where(function ($query) {
                 $query->when(
@@ -42,7 +42,7 @@ class CarritoMostrar extends Component
                     ->when(
                         $this->cliente,
                         fn($q) => $q->where(
-                            DB::raw("cliente.nombre || ' ' || cliente.paterno || ' ' || cliente.materno"),
+                            DB::raw("cliente.NOMBRE || ' ' || cliente.PATERNO || ' ' || cliente.MATERNO"),
                             'like',
                             '%' . $this->cliente . '%'
                         )

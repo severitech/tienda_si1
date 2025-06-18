@@ -20,13 +20,14 @@ class CarritoDetalle extends Component
     public function mostrarLista()
     {
         return DetalleCarrito::query()
-            ->join('producto', 'detalle_carrito.producto', '=', 'producto.id')
+            ->join('PRODUCTO', 'DETALLE_CARRITO.PRODUCTO', '=', 'PRODUCTO.ID')
             ->select(
-                'detalle_carrito.*',
-                'producto.nombre as producto_nombre',
-                'producto.precio as producto_precio'
+                'DETALLE_CARRITO.*',
+                'PRODUCTO.NOMBRE as producto_nombre',
+                'PRODUCTO.PRECIO as producto_precio'
             )
-            ->where('detalle_carrito.carrito', $this->idcarrito)
+            ->where('DETALLE_CARRITO.CARRITO', $this->idcarrito)
             ->get();
+
     }
 }

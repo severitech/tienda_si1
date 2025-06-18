@@ -34,7 +34,7 @@ class ListaVentas extends Component
     {
         $this->buscarDatos();
         return Venta::query()
-            ->join('users as cliente', 'VENTA.cliente', '=', 'cliente.id')
+            ->join('users as cliente', 'VENTA.CLIENTE', '=', 'cliente.id')
             ->join('users as usuario', 'VENTA.usuario', '=', 'usuario.id')
             ->select(
                 'VENTA.*',

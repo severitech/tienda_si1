@@ -27,13 +27,14 @@ class ListaDetalleVenta extends Component
     public function mostrarLista()
     {
         return DetalleVenta::query()
-            ->join('PRODUCTO', 'detalle_venta.producto', '=', 'PRODUCTO.id')
+            ->join('PRODUCTO', 'DETALLE_VENTA.PRODUCTO', '=', 'PRODUCTO.ID')
             ->select(
-                'detalle_venta.*',
+                'DETALLE_VENTA.*',
                 \DB::raw('PRODUCTO.NOMBRE as producto_nombre'),
                 \DB::raw('PRODUCTO.PRECIO as producto_precio')
             )
-            ->where('detalle_venta.venta', $this->idventa)
+            ->where('DETALLE_VENTA.VENTA', $this->idventa)
             ->get();
+
     }
 }
