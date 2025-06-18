@@ -91,7 +91,7 @@ class ProductoTabla extends Component
                     )
                     ->when($this->precio !== null && $this->precio !== '', function ($q) {
                         // Aquí filtro por precio mayor o igual
-                        $q->where('PRODUCTO.PRECIO', '>=', $this->precio);
+                        $q->where('PRODUCTO.PRECIO', '!=', $this->precio);
                     })
                     ->when(
                         $this->cantidad,
