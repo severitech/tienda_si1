@@ -17,7 +17,7 @@
                 <input wire:keydown.enter='buscarProductos' type="number" step="0.01" id="precio" wire:model="precio" placeholder="Ej. 12.50"
                     class="w-full px-3 py-2 text-sm bg-white border rounded-lg border-zinc-300 dark:bg-zinc-700 dark:text-white dark:border-zinc-600 focus:ring-blue-500 focus:border-blue-500" />
             </div>
-
+            
             <div>
                 <label for="cantidad" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">
                     Cantidad
@@ -28,13 +28,13 @@
 
             <div>
                 <label for="estado" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">
-                    Estado de venta
+                    Estado de Producto
                 </label>
                 <select wire:keydown.enter='buscarProductos' id="estado" wire:model="estado"
                     class="w-full px-3 py-2 text-sm bg-white border rounded-lg border-zinc-300 dark:bg-zinc-700 dark:text-white dark:border-zinc-600 focus:ring-blue-500 focus:border-blue-500">
                     <option value="" selected>- Estado -</option>
                     <option value="1">Activo</option>
-                    <option value="0">Anulado</option>
+                    <option value="0">Inactivo</option>
                 </select>
             </div>
 
