@@ -1,9 +1,11 @@
 <?php
 namespace App\Models;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Descuento extends Model
 {
+    use HasFactory;
     protected $table = 'descuento';
 
     // Lista de columnas que se pueden llenar desde el formulario
@@ -11,10 +13,8 @@ class Descuento extends Model
         'nombre',
         'descripcion',
         'tipo',
-        'valor',
-        'inicia_en',
-        'termina_en',
-        'esta_activo'
+        'valor', 'condicion_n', 
+        'regalo_m', 'activo', 'fecha_inicio', 'fecha_fin'
     ];
 
     protected $casts = [
