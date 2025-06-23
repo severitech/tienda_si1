@@ -12,37 +12,37 @@ return new class extends Migration
     public function up(): void
     {
         // Tabla principal para almacenar los descuentos y ofertas
-    Schema::create('descuentos', function (Blueprint $table) {
-        $table->id();
-        $table->string('nombre'); // Ej: "Descuento de Verano", "Oferta 2x1 Agua Vital"
-        $table->text('descripcion')->nullable();
-        // El tipo de descuento es crucial para la lógica
-        $table->enum('tipo', ['fijo', 'porcentaje', '2x1', 'nxm'])->default('fijo');
-        $table->decimal('valor', 8, 2); // Para 'fijo' (Bs.) o 'porcentaje' (%)
-        $table->integer('condicion_n')->nullable(); // Para ofertas N+M (ej. "compra 3...")
-        $table->integer('regalo_m')->nullable(); // Para ofertas N+M (ej. "...llévate 1 gratis")
-        $table->boolean('activo')->default(true); // Para activar/desactivar ofertas
-        $table->timestamp('fecha_inicio')->nullable();
-        $table->timestamp('fecha_fin')->nullable();
-        $table->timestamps();
+        Schema::create('DESCUENTOS', function (Blueprint $table) {
+            $table->id('ID');
+            $table->string('NOMBRE');
+            $table->text('DESCRIPCION')->nullable();
+            $table->enum('TIPO', ['fijo', 'porcentaje', '2x1', 'nxm'])->default('fijo');
+            $table->decimal('VALOR', 8, 2);
+            $table->integer('CONDICION_N')->nullable();
+            $table->integer('REGALO_M')->nullable();
+            $table->boolean('ACTIVO')->default(true);
+            $table->timestamp('FECHA_INICIO')->nullable();
+            $table->timestamp('FECHA_FIN')->nullable();
+            $table->timestamps();
         });
 
         // Tabla pivote para asignar descuentos a productos específicos
-    // Esto te da la flexibilidad de que una oferta aplique a uno o varios productos.
-    Schema::create('descuento_producto', function (Blueprint $table) {
-        $table->foreignId('descuento_id')->constrained()->onDelete('cascade');
-        $table->foreignId('producto_id')->constrained()->onDelete('cascade');
-        $table->primary(['descuento_id', 'producto_id']);
+        // Esto te da la flexibilidad de que una oferta aplique a uno o varios productos.
+        Schema::create('descuento_producto', function (Blueprint $table) {
+            $table->unsignedBigInteger('DESCUENTO');
+            $table->unsignedBigInteger('PRODUCTO');
+            $table->primary(['DESCUENTO', 'PRODUCTO']);
+            $table->foreign('DESCUENTO')->references('ID')->on('DESCUENTOS')->onDelete('cascade');
+            $table->foreign('PRODUCTO')->references('ID')->on('PRODUCTO')->onDelete('cascade');
         });
-
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('descuentos');
+        Schema::dropIfExists('descuento_producto');
+        Schema::dropIfExists('DESCUENTOS');
     }
 };

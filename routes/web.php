@@ -127,4 +127,7 @@ Route::get('/compras/{id}/detalle', [CompraController::class, 'detalle'])->name(
 
 Route::get('/gestion-descuentos', GestionDescuentos::class)->name('descuentos.index')->middleware(['auth']);
 
+// Ruta para comentarios de clientes
+Route::view('/comentarios', 'trabajador.comentarios.mostrar')->name('comentarios.mostrar');
+
 require __DIR__ . '/auth.php';

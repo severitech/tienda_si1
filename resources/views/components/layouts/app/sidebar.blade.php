@@ -35,6 +35,11 @@
                         :current="request()->routeIs('control.bitacora*')" wire:navigate>
                         {{ __('Bitácora') }}
                     </flux:navlist.item>
+
+                    <flux:navlist.item icon="chat-bubble-left-right" :href="route('comentarios.mostrar')"
+                        :current="request()->routeIs('comentarios.mostrar')" wire:navigate>
+                        {{ __('Comentarios de Clientes') }}
+                    </flux:navlist.item>
                 </flux:navlist.group>
 
                 <flux:navlist.group heading="Gestion de Productos e Inventario">
