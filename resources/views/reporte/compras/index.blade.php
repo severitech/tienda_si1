@@ -74,14 +74,16 @@
                         </svg>
                     </button>
 
-                    <a href="{{ route('reporte.compras.pdf', request()->all()) }}"
-                        class="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:outline-none">
-                        Exportar PDF
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6H6zm7 1.5L18.5 9H13a.5.5 0 0 1-.5-.5V3.5zM8 13h1.5v4H8v-4zm3 0h1.25c.966 0 1.75.784 1.75 1.75v.5A1.75 1.75 0 0 1 12.25 17H11v-4zm1.25 1H12v2h.25a.75.75 0 0 0 .75-.75v-.5a.75.75 0 0 0-.75-.75z" />
-                        </svg>
-                    </a>
+                    <div class="flex gap-2">
+                        <a href="{{ route('reporte.compras.pdf', request()->query()) }}"
+                            class="px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                            📄 Exportar PDF
+                        </a>
+                        <a href="{{ route('reporte.compras.excel', request()->query()) }}"
+                            class="px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            📊 Exportar Excel
+                        </a>
+                    </div>
                 </div>
             </div>
         </form>

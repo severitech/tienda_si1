@@ -124,7 +124,7 @@ class CompraProductos extends Component
                 // Obtener todas las compras anteriores del producto
                 $datos = DB::table('DETALLE_COMPRA')
                     ->where('PRODUCTO', $producto['id'])
-                    ->selectRaw('SUM(PRECIO * CANTIDAD) as total, SUM(CANTIDAD) as cantidad_total')
+                    ->selectRaw('SUM("DETALLE_COMPRA"."PRECIO" * "DETALLE_COMPRA"."CANTIDAD") as total, SUM("DETALLE_COMPRA"."CANTIDAD") as cantidad_total')
                     ->first();
 
                 if ($datos && $datos->cantidad_total > 0) {

@@ -14,7 +14,7 @@ return new class extends Migration {
             CREATE OR REPLACE FUNCTION sumar_stock_al_crear_compra_func()
             RETURNS TRIGGER AS $$
             BEGIN
-                IF NEW."ESTADO" = 1 THEN
+                IF NEW."ESTADO" IS TRUE THEN
                     UPDATE "PRODUCTO"
                     SET "CANTIDAD" = "CANTIDAD" + (
                         SELECT "CANTIDAD"
@@ -43,7 +43,7 @@ return new class extends Migration {
             CREATE OR REPLACE FUNCTION devolver_stock_al_anular_compra_func()
             RETURNS TRIGGER AS $$
             BEGIN
-                IF OLD."ESTADO" = 1 AND NEW."ESTADO" = 0 THEN
+                IF OLD."ESTADO" IS TRUE AND NEW."ESTADO" IS FALSE THEN
                     UPDATE "PRODUCTO"
                     SET "CANTIDAD" = "CANTIDAD" - (
                         SELECT "CANTIDAD"
@@ -76,7 +76,7 @@ return new class extends Migration {
                 venta_estado boolean;
             BEGIN
                 SELECT "ESTADO" INTO venta_estado FROM "VENTA" WHERE "ID" = NEW."VENTA";
-                IF venta_estado = 1 THEN
+                IF venta_estado IS TRUE THEN
                     UPDATE "PRODUCTO"
                     SET "CANTIDAD" = "CANTIDAD" - NEW."CANTIDAD"
                     WHERE "ID" = NEW."PRODUCTO";
@@ -96,7 +96,7 @@ return new class extends Migration {
             CREATE OR REPLACE FUNCTION devolver_stock_al_anular_venta_func()
             RETURNS TRIGGER AS $$
             BEGIN
-                IF OLD."ESTADO" = 1 AND NEW."ESTADO" = 0 THEN
+                IF OLD."ESTADO" IS TRUE AND NEW."ESTADO" IS FALSE THEN
                     UPDATE "PRODUCTO"
                     SET "CANTIDAD" = "CANTIDAD" + (
                         SELECT "CANTIDAD"
@@ -148,7 +148,7 @@ return new class extends Migration {
             CREATE OR REPLACE FUNCTION devolver_stock_al_cancelar_carrito_func()
             RETURNS TRIGGER AS $$
             BEGIN
-                IF OLD."ESTADO" = 1 AND NEW."ESTADO" = 0 THEN
+                IF OLD."ESTADO" IS TRUE AND NEW."ESTADO" IS FALSE THEN
                     UPDATE "PRODUCTO"
                     SET "CANTIDAD" = "CANTIDAD" + (
                         SELECT "CANTIDAD"

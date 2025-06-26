@@ -127,7 +127,7 @@
         <flux:spacer />
 
         <flux:dropdown position="bottom" align="start">
-            <flux:profile :name="auth() -> user() -> name" :initials="auth() -> user() -> initials()"
+            <flux:profile :name="auth()->user()->name" :initials="auth()->user()->initials()"
                 icon-trailing="chevrons-up-down" />
 
             <flux:menu class="w-[220px]">
@@ -174,7 +174,7 @@
         <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
         <flux:spacer />
         <flux:dropdown position="top" align="end">
-            <flux:profile :initials="auth() -> user() -> initials()" icon-trailing="chevron-down" />
+            <flux:profile :initials="auth()->user()->initials()" icon-trailing="chevron-down" />
             <flux:menu>
                  {{-- Contenido del menú móvil --}}
             </flux:menu>

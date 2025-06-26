@@ -62,12 +62,35 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the user's full name
+     */
+    public function getNameAttribute(): string
+    {
+        $nombre = $this->nombre ?? '';
+        $paterno = $this->paterno ?? '';
+        $materno = $this->materno ?? '';
+        
+        return trim($nombre . ' ' . $paterno . ' ' . $materno);
+    }
+
+    /**
      * Get the user's initials
      */
     public function initials(): string
     {
-        return Str::of($this->name)
+        $nombre = $this->nombre ?? '';
+        $paterno = $this->paterno ?? '';
+        $materno = $this->materno ?? '';
+        
+        $fullName = trim($nombre . ' ' . $paterno . ' ' . $materno);
+        
+        if (empty($fullName)) {
+            return 'U'; // Default initial if no name
+        }
+        
+        return Str::of($fullName)
             ->explode(' ')
+            ->filter(fn($name) => !empty($name))
             ->map(fn(string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
     }
