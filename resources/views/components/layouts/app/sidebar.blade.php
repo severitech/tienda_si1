@@ -68,9 +68,9 @@
                         {{ 'Historial Ventas' }}
                     </flux:navlist.item>
 
-                    {{-- <flux:navlist.item icon="receipt-percent" :href="route('descuentos.index')"
+                    <flux:navlist.item icon="receipt-percent" :href="route('descuentos.index')"
                         :current="request()->routeIs('descuentos.index')" wire:navigate>{{ __('Ofertas y Descuentos') }}
-                    </flux:navlist.item> --}}
+                    </flux:navlist.item> 
 
                     <flux:navlist.item icon="shopping-cart" :href="route('detalle.carrito')"
                         :current="request()->routeIs('detalle.carrito')" wire:navigate>
