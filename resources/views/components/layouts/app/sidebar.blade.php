@@ -35,6 +35,11 @@
                         :current="request()->routeIs('control.bitacora*')" wire:navigate>
                         {{ __('Bitácora') }}
                     </flux:navlist.item>
+
+                    <flux:navlist.item icon="chat-bubble-left-right" :href="route('comentarios.mostrar')"
+                        :current="request()->routeIs('comentarios.mostrar')" wire:navigate>
+                        {{ __('Comentarios de Clientes') }}
+                    </flux:navlist.item>
                 </flux:navlist.group>
 
                 <flux:navlist.group heading="Gestion de Productos e Inventario">
@@ -63,9 +68,9 @@
                         {{ 'Historial Ventas' }}
                     </flux:navlist.item>
 
-                    {{-- <flux:navlist.item icon="receipt-percent" :href="route('descuentos.index')"
+                    <flux:navlist.item icon="receipt-percent" :href="route('descuentos.index')"
                         :current="request()->routeIs('descuentos.index')" wire:navigate>{{ __('Ofertas y Descuentos') }}
-                    </flux:navlist.item> --}}
+                    </flux:navlist.item> 
 
                     <flux:navlist.item icon="shopping-cart" :href="route('detalle.carrito')"
                         :current="request()->routeIs('detalle.carrito')" wire:navigate>
@@ -122,7 +127,7 @@
         <flux:spacer />
 
         <flux:dropdown position="bottom" align="start">
-            <flux:profile :name="auth() -> user() -> name" :initials="auth() -> user() -> initials()"
+            <flux:profile :name="auth()->user()->name" :initials="auth()->user()->initials()"
                 icon-trailing="chevrons-up-down" />
 
             <flux:menu class="w-[220px]">
@@ -169,7 +174,7 @@
         <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
         <flux:spacer />
         <flux:dropdown position="top" align="end">
-            <flux:profile :initials="auth() -> user() -> initials()" icon-trailing="chevron-down" />
+            <flux:profile :initials="auth()->user()->initials()" icon-trailing="chevron-down" />
             <flux:menu>
                  {{-- Contenido del menú móvil --}}
             </flux:menu>

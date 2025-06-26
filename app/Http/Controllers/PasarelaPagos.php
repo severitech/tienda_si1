@@ -124,7 +124,8 @@ class PasarelaPagos extends Controller
     // Limpiar el carrito de la sesión
     session()->forget('cart');
 
-    return redirect()->route('home')->with('success', 'Pago exitoso y pedido registrado.');
+    // Mostrar encuesta post compra
+    return view('encuesta-post-compra', ['carritoId' => $carrito->ID]);
 }
 
 

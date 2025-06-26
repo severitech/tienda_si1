@@ -36,6 +36,50 @@ class ReporteCompras extends Component
         }, 'reporte-compras.pdf');
     }
 
+    public function exportarExcel()
+    {
+        $compras = $this->getComprasQuery()->get();
+        
+        $filename = 'reporte_compras_' . date('Y-m-d_H-i-s') . '.csv';
+        
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        $callback = function() use ($compras) {
+            $file = fopen('php://output', 'w');
+            
+            // Encabezados del CSV
+            fputcsv($file, [
+                'ID',
+                'Trabajador',
+                'Proveedor',
+                'Fecha',
+                'Método de Pago',
+                'Total',
+                'Estado'
+            ]);
+
+            // Datos de las compras
+            foreach ($compras as $compra) {
+                fputcsv($file, [
+                    $compra->ID,
+                    $compra->usuario ? $compra->usuario->nombre . ' ' . $compra->usuario->paterno : '-',
+                    $compra->proveedor ? $compra->proveedor->NOMBRE : '-',
+                    $compra->created_at ? $compra->created_at->format('d/m/Y H:i') : '-',
+                    $compra->METODO_PAGO,
+                    number_format($compra->TOTAL, 2),
+                    $compra->ESTADO ? 'Activo' : 'Inactivo'
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
     public function eliminar($id)
     {
         $compra = Compra::find($id);

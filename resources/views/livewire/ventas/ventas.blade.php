@@ -1,13 +1,12 @@
 <div>
     <div class="w-auto p-6 bg-white shadow-xl rounded-xl dark:bg-zinc-900">
-        <div  class="w-auto p-6 bg-white shadow-xl rounded-xl dark:bg-zinc-900">
+        <div class="w-auto p-6 bg-white shadow-xl rounded-xl dark:bg-zinc-900">
             {{-- Cliente --}}
             @livewire('usuario.usuariocliente')
 
             {{-- Agregar producto --}}
             <div class="mb-6">
                 @livewire('productos.producto-venta')
-
             </div>
 
         </div>
@@ -20,6 +19,8 @@
                         <th scope="col" class="px-6 py-3 text-center">Cantidad</th>
                         <th scope="col" class="px-6 py-3 text-right">Precio</th>
                         <th scope="col" class="px-6 py-3 text-right">Subtotal</th>
+                        <!-- se añade la cabecera para la columna de Descuento -->
+                        <th scope="col" class="px-6 py-3 text-center">Descuento</th>
                         <th scope="col" class="px-6 py-3 text-center">Acción</th>
                     </tr>
                 </thead>
@@ -28,8 +29,9 @@
                         <tr class="bg-white border-b dark:bg-zinc-900 dark:border-zinc-700">
                             <td class="px-6 py-4">{{ $producto['nombre'] }}</td>
                             <td class="px-6 py-4 text-center">{{ $producto['cantidad'] }}</td>
-                            <td class="px-6 py-4 text-right">Bs. {{ $producto['precio'] }}</td>
-                            <td class="px-6 py-4 text-right">Bs. {{ $producto['subtotal'] }}</td>
+                            <td class="px-6 py-4 text-right">Bs. {{ number_format($producto['precio'], 2) }}</td>
+                            <td class="px-6 py-4 text-right">Bs. {{ number_format($producto['subtotal_final'], 2) }}</td>
+                            <td class="px-6 py-4 text-center text-yellow-500">{{ $producto['descuento_texto'] }}</td>
                             <td class="px-6 py-4 text-center">
                                 <button wire:click="eliminar({{ $producto['id'] }})"
                                     class="text-red-600 hover:underline dark:text-red-400">
@@ -39,7 +41,7 @@
                         </tr>
                     @empty
                         <tr class="bg-white border-b dark:bg-zinc-900 dark:border-zinc-700">
-                            <td colspan="5" class="px-6 py-10 text-xl text-center text-gray-500 dark:text-gray-400">
+                            <td colspan="6" class="px-6 py-10 text-xl text-center text-gray-500 dark:text-gray-400">
                                 No hay productos seleccionados.
                             </td>
                         </tr>
@@ -54,11 +56,15 @@
 
             @livewire('metodo-pago.metodo-pago')
 
+            <!-- Se modifica la sección del Total para mostrar el desglose completo -->
             <div class="mt-4 text-right">
-
+                <div class="text-sm text-gray-500 dark:text-gray-400">
+                    <span>Subtotal (sin dto.): </span>
+                    <span>Bs {{ number_format($totalSinDescuento, 2, '.', ',') }}</span>
+                </div>
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Total</label>
                 <p class="text-2xl font-bold text-green-600 dark:text-green-400">
-                    Bs {{ number_format($totalVenta, 2, '.', ',') }}
+                    Bs {{ number_format($totalFinal, 2, '.', ',') }}
                 </p>
             </div>
 

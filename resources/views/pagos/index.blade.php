@@ -59,5 +59,9 @@
         </form>
     </div>
 
+    @if(session('pago_exitoso'))
+        @livewire('encuesta-post-compra', ['carritoId' => $carritoId ?? null])
+    @endif
+
 </body>
 </html>

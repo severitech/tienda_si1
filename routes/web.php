@@ -120,11 +120,15 @@ Route::get('historial',[VentaController::class, 'index'])->name('historial');
 
 Route::get('/reporte-compras', [CompraController::class, 'reporteCompras'])->name('reporte.compras');
 Route::get('/reporte-compras/exportar-pdf', [CompraController::class, 'exportarPdf'])->name('reporte.compras.pdf');
+Route::get('/reporte-compras/exportar-excel', [CompraController::class, 'exportarExcel'])->name('reporte.compras.excel');
 
 Route::put('/compras-eliminar/{id}', [CompraController::class, 'eliminar'])->name('compra.eliminar');
 
 Route::get('/compras/{id}/detalle', [CompraController::class, 'detalle'])->name('compras.detalle');
 
 Route::get('/gestion-descuentos', GestionDescuentos::class)->name('descuentos.index')->middleware(['auth']);
+
+// Ruta para comentarios de clientes
+Route::view('/comentarios', 'trabajador.comentarios.mostrar')->name('comentarios.mostrar');
 
 require __DIR__ . '/auth.php';
