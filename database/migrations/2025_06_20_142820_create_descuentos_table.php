@@ -32,7 +32,7 @@ return new class extends Migration
             $table->unsignedBigInteger('DESCUENTO');
             $table->unsignedBigInteger('PRODUCTO');
             $table->primary(['DESCUENTO', 'PRODUCTO']);
-            $table->foreign('DESCUENTO')->references('ID')->on('DESCUENTOS')->onDelete('cascade');
+            $table->foreign('DESCUENTO')->references('ID')->on('descuento')->onDelete('cascade');
             $table->foreign('PRODUCTO')->references('ID')->on('PRODUCTO')->onDelete('cascade');
         });
     }

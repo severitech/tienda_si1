@@ -22,9 +22,9 @@ class Descuento extends Model
     ];
 
     protected $casts = [
-        'inicia_en' => 'datetime',
-        'termina_en' => 'datetime',
-        'esta_activo' => 'boolean',
+        'fecha_inicio' => 'datetime',
+        'fecha_fin' => 'datetime',
+        'activo' => 'boolean',
     ];
 
     public function productos()
