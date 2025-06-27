@@ -43,6 +43,7 @@ class Producto extends Model
 
     public function descuentos()
     {
+
         return $this->belongsToMany(
             Descuento::class,
             'descuento_producto',

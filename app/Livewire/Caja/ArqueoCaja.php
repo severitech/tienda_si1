@@ -6,49 +6,76 @@ use App\Models\Venta;
 use App\Models\Gasto;
 use App\Models\Compra;
 use App\Models\Caja;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+
+use Livewire\WithPagination;
 
 class ArqueoCaja extends Component
 {
-    public $totalVentas = 0;
-    public $totalGastos = 0;
-    public $totalCompras = 0;
-    public $totalEgresos = 0;
-    public $totalIngresos = 0;
-    public $saldo = 0;
-    public $detalleMetodosPago = [];
+    use WithPagination;
+
     public $id_caja = null;
 
+    public $usuario_id = null, $fecha_inicio, $fecha_fin;
+    public $perPage = 5;
 
     public function mount()
     {
-        $this->totalVentas = Venta::sum('total');
-        $this->totalGastos = Gasto::select(DB::raw('SUM(monto * cantidad) as total'))->value('total');
-        $this->totalCompras = Compra::sum('total');
 
-        $this->totalIngresos = $this->totalVentas;
-        $this->totalEgresos = $this->totalGastos + $this->totalCompras;
-        $this->saldo = $this->totalIngresos - $this->totalEgresos;
+        $hoy = now()->format('Y-m-d');
+        $this->fecha_inicio = $hoy;
+        $this->fecha_fin = $hoy;
 
-        $this->detalleMetodosPago = DB::table('CAJA_PAGO')
-            ->select('METODO_PAGO', DB::raw('SUM(MONTO) as total'))
-            ->groupBy('METODO_PAGO')
-            ->get();
     }
+
 
     public function obtenerCaja()
     {
-        return Caja::with('usuario')->orderBy('id', 'desc')->get();
+        return Caja::with('usuario')
+            ->when($this->fecha_inicio, function ($query) {
+                $query->whereDate('created_at', '>=', $this->fecha_inicio);
+            })
+            ->when($this->fecha_fin, function ($query) {
+                $query->whereDate('created_at', '<=', $this->fecha_fin);
+            })
+            ->when($this->usuario_id, function ($query) {
+                $query->where('USUARIO', $this->usuario_id);
+            })
+            ->orderBy('id', 'desc')
+            ->paginate($this->perPage);
+        ;
+
     }
 
+    public function exportarPDF()
+    {
+        $caja = $this->obtenerCaja();
+        $venta = Venta::where('CAJA', $caja->id)
+            ->where('ESTADO', '!=', 'ANULADO')->sum('TOTAL')
+            ->get();
+
+    }
     public function render()
     {
         $caja = $this->obtenerCaja();
-        return view('livewire.caja.arqueo-caja', compact('caja'));
+        $usuarios = User::
+            all();
+        return view('livewire.caja.arqueo-caja', compact('caja', 'usuarios'));
     }
     public function actualizarCierre($id)
     {
         $this->id_caja = $id;
-        // dd($this->id_caja);
     }
+
+    public function exportar($formato)
+    {
+        return redirect()->route('exportar.caja', [
+            'formato' => $formato,
+            'inicio' => $this->fecha_inicio,
+            'fin' => $this->fecha_fin,
+            'usuario' => $this->usuario_id,
+        ]);
+    }
+
 }

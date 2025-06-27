@@ -12,7 +12,9 @@ class Caja extends Model
 
     protected $fillable = [
         'DESCRIPCION',
-        'ESTADO',
+        'DECLARADO',
+        'CIERRE',
+        'DIFERENCIA',
         'USUARIO',
     ];
     public function usuario()

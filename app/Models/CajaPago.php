@@ -4,14 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CajaPagos extends Model
+class CajaPago extends Model
 {
     protected $table = 'CAJA_PAGO';
-    public $timestamps = false; // solo tienes `updated_at`
+    public $timestamps = false;
 
-    public $incrementing = false; // <--- porque tu clave primaria es compuesta
-    protected $primaryKey = null; // No hay columna id
-
+    public $incrementing = false;
+    protected $primaryKey = null;
     protected $fillable = [
         'CAJA',
         'METODO_PAGO',
