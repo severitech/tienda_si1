@@ -71,6 +71,9 @@ Route::get('/productos/crear', [ProductoController::class, 'crear'])->name('prod
 //Rutas Usuarios
 
 Route::get('/usuarios', [User::class, 'mostrar'])->name('usuarios.mostrar');
+
+//Auditoria de usuarios
+Route::get('/auditoria-usuario', [User::class, 'auditoria'])->name('auditoria');
 // //Perfil de usuarios
 // Route::get('/perfil', [User::class, 'perfil_cliente'])->name('perfil-usuario');
 Route::get('/perfil-usuario', [User::class, 'perfil_trabajador'])->name('perfil-trabajador');

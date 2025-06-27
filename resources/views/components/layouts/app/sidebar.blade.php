@@ -27,8 +27,8 @@
                         {{ __('Gestión de Usuarios') }}
                     </flux:navlist.item>
 
-                    <flux:navlist.item icon="finger-print" :href="route('dashboard')"
-                        :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Auditoria de Usuarios') }}
+                    <flux:navlist.item icon="finger-print" :href="route('auditoria')"
+                        :current="request()->routeIs('auditoria')" wire:navigate>{{ __('Auditoria de Usuarios') }}
                     </flux:navlist.item>
 
                     <flux:navlist.item icon="finger-print" :href="route('control.bitacora')"
