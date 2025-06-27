@@ -6,7 +6,8 @@
                 <label for="producto" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">
                     Nombre del Producto
                 </label>
-                <input  wire:keydown.enter='buscarProductos' type="text" id="producto" wire:model="producto" placeholder="Ej. Coca Cola 2L"
+                <input wire:keydown.enter='buscarProductos' type="text" id="producto" wire:model="producto"
+                    placeholder="Ej. Coca Cola 2L"
                     class="w-full px-3 py-2 text-sm bg-white border rounded-lg border-zinc-300 dark:bg-zinc-700 dark:text-white dark:border-zinc-600 focus:ring-blue-500 focus:border-blue-500" />
             </div>
 
@@ -14,15 +15,17 @@
                 <label for="precio" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">
                     Precio
                 </label>
-                <input wire:keydown.enter='buscarProductos' type="number" step="0.01" id="precio" wire:model="precio" placeholder="Ej. 12.50"
+                <input wire:keydown.enter='buscarProductos' type="number" step="0.01" id="precio"
+                    wire:model="precio" placeholder="Ej. 12.50"
                     class="w-full px-3 py-2 text-sm bg-white border rounded-lg border-zinc-300 dark:bg-zinc-700 dark:text-white dark:border-zinc-600 focus:ring-blue-500 focus:border-blue-500" />
             </div>
-            
+
             <div>
                 <label for="cantidad" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">
                     Cantidad
                 </label>
-                <input wire:keydown.enter='buscarProductos' type="number" id="cantidad" wire:model="cantidad" placeholder="Ej. 100"
+                <input wire:keydown.enter='buscarProductos' type="number" id="cantidad" wire:model="cantidad"
+                    placeholder="Ej. 100"
                     class="w-full px-3 py-2 text-sm bg-white border rounded-lg border-zinc-300 dark:bg-zinc-700 dark:text-white dark:border-zinc-600 focus:ring-blue-500 focus:border-blue-500" />
             </div>
 
@@ -70,6 +73,25 @@
                             d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6H6zm7 1.5L18.5 9H13a.5.5 0 0 1-.5-.5V3.5zM8 13h1.5v4H8v-4zm3 0h1.25c.966 0 1.75.784 1.75 1.75v.5A1.75 1.75 0 0 1 12.25 17H11v-4zm1.25 1H12v2h.25a.75.75 0 0 0 .75-.75v-.5a.75.75 0 0 0-.75-.75z" />
                     </svg>
                 </button>
+                <button type="button" wire:click="exportarExcel"
+                    class="p-2 text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6H6zm7 1.5L18.5 9H13a.5.5 0 0 1-.5-.5V3.5zM8 7h1.75l1.25 3 1.25-3H14v10h-1.75l-1.25-3-1.25 3H8V7z" />
+                    </svg>
+
+                </button>
+                <button type="button" wire:click="exportarHtml"
+                    class="p-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    title="Exportar HTML">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M4 2h16a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm11.4 6.6h-2.08l-0.36 2.1-0.36-2.1H9.6l1.52 6h1.76l1.52-6zm-5.24-1.6h-1.6v6h1.6v-6zm7.44 4.6a1.8 1.8 0 1 0 0-3.6 1.8 1.8 0 0 0 0 3.6z" />
+                        <text x="6" y="20" font-size="4" fill="white" font-family="Arial, sans-serif"
+                            font-weight="bold">HTML</text>
+                    </svg>
+                </button>
+
             </div>
 
             <div>
@@ -131,7 +153,7 @@
 
                                 </flux:modal.trigger>
 
-                                <button type="button" wire:click='cambiarEstado({{$producto->ID}})'
+                                <button type="button" wire:click='cambiarEstado({{ $producto->ID }})'
                                     class="p-2 text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-700"
                                     aria-label="Eliminar o Desactivar">
                                     <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"

@@ -6,6 +6,9 @@ use App\Models\Producto;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class ProductoController extends Controller
 {
 
@@ -53,9 +56,8 @@ class ProductoController extends Controller
 
     public function reporte_pdf_sinStock()
     {
-        // Carga productos sin stock con ventas relacionadas (asegúrate que la relación sea plural)
         $productos = Producto::where('CANTIDAD', '<=', 0)
-            ->with(['detalleVenta.venta']) // relación plural
+            ->with(['detalleVenta.venta'])
             ->get();
 
         foreach ($productos as $producto) {
@@ -69,7 +71,7 @@ class ProductoController extends Controller
                 : 'Sin ventas';
 
             $producto->id_ultima_venta = $ultimaVenta && $ultimaVenta->venta
-                ? $ultimaVenta->venta->id // o 'id' si así lo tienes en tu tabla
+                ? $ultimaVenta->venta->id
                 : '-';
         }
 
@@ -97,52 +99,80 @@ class ProductoController extends Controller
     }
 
 
-    public function exportarPdf(Request $request)
+    private function obtenerProductosFiltrados(Request $request)
     {
-        // Obtén los filtros desde el request
         $producto = $request->input('nombre');
         $categorias = $request->input('categoria');
         $precio = $request->input('precio');
         $cantidad = $request->input('cantidad');
         $estado = $request->input('estado');
 
-        $query = Producto::query()
+        return Producto::query()
             ->join('CATEGORIA', 'PRODUCTO.CATEGORIA', '=', 'CATEGORIA.CATEGORIA')
-            ->select('PRODUCTO.*', DB::raw("CATEGORIA.CATEGORIA"))
-            ->where(function ($query) use ($producto, $categorias, $precio, $cantidad, $estado) {
-                $query
-                    ->when(
-                        $producto,
-                        fn($q) =>
-                        $q->where('PRODUCTO.NOMBRE', 'like', '%' . $producto . '%')
-                    )
-                    ->when(
-                        $categorias,
-                        fn($q) =>
-                        $q->where('CATEGORIA.CATEGORIA', 'like', '%' . $categorias . '%')
-                    )
-                    ->when($precio !== null && $precio !== '', function ($q) use ($precio) {
-                        $q->where('PRODUCTO.PRECIO', '>=', $precio);
-                    })
-                    ->when(
-                        $cantidad,
-                        fn($q) =>
-                        $q->where('PRODUCTO.CANTIDAD', $cantidad)
-                    )
-                    ->when($estado !== null && $estado !== '', function ($q) use ($estado) {
-                        $estadoBool = $estado == '1' ? 1 : 0;
-                        $q->where('PRODUCTO.ESTADO', '=', $estadoBool);
-                    });
+            ->select('PRODUCTO.*', DB::raw("CATEGORIA.CATEGORIA as categoria_nombre"))
+            ->when($producto, fn($q) => $q->where('PRODUCTO.NOMBRE', 'like', '%' . $producto . '%'))
+            ->when($categorias, fn($q) => $q->where('CATEGORIA.CATEGORIA', 'like', '%' . $categorias . '%'))
+            ->when($precio !== null && $precio !== '', fn($q) => $q->where('PRODUCTO.PRECIO', '>=', $precio))
+            ->when($cantidad, fn($q) => $q->where('PRODUCTO.CANTIDAD', $cantidad))
+            ->when($estado !== null && $estado !== '', function ($q) use ($estado) {
+                $estadoBool = $estado == '1' ? 1 : 0;
+                $q->where('PRODUCTO.ESTADO', '=', $estadoBool);
             })
-            ->orderBy('PRODUCTO.NOMBRE', 'asc');
+            ->orderBy('PRODUCTO.NOMBRE', 'asc')
+            ->get();
+    }
 
-        $productos = $query->get();
+    public function exportarPdf(Request $request)
+    {
+        $productos = $this->obtenerProductosFiltrados($request);
 
         $pdf = Pdf::loadView('reportes.productos-disponibles', compact('productos'));
-
         return $pdf->download('productos-disponibles.pdf');
     }
 
+    public function exportarExcel(Request $request)
+    {
+        $productos = $this->obtenerProductosFiltrados($request);
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $headers = ['ID', 'Nombre del producto', 'Categoría', 'Precio', 'Cantidad', 'Estado'];
+        foreach ($headers as $index => $header) {
+            $sheet->setCellValueByColumnAndRow($index + 1, 1, $header);
+        }
+
+        $fila = 2;
+        foreach ($productos as $prod) {
+            $sheet->setCellValueByColumnAndRow(1, $fila, $prod->ID);
+            $sheet->setCellValueByColumnAndRow(2, $fila, $prod->NOMBRE);
+            $sheet->setCellValueByColumnAndRow(3, $fila, $prod->categoria_nombre);
+            $sheet->setCellValueByColumnAndRow(4, $fila, $prod->PRECIO);
+            $sheet->setCellValueByColumnAndRow(5, $fila, $prod->CANTIDAD);
+            $sheet->setCellValueByColumnAndRow(6, $fila, $prod->ESTADO ? 'Activo' : 'Inactivo');
+            $fila++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $nombreArchivo = 'productos-disponibles.xlsx';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header("Content-Disposition: attachment; filename=\"$nombreArchivo\"");
+        header('Cache-Control: max-age=0');
+
+        $writer->save('php://output');
+        exit;
+    }
+    public function exportarHtml(Request $request)
+    {
+        $productos = $this->obtenerProductosFiltrados($request);
+
+        $html = view('reportes.html.productos-html', compact('productos'))->render();
+
+        return response($html)
+            ->header('Content-Type', 'text/html')
+            ->header('Content-Disposition', 'attachment; filename="productos.html"');
+    }
 
 }
 

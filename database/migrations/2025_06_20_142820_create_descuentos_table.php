@@ -12,17 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         // Tabla principal para almacenar los descuentos y ofertas
-        Schema::create('DESCUENTOS', function (Blueprint $table) {
-            $table->id('ID');
-            $table->string('NOMBRE');
-            $table->text('DESCRIPCION')->nullable();
-            $table->enum('TIPO', ['fijo', 'porcentaje', '2x1', 'nxm'])->default('fijo');
-            $table->decimal('VALOR', 8, 2);
-            $table->integer('CONDICION_N')->nullable();
-            $table->integer('REGALO_M')->nullable();
-            $table->boolean('ACTIVO')->default(true);
-            $table->timestamp('FECHA_INICIO')->nullable();
-            $table->timestamp('FECHA_FIN')->nullable();
+        Schema::create('descuento', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre');
+            $table->text('descripcion')->nullable();
+            $table->enum('tipo', ['fijo', 'porcentaje', '2x1', 'nxm'])->default('fijo');
+            $table->decimal('valor', 8, 2);
+            $table->integer('condicion_n')->nullable();
+            $table->integer('regalo_m')->nullable();
+            $table->boolean('activo')->default(true);
+            $table->timestamp('fecha_inicio')->nullable();
+            $table->timestamp('fecha_fin')->nullable();
             $table->timestamps();
         });
 

@@ -24,7 +24,7 @@ class GestionDescuentos extends Component
     public function render()
     {
         $descuentos = Descuento::with('productos')->paginate(10);
-        return view('livewire.gestion-descuentos', [
+        return view('livewire.descuentos.gestion-descuentos', [
             'descuentos' => $descuentos,
         ]);
     }

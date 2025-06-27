@@ -60,6 +60,9 @@ Route::middleware(['auth'])->group(function () {
 /*Productos*/
 Route::get('/productos', [ProductoController::class, 'mostrar'])->name('productos.mostrar');
 Route::get('/productos/exportar-pdf', [ProductoController::class, 'exportarPdf'])->name('productos.exportar-pdf');
+Route::get('/productos/exportar-excel', [ProductoController::class, 'exportarExcel'])->name('productos.exportarExcel');
+Route::get('/productos/exportar-html', [ProductoController::class, 'exportarHtml'])->name('productos.exportarHtml');
+
 Route::get('/productos-reportes', [ProductoController::class, 'reporte_sin_stock'])->name('productos.reporte');
 Route::get('/producto-reportes/pdf', [ProductoController::class, 'reporte_pdf_sinStock'])->name('productos.reporte.sin.stock');
 Route::get('/productos/crear', [ProductoController::class, 'crear'])->name('productos.crear');

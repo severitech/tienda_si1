@@ -7,6 +7,7 @@ use App\Models\Producto;
 use App\Models\Categoria;
 use Illuminate\Support\Facades\DB;
 
+
 class ProductoTabla extends Component
 {
     use WithPagination;
@@ -106,5 +107,30 @@ class ProductoTabla extends Component
             ->orderBy('PRODUCTO.NOMBRE', 'asc')
             ->paginate($this->perPage);
     }
+
+    public function exportarExcel()
+    {
+        $query = http_build_query([
+            'nombre' => $this->producto,
+            'categoria' => $this->categorias,
+            'precio' => $this->precio,
+            'cantidad' => $this->cantidad,
+            'estado' => $this->estado,
+        ]);
+
+        return redirect()->to(route('productos.exportarExcel') . '?' . $query);
+    }public function exportarHtml()
+    {
+        $query = http_build_query([
+            'nombre' => $this->producto,
+            'categoria' => $this->categorias,
+            'precio' => $this->precio,
+            'cantidad' => $this->cantidad,
+            'estado' => $this->estado,
+        ]);
+
+        return redirect()->to(route('productos.exportarHtml') . '?' . $query);
+    }
+
 
 }
