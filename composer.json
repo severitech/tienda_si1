@@ -16,6 +16,7 @@
         "livewire/flux": "^2.1",
         "livewire/livewire": "^3.6",
         "livewire/volt": "^1.7.0",
+        "phpoffice/phpspreadsheet": "^4.4",
         "stripe/stripe-php": "^17.1",
         "wireui/wireui": "^2.4"
     },

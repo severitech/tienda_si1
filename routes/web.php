@@ -15,6 +15,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\DetalleCompraController;
+use App\Http\Controllers\HistorialMovimientoController;
 
 use App\Http\Controllers\ReporteVentaController;
 
@@ -85,6 +86,10 @@ Route::get('/reporte-ventas', [ReporteVentaController::class, 'reporte'])
 
 // Route::get('/', [ProductoController::class, 'index'])->name('home');
 Route::get('/pagos', [PagosController::class, 'index'])->name('pagos');
+
+//Ruta de Historial de movimientos Ciclo#4
+Route::get('/historial-movimientos', [HistorialMovimientoController::class, 'historial'])
+    ->name('historial.movimientos');
 
 // Routa carrito
 Route::get('/detalle_carrito', [CarritoController::class, 'verDetalleCarrito'])->name('detalle.carrito');
