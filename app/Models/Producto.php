@@ -38,13 +38,19 @@ class Producto extends Model
     {
         return $this->hasMany(DetalleVenta::class, 'PRODUCTO', 'ID');
     }
-    
 
-    
+
+
     public function descuentos()
     {
-        return $this->belongsToMany(Descuento::class, 'descuento_producto');
+        return $this->belongsToMany(
+            Descuento::class,
+            'descuento_producto',
+            'PRODUCTO',    // columna pivote para producto (mayúsculas)
+            'DESCUENTO'    // columna pivote para descuento (mayúsculas)
+        );
     }
+
 
     public function obtenerDescuentoActivo()
     {

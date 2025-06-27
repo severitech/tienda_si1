@@ -13,8 +13,12 @@ class Descuento extends Model
         'nombre',
         'descripcion',
         'tipo',
-        'valor', 'condicion_n', 
-        'regalo_m', 'activo', 'fecha_inicio', 'fecha_fin'
+        'valor',
+        'condicion_n',
+        'regalo_m',
+        'activo',
+        'fecha_inicio',
+        'fecha_fin'
     ];
 
     protected $casts = [
@@ -25,6 +29,12 @@ class Descuento extends Model
 
     public function productos()
     {
-        return $this->belongsToMany(Producto::class, 'descuento_producto');
+        return $this->belongsToMany(
+            Producto::class,
+            'descuento_producto',
+            'DESCUENTO',   // columna pivote para descuento (mayúsculas)
+            'PRODUCTO'     // columna pivote para producto (mayúsculas)
+        );
     }
+
 }
