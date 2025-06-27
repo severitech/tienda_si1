@@ -16,7 +16,11 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     default-mysql-client \
+    libfreetype6-dev \
+    libjpeg-dev \
+    libpng-dev \
     && docker-php-ext-configure zip \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         pdo \
         pdo_mysql \
@@ -24,7 +28,9 @@ RUN apt-get update && apt-get install -y \
         zip \
         curl \
         xml \
+        gd \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 
 # Establecer directorio de trabajo
 WORKDIR /var/www/html
