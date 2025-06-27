@@ -40,44 +40,60 @@ class ReporteCompras extends Component
     {
         $compras = $this->getComprasQuery()->get();
         
-        $filename = 'reporte_compras_' . date('Y-m-d_H-i-s') . '.csv';
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('Reporte de Compras');
+
+        // Encabezados
+        $sheet->fromArray([
+            'ID',
+            'Fecha',
+            'Trabajador',
+            'Proveedor',
+            'Método de Pago',
+            'Total',
+            'Estado'
+        ], null, 'A1');
+
+        // Cuerpo
+        $row = 2;
+        foreach ($compras as $compra) {
+            $sheet->fromArray([
+                $compra->ID,
+                $compra->created_at ? $compra->created_at->format('d/m/Y H:i') : '-',
+                $compra->usuario ? $compra->usuario->nombre . ' ' . $compra->usuario->paterno : '-',
+                $compra->proveedor ? $compra->proveedor->NOMBRE : '-',
+                $compra->METODO_PAGO,
+                $compra->TOTAL,
+                $compra->ESTADO ? 'Activo' : 'Inactivo'
+            ], null, 'A' . $row);
+            $row++;
+        }
+
+        // Descargar
+        $filename = 'reporte_compras_' . now()->format('Ymd_His') . '.xlsx';
+        $path = storage_path('app/public/' . $filename);
+
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        $writer->save($path);
+
+        return response()->download($path)->deleteFileAfterSend(true);
+    }
+
+    public function exportarHTML()
+    {
+        $compras = $this->getComprasQuery()->get();
+        
+        $html = view('reporte.compras.html', compact('compras'))->render();
+        
+        $filename = 'reporte_compras_' . date('Y-m-d_H-i-s') . '.html';
         
         $headers = [
-            'Content-Type' => 'text/csv',
+            'Content-Type' => 'text/html',
             'Content-Disposition' => 'attachment; filename="' . $filename . '"',
         ];
 
-        $callback = function() use ($compras) {
-            $file = fopen('php://output', 'w');
-            
-            // Encabezados del CSV
-            fputcsv($file, [
-                'ID',
-                'Trabajador',
-                'Proveedor',
-                'Fecha',
-                'Método de Pago',
-                'Total',
-                'Estado'
-            ]);
-
-            // Datos de las compras
-            foreach ($compras as $compra) {
-                fputcsv($file, [
-                    $compra->ID,
-                    $compra->usuario ? $compra->usuario->nombre . ' ' . $compra->usuario->paterno : '-',
-                    $compra->proveedor ? $compra->proveedor->NOMBRE : '-',
-                    $compra->created_at ? $compra->created_at->format('d/m/Y H:i') : '-',
-                    $compra->METODO_PAGO,
-                    number_format($compra->TOTAL, 2),
-                    $compra->ESTADO ? 'Activo' : 'Inactivo'
-                ]);
-            }
-
-            fclose($file);
-        };
-
-        return response()->stream($callback, 200, $headers);
+        return response($html, 200, $headers);
     }
 
     public function eliminar($id)
