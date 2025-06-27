@@ -118,6 +118,8 @@ Route::get('/gasto', [GastoController::class, 'index'])->name('gasto.index');
 
 Route::get('/cierre-caja', [CajaController::class, 'index'])->name('cierre.caja');
 Route::get('/arqueo', [CajaController::class, 'arqueo'])->name('cierre.arqueo');
+Route::get('/exportar-cierre/{formato}', [CajaController::class, 'exportar'])->name('exportar.caja');
+
 
 
 

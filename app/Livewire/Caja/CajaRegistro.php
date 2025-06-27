@@ -60,23 +60,27 @@ class CajaRegistro extends Component
             return;
         }
 
-        // Calcular total declarado
+        // Calcular total declarado por el usuario
         $totalDeclarado = array_sum($montosFiltrados);
 
-        // Calcular total real de ventas sin caja
+        // Calcular total real de ventas sin caja (cierre real)
         $ventasReales = Venta::whereNull('caja')->sum('total');
 
-        // Determinar estado: 1 si no falta dinero (diferencia <= 0), 0 si falta dinero
-        $diferencia = $ventasReales - $totalDeclarado;
-        $estado = $diferencia <= 0 ? 1 : 0;
+        // Calcular diferencia
+        $diferencia =  round($totalDeclarado -$ventasReales,2);
 
-        // Crear cierre de caja
+     
+
+        // Crear cierre de caja con todos los atributos
         $caja = Caja::create([
             'DESCRIPCION' => $this->descripcion,
+            'DECLARADO' => $totalDeclarado,
+            'CIERRE' => $ventasReales,
+            'DIFERENCIA' => $diferencia,
             'USUARIO' => auth()->id(),
-            'ESTADO' => $estado, // ← Aquí se guarda el estado
         ]);
 
+        // Validar metodos de pago
         $metodosPagoValidos = MetodoPago::pluck('METODO_PAGO')->toArray();
 
         foreach ($montosFiltrados as $metodoPago => $monto) {
@@ -89,21 +93,17 @@ class CajaRegistro extends Component
                 'CAJA' => $caja->ID,
                 'METODO_PAGO' => $metodoPago,
                 'MONTO' => $monto,
-                'updated_at' => now(),
             ]);
         }
 
-        // Asignar el ID del cierre a las ventas, compras y gastos sin caja
+        // Asignar caja a ventas, compras y gastos que aun no la tienen
         Venta::whereNull('caja')->update(['caja' => $caja->ID]);
         Compra::whereNull('caja')->update(['caja' => $caja->ID]);
         Gasto::whereNull('caja')->update(['caja' => $caja->ID]);
 
-        // Reset campos
         $this->reset(['descripcion', 'montos']);
         session()->flash('message', 'Cierre guardado con éxito.');
         $this->mount();
     }
-
-
 
 }

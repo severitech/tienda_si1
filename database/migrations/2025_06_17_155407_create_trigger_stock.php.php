@@ -105,6 +105,35 @@ return new class extends Migration {
                 );
             END;
         ');
+
+        DB::unprepared('
+CREATE TRIGGER actualizar_caja_al_insertar_venta
+AFTER INSERT ON VENTA
+FOR EACH ROW
+BEGIN
+    UPDATE CAJA
+    SET 
+        DIFERENCIA = IFNULL(DIFERENCIA, 0) + NEW.TOTAL,
+        CIERRE = IFNULL(CIERRE, 0) + NEW.TOTAL
+    WHERE ID = NEW.CAJA;
+END;
+');
+
+        DB::unprepared('
+CREATE TRIGGER actualizar_caja_al_cancelar_venta
+AFTER UPDATE ON VENTA
+FOR EACH ROW
+WHEN OLD.ESTADO = 1 AND NEW.ESTADO = 0
+BEGIN
+    UPDATE CAJA
+    SET 
+        DIFERENCIA = IFNULL(DIFERENCIA, 0) - OLD.TOTAL,
+        CIERRE = IFNULL(CIERRE, 0) - OLD.TOTAL
+    WHERE ID = OLD.CAJA;
+END;
+');
+
+
     }
 
     public function down()
@@ -115,5 +144,8 @@ return new class extends Migration {
         DB::unprepared('DROP TRIGGER IF EXISTS devolver_stock_al_anular_venta;');
         DB::unprepared('DROP TRIGGER IF EXISTS restar_stock_al_agregar_carrito;');
         DB::unprepared('DROP TRIGGER IF EXISTS devolver_stock_al_cancelar_carrito;');
+
+        DB::unprepared('DROP TRIGGER IF EXISTS actualizar_caja_al_insertar_venta');
+        DB::unprepared('DROP TRIGGER IF EXISTS actualizar_caja_al_cancelar_venta');
     }
 };

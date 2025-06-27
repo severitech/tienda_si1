@@ -12,10 +12,13 @@ class Venta extends Model
         'TOTAL',
         'USUARIO',
         'CLIENTE',
+        'ESTADO',
+        'CAJA',
         'METODO_PAGO',
     ];
-    public function Venta()
+    public function caja()
     {
+        return $this->belongsTo(Caja::class, 'CAJA');
     }
 
     public function usuario()

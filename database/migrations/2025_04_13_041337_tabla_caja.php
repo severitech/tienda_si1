@@ -12,8 +12,10 @@ return new class extends Migration {
     {
         Schema::create('CAJA', function (Blueprint $table) {
             $table->id('ID');
+            $table->decimal('DECLARADO')->default(0.00);
+            $table->decimal('CIERRE')->default(0.00);
+            $table->decimal('DIFERENCIA')->default(0.00);
             $table->text('DESCRIPCION')->nullable();
-            $table->boolean('ESTADO')->default(true);
             $table->unsignedBigInteger('USUARIO');
             $table->foreign('USUARIO')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
