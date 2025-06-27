@@ -7,9 +7,9 @@ use App\Models\Descuento;
 use App\Models\Producto;
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Collection;
-    use App\Exports\DescuentosExport; // Deberás crear esta clase
-    use Maatwebsite\Excel\Facades\Excel;
-    use Barryvdh\DomPDF\Facade\Pdf;  
+use App\Exports\DescuentosExport; // Deberás crear esta clase
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class GestionDescuentos extends Component
 {
@@ -29,7 +29,7 @@ class GestionDescuentos extends Component
         ]);
     }
 
-     public function create()
+    public function create()
     {
         $this->resetInputFields();
         $this->allProductos = Producto::all(); // Cargar productos para el selector
@@ -69,12 +69,17 @@ class GestionDescuentos extends Component
         $this->allProductos = Producto::all();
         $this->openModal();
     }
-    
+
     // ... aquí irían las funciones update() y delete()
 
-    public function openModal() { $this->isOpen = true; }
-    public function closeModal() { $this->isOpen = false; }
-    private function resetInputFields(){ /* resetea todos los campos del formulario */ }
+    public function openModal()
+    {
+        $this->isOpen = true;
+    }
+    public function closeModal()
+    {
+        $this->isOpen = false;
+    }
 
     public function exportarExcel()
     {
@@ -88,5 +93,14 @@ class GestionDescuentos extends Component
         return $pdf->download('descuentos.pdf');
     }
 
-
+    private function resetInputFields()
+    {
+        $this->descuentoId = null;
+        $this->nombre = '';
+        $this->descripcion = '';
+        $this->tipo = 'fijo';
+        $this->valor = '';
+        $this->activo = true;
+        $this->productos_seleccionados = [];
+    }
 }

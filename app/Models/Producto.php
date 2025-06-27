@@ -56,9 +56,9 @@ class Producto extends Model
     public function obtenerDescuentoActivo()
     {
         return $this->descuentos()
-            ->where('esta_activo', true)
-            ->where('inicia_en', '<=', now())
-            ->where('termina_en', '>=', now())
+            ->where('activo', true)
+            ->where('fecha_inicio', '<=', now())
+            ->where('fecha_fin', '>=', now())
             ->first();
     }
 
