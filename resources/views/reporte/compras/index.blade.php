@@ -83,6 +83,10 @@
                             class="px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
                             📊 Exportar Excel
                         </a>
+                        <a href="{{ route('reporte.compras.html', request()->query()) }}"
+                            class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            🌐 Exportar HTML
+                        </a>
                     </div>
                 </div>
             </div>
@@ -99,6 +103,7 @@
                             <th class="px-4 py-2">Fecha</th>
                             <th class="px-4 py-2">Nro de Compra</th>
                             <th class="px-4 py-2">Trabajador</th>
+                            <th class="px-4 py-2">Descripción</th>
                             <th class="px-4 py-2">Método de Pago</th>
                             <th class="px-4 py-2 text-center">Estado</th>
                             <th class="px-4 py-2">Total</th>
@@ -142,6 +147,9 @@
                                 <td class="px-1 py-4">{{ $compra->ID ?? $compra->id }}</td>
                                 <td class="px-4 py-2">
                                     {{ $compra->usuario->nombre . ' ' . $compra->usuario->paterno ?? '-' }}</td>
+                                <td class="px-4 py-2 max-w-xs truncate" title="{{ $compra->DESCRIPCION ?? 'Sin descripción' }}">
+                                    {{ $compra->DESCRIPCION ?? 'Sin descripción' }}
+                                </td>
                                 <td class="px-4 py-2">{{ $compra->METODO_PAGO }}</td>
                                 <td class="px-6 py-4 text-center"> <span
                                         class="inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-sm
@@ -156,7 +164,7 @@
                             </tr>
                         @empty
                             <tr class="bg-white border-b dark:bg-zinc-900 dark:border-zinc-700">
-                                <td colspan="8"
+                                <td colspan="9"
                                     class="px-6 py-10 text-xl text-center text-zinc-500 dark:text-zinc-400">
                                     No hay compras a mostrar.
                                 </td>

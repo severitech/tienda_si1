@@ -37,6 +37,7 @@
                 <th style="padding: 8px;">Fecha</th>
                 <th style="padding: 8px;">Nro</th>
                 <th style="padding: 8px;">Trabajador</th>
+                <th style="padding: 8px;">Descripción</th>
                 <th style="padding: 8px;">Método de Pago</th>
                 <th style="padding: 8px;">Total</th>
                 <th style="padding: 8px;">Proveedor</th>
@@ -52,6 +53,7 @@
                     <td style="padding: 8px;">
                         {{ $compra->usuario->nombre . ' ' . $compra->usuario->paterno . ' ' . $compra->usuario->materno ?? '-' }}
                     </td>
+                    <td style="padding: 8px;">{{ $compra->DESCRIPCION ?? 'Sin descripción' }}</td>
                     <td style="padding: 8px;">{{ $compra->METODO_PAGO }}</td>
                     <td style="padding: 8px;">Bs. {{ number_format($compra->TOTAL, 2) }}</td>
                     <td style="padding: 8px;">{{ $compra->proveedor->NOMBRE ?? '-' }}</td>

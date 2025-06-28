@@ -115,10 +115,7 @@
                         :current="request()->routeIs('reporte.ventas')" wire:navigate>
                         {{ __('Reporte de Ventas') }}
                     </flux:navlist.item>
-                    <flux:navlist.item icon="document-magnifying-glass" :href="route('dashboard')"
-                        :current="request()->routeIs('Cierre de Caja')" wire:navigate>
-                        {{ __('Reporte de Productos') }}
-                    </flux:navlist.item>
+
                     <flux:navlist.item icon="document-magnifying-glass" :href="route('historial.movimientos')"
                         :current="request()->routeIs('historial.movimientos')" wire:navigate>
                         {{ __('Historial de movimientos') }}

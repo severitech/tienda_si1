@@ -16,6 +16,7 @@ class CompraProductos extends Component
     public $totalVenta = 0;
     public $totalProductos = 0;
     public $metodoPagoSeleccionado;
+    public $descripcion = '';
     protected $listeners = [
         'proveedorSeleccionadoCompra' => 'recibirProveedor'
         ,
@@ -97,10 +98,15 @@ class CompraProductos extends Component
             return;
         }
 
+        if (empty($this->descripcion)) {
+            session()->flash('message', 'Por favor, ingresa una descripción para la compra.');
+            return;
+        }
+
         // Guardar la venta
         $compra = new Compra();
         $compra->PROVEEDOR = $this->proveedor_id;
-        $compra->DESCRIPCION = '';
+        $compra->DESCRIPCION = $this->descripcion;
         $compra->METODO_PAGO = $this->metodoPagoSeleccionado;
         $compra->TOTAL = $this->totalVenta;
         $compra->USUARIO = auth()->id();
@@ -144,6 +150,7 @@ class CompraProductos extends Component
             'productosSeleccionados',
             'metodoPagoSeleccionado',
             'totalVenta',
+            'descripcion',
         ]);
         //limpiar metodo de pago y nombre del cliente en el input
         $this->dispatch('limpiar');

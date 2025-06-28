@@ -136,6 +136,7 @@ Route::get('historial',[VentaController::class, 'index'])->name('historial');
 Route::get('/reporte-compras', [CompraController::class, 'reporteCompras'])->name('reporte.compras');
 Route::get('/reporte-compras/exportar-pdf', [CompraController::class, 'exportarPdf'])->name('reporte.compras.pdf');
 Route::get('/reporte-compras/exportar-excel', [CompraController::class, 'exportarExcel'])->name('reporte.compras.excel');
+Route::get('/reporte-compras/exportar-html', [CompraController::class, 'exportarHtml'])->name('reporte.compras.html');
 
 Route::put('/compras-eliminar/{id}', [CompraController::class, 'eliminar'])->name('compra.eliminar');
 

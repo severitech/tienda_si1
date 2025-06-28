@@ -42,6 +42,7 @@
                     <th scope="col" class="px-6 py-3">Proveedor</th>
                     <th scope="col" class="px-6 py-3">Fecha</th>
                     <th scope="col" class="px-6 py-3">Método de Pago</th>
+                   
                     <th scope="col" class="px-6 py-3">Total</th>
                     <th scope="col" class="px-6 py-3">Acciones</th>
                 </tr>
