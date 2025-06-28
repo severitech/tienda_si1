@@ -102,46 +102,44 @@ class CompraController extends Controller
 
         $compras = $query->get();
 
-        $filename = 'reporte_compras_' . date('Y-m-d_H-i-s') . '.csv';
-        
-        $headers = [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
-        ];
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('Reporte de Compras');
 
-        $callback = function() use ($compras) {
-            $file = fopen('php://output', 'w');
-            
-            // Encabezados del CSV
-            fputcsv($file, [
-                'Fecha',
-                'Nro de Compra',
-                'Trabajador',
-                'Descripción',
-                'Proveedor',
-                'Método de Pago',
-                'Total',
-                'Estado'
-            ]);
+        // Encabezados
+        $sheet->fromArray([
+            'ID',
+            'Fecha',
+            'Trabajador',
+            'Proveedor',
+            'Método de Pago',
+            'Total',
+            'Estado'
+        ], null, 'A1');
 
-            // Datos de las compras
-            foreach ($compras as $compra) {
-                fputcsv($file, [
-                    $compra->created_at ? $compra->created_at->format('d/m/Y H:i') : '-',
-                    $compra->ID,
-                    $compra->usuario ? $compra->usuario->nombre . ' ' . $compra->usuario->paterno . ' ' . $compra->usuario->materno : '-',
-                    $compra->DESCRIPCION ?? 'Sin descripción',
-                    $compra->proveedor ? $compra->proveedor->NOMBRE : '-',
-                    $compra->METODO_PAGO,
-                    number_format($compra->TOTAL, 2),
-                    $compra->ESTADO ? 'Activo' : 'Inactivo'
-                ]);
-            }
+        // Cuerpo
+        $row = 2;
+        foreach ($compras as $compra) {
+            $sheet->fromArray([
+                $compra->ID,
+                $compra->created_at ? $compra->created_at->format('d/m/Y H:i') : '-',
+                $compra->usuario ? $compra->usuario->nombre . ' ' . $compra->usuario->paterno . ' ' . $compra->usuario->materno : '-',
+                $compra->proveedor ? $compra->proveedor->NOMBRE : '-',
+                $compra->METODO_PAGO,
+                $compra->TOTAL,
+                $compra->ESTADO ? 'Activo' : 'Inactivo'
+            ], null, 'A' . $row);
+            $row++;
+        }
 
-            fclose($file);
-        };
+        // Descargar
+        $filename = 'reporte_compras_' . now()->format('Ymd_His') . '.xlsx';
+        $path = storage_path('app/public/' . $filename);
 
-        return response()->stream($callback, 200, $headers);
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        $writer->save($path);
+
+        return response()->download($path)->deleteFileAfterSend(true);
     }
 
     public function exportarHtml(Request $request)
@@ -170,11 +168,17 @@ class CompraController extends Controller
         }
 
         $compras = $query->get();
+
         $html = view('reporte.compras.html', compact('compras'))->render();
+        
         $filename = 'reporte_compras_' . date('Y-m-d_H-i-s') . '.html';
-        return response($html)
-            ->header('Content-Type', 'text/html')
-            ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
+        
+        $headers = [
+            'Content-Type' => 'text/html',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        return response($html, 200, $headers);
     }
 
     public function eliminar($id)

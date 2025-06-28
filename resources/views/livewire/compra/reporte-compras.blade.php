@@ -29,6 +29,9 @@
             <button wire:click="exportarExcel" class="px-4 py-2 text-white bg-green-600 rounded-xl hover:bg-green-700">
                 <i class="fas fa-file-excel"></i> Exportar Excel
             </button>
+            <button wire:click="exportarHTML" class="px-4 py-2 text-white bg-blue-600 rounded-xl hover:bg-blue-700">
+                <i class="fas fa-file-code"></i> Exportar HTML
+            </button>
         </div>
     </div>
 
